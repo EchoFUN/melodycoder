@@ -136,6 +136,16 @@ h2 {
     margin-top: 5px;
 }
 
+#body .main p.post-meta span.date {
+    background-position: 3px -3px;
+}
+
+#body .main p.post-meta span {
+    background: url("/images/icons.png") no-repeat scroll 0 0 transparent;
+    line-height: 20px;
+    padding: 2px 0 2px 25px;
+}
+
 #body .side-bar {
     width: 250px;
 }
