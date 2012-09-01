@@ -25,6 +25,10 @@ exports.initialize = function() {
     var linkSchema = mongoose.Schema({title: String, url: String});
     db.model('Link', linkSchema);
 
+    // 加入设置分类链接
+    var relationSchema = mongoose.Schema({type: Number, pid: String, cid: String});
+    db.model('Relation', relationSchema);
+
     var self = this;
     return function initialize(req, resp, next) {
 
@@ -66,6 +70,7 @@ exports.getAllMenus = function(callback) {
 exports.getAllPosts = function(callback) {
     var handler = db.models.Post;
     handler.find(function(error, content) {
+        
         callback(content);
     });
 }
