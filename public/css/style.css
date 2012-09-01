@@ -146,6 +146,10 @@ h2 {
     padding: 2px 0 2px 25px;
 }
 
+#body .main p.post-meta span.author {
+    background-position: 3px -23px;
+}
+
 #body .side-bar {
     width: 250px;
 }
