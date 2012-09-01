@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title><%= site.SITE_NAME %></title>
+        <link rel='stylesheet' href='/css/common.css' />
+        <link rel='stylesheet' href='/css/style.css' />
+        <script type="text/javascript" src="/js/html5.js"></script>
+        <script type="text/javascript" src="/js/prototype.js"></script>
+    </head>
+    <body>
+        <div id="pagewrap">
+            <div id="header">
+                <div class="header-wrap">
+                    <div id="site-logo" class="site-logo">
+                         <h1><a href="<%= site.SITE_BASE_URL %>">音韵码工</a></h1>
+                    </div>
+                    <div id="site-description" classs="site-description">左手音符，右手代码 ！</div>
+                </div>
+                <div id="navigator" class="navigator">
+                    <div class="navigator-wrap">
+                        <ul>
+                            <% for(var i=0; i<menus.length; i++) { %>
+                            <li class="<% if (menus[i].url == url ) { %>active<% } %> item nav-item-<%= i %>"><a href="<%= menus[i].url %>"><%= menus[i].title %></a></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="body">
+                <% if (vtype != 4) %>
+                <div class="body-wrap">
+                    <% if(vtype == 1) { %>
+                    <%     include contents/content-1 %>
+                    <% } else if(vtype == 2) { %>
+                    <%     include contents/content-2 %>
+                    <% } else if(vtype == 3) { %>
+                    <%     include contents/content-3 %>
+                    <% } %>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div id="footer">
+                <div class="footer-wrap">&copy; 音韵码工 2012 <br />Powered by <a target="_blank" href="http://nodejs.org">node.js</a> supported by KEN</div>
+            </div>
+        </div>
+        <script type="text/javascript" src="/js/general.js"></script>
+    </body>
+</html>

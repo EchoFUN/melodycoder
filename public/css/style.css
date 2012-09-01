@@ -1,0 +1,167 @@
+body {
+    color: #444;
+    background-color: #F1F1F1;
+    font: normal 12px arial,sans-serif;
+}
+
+a {
+    color: #FF6000;
+}
+
+h2 {
+    padding-bottom: 5px;
+    background: url("/images/big-line.gif") 0 bottom no-repeat;
+}
+
+#header .header-wrap {
+    padding-top: 20px;
+    width: 960px;
+    height: 28px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#header #site-logo a {
+    color: #444;
+    font-weight: bold;
+}
+
+#header #site-description {
+    position: absolute;
+    bottom: 3px;
+    left: 120px;
+}
+
+#header .navigator {
+    background: #2B2B2B;
+    margin-top: 20px;
+    height: 30px;
+    border: 1px dotted #6D6D6D;
+    border-left: 0;
+    border-right: 0;
+}
+
+#header .navigator-wrap {
+    width: 960px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+#header .navigator-wrap .active {
+    background-color: #FF6000;
+}
+
+#header .navigator .item {
+    float: left;
+    cursor: pointer;
+}
+
+#header .navigator .item a {
+    color: #fff;
+    height: 30px;  
+    line-height: 30px;
+    padding: 0 15px;
+    display: block;
+}
+
+#header .navigator .item:hover {
+    background-color: #FF6000;
+}
+
+#body {
+    background: url("/images/bg.png") center repeat-y;
+}
+
+#body .body-wrap {
+    width: 960px;
+    min-height: 640px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+#body .sidebar {
+    width: 250px;
+}
+
+#body .sidebar h3 {
+    background: url("/images/big-line.gif") no-repeat scroll 0 bottom transparent;
+    color: #666666;
+    padding-bottom: 5px;
+}
+
+#body .sidebar ul li a {
+    color: #616161;
+    padding-left: 5px;
+}
+
+#body .sidebar ul li {
+    border-top: 1px solid #DDDDDD;
+    color: #969696;
+    margin: 0;
+    padding: 5px 0;
+}
+
+#body .sidebar ul {
+    margin: 1.5em 0;
+    padding: 0;
+}
+
+#body .main {
+    width: 650px;
+}
+
+#body .main .introduction-1 {
+    background: url("/images/about/part-0.png") no-repeat scroll 0 0 transparent;
+    height: 538px;
+    width: 569px;
+}
+
+#body .main .introduction-2 {
+    background: url("/images/about/part-1.png") no-repeat scroll 0 0 transparent;
+    height: 296px;
+    width: 569px;
+    margin-top: 0;
+}
+
+#body .main .post {
+    border-bottom: 1px solid #E6E6E6;
+    clear: both;
+    margin-bottom: 30px;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+
+#body .main .post .post-meta {
+    color: #AAAAAA;
+    margin-top: 5px;
+}
+
+#body .side-bar {
+    width: 250px;
+}
+
+#footer {
+    height: 50px;
+    background: #F4F4F4 url("/images/footer.png") 0 0 repeat-x;
+}
+
+#footer .footer-wrap {
+    padding: 12px 0;
+    width: 960px;
+    margin: 0 auto;
+    line-height: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

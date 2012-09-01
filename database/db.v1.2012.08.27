@@ -1,0 +1,42 @@
+// yymg:
+
+post: {
+    'id',
+    'date',
+    'author',
+    'title',
+    'content'
+},
+
+comment: {
+    'pid',
+    'name',
+    'email',
+    'content'
+},
+
+relation: {
+    'type',
+    'sid',
+    'pid'
+},
+
+tag: {
+    'id',
+    'name'
+},
+
+category: {
+    'id',
+    'name'
+},
+
+link: {
+    'title',
+    'url'
+},
+
+menu: {
+    'title',
+    'url'
+}
