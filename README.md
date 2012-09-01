@@ -1,1 +1,1 @@
-Web app is just for learn express Framework.
+个人博客改版重建（botobe.com）。采用wordpress架构。
