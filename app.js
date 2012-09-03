@@ -12,7 +12,7 @@ var express = require('express'),
 
 var app = express();
 
-app.configure(function(){
+app.configure(function() {
     app.use(express.cookieParser());
     app.use(express.session({secret: config.SESSION_SECRET}));
     app.use(db.initialize());
