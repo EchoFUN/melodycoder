@@ -29,67 +29,84 @@ exports.initialize = function() {
     var categorySchema = mongoose.Schema({pid: String, title: String});
     db.model('Category', categorySchema);
 
+    // 创建标签模型
+    var tagSchema = mongoose.Schema({pid: String, title: String});
+    db.model('Tag', tagSchema);
 
     var self = this;
     return function initialize(req, resp, next) {
 
-        // 如果是静态文件则不走数据库层 
-        // if (!静态文件) {
+        // 如果是静态文件则跨过数据库层
+        var staticExts = ['jpg', 'png', 'gif', 'js', 'css'];
+        var ext = req.url.split('.').pop();
+
+        if (staticExts.indexOf(ext) == -1) {
             var proxy = new EventProxy();
             var eventHooks = ['getPosts', 'getMenus', 'getLinks'];
             proxy.assign(eventHooks, next);
             
             // 存放预处理的所有的公共数据，菜单，所有的文章，etc.
-            req.dataHandler = {};
+            var dh = req.dataHandler = {};
             self.getAllMenus(function(menus) {
-                req.dataHandler.menus = menus;
+                dh.menus = menus;
                 proxy.trigger('getPosts');
             });
-            self.getAllPosts(function(posts) {
-                req.dataHandler.posts = posts;
+            self.getAllPosts(function(posts, categories, tags) {
+                dh.posts = posts;
+                dh .categories = categories;
+                dh.tags = tags;
                 proxy.trigger('getMenus');
             });
             self.getLinks(function(links) {
-                req.dataHandler.links = links;
+                dh.links = links;
                 proxy.trigger('getLinks');
             })
-        // } else {
-        //     next();
-        // }
+        } else {
+            req.dataHandler = {};
+            next();
+        }
     }
 }
 
 // 获取所有的菜单选项
 exports.getAllMenus = function(callback) {
-    var handler = db.models.Menu;
-    handler.find(function(error, content){
+    var Menu = db.models.Menu;
+    Menu.find(function(error, content){
         callback(content);
     });
 }
 
 // 获取所有的文章列表
 exports.getAllPosts = function(callback) {
-    var postHandler = db.models.Post,
-        categoryHandler = db.models.Category;
+    var Post = db.models.Post,
+        Tag = db.models.Tag,
+        Category = db.models.Category;
 
-    postHandler.find(function(error, content) {
-        var cids = [];
-        for(var i in content) {
-            var cid = content[i]._id;
-            cids.push(cid);
+    var proxy = new EventProxy;
+    var eventHooks = ['posts', 'categories', 'tags'];
+    proxy.assign(eventHooks, callback);
+
+    Post.find(function(error, posts) {
+        var pids = [];
+        for(var i in posts) {
+            var pid = posts[i]._id;
+            pids.push(pid.toString());
         }
-
-        // 呵呵，两层嵌套，还不算多吧~
-        categoryHandler.find(function(error, content){
-            callback(content);
-        })
+        Category.find({pid: {'$in': pids}}, function(error, categories) {
+            proxy.trigger('categories', categories);
+        });
+        Category.find({pid: {'$in': pids}}, function(error, tags) {
+            proxy.trigger('tags', tags)
+        });
+        proxy.trigger('posts', posts);
     });
+
 }
 
 // 获取所有的链接的列表
 exports.getLinks = function(callback) {
-    var handler = db.models.Link;
-    handler.find(function(error, content) {
+    var Link = db.models.Link;
+    Link.find(function(error, content) {
         callback(content);
     });
 }

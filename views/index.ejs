@@ -19,8 +19,10 @@
                 <div id="navigator" class="navigator">
                     <div class="navigator-wrap">
                         <ul>
+                            <% if (menus) { %>
                             <% for(var i=0; i<menus.length; i++) { %>
                             <li class="<% if (menus[i].url == url ) { %>active<% } %> item nav-item-<%= i %>"><a href="<%= menus[i].url %>"><%= menus[i].title %></a></li>
+                            <% } %>
                             <% } %>
                         </ul>
                     </div>
