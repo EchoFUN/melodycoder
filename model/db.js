@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     config = require('../config').config,
     EventProxy = require('eventproxy').EventProxy;
 
-exports.initialize = function() {
+exports.initialize = function() { 
 
     // 取出公用的组件，将其放入到界面上
     var db = mongoose.createConnection(config.db.DB_HOST, config.db.DB_NAME);
