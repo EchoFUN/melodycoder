@@ -25,9 +25,10 @@ exports.initialize = function() {
     var linkSchema = mongoose.Schema({title: String, url: String});
     db.model('Link', linkSchema);
 
-    // 加入设置分类链接
-    var relationSchema = mongoose.Schema({type: Number, pid: String, cid: String});
-    db.model('Relation', relationSchema);
+    // 创建分类模型
+    var categorySchema = mongoose.Schema({pid: String, title: String});
+    db.model('Category', categorySchema);
+
 
     var self = this;
     return function initialize(req, resp, next) {
@@ -68,10 +69,20 @@ exports.getAllMenus = function(callback) {
 
 // 获取所有的文章列表
 exports.getAllPosts = function(callback) {
-    var handler = db.models.Post;
-    handler.find(function(error, content) {
-        
-        callback(content);
+    var postHandler = db.models.Post,
+        categoryHandler = db.models.Category;
+
+    postHandler.find(function(error, content) {
+        var cids = [];
+        for(var i in content) {
+            var cid = content[i]._id;
+            cids.push(cid);
+        }
+
+        // 呵呵，两层嵌套，还不算多吧~
+        categoryHandler.find(function(error, content){
+            callback(content);
+        })
     });
 }
 
@@ -82,3 +93,28 @@ exports.getLinks = function(callback) {
         callback(content);
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
