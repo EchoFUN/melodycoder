@@ -1,11 +1,25 @@
 <div class="main left">
     <% if (posts) { %>
     <% for(var i=0; i<posts.length; i++) { %>
-    <div class="post">
+    <% var pid = posts[i].id %>
+    <div class="post" id="post-<%= pid %>">
         <h2><%= posts[i].title %></h2>
         <p class="post-meta">
             <span class="date"><%= posts[i].date.getFullYear() %>年<%= posts[i].date.getMonth() %>月<%= posts[i].date.getDate() %>日</span>
             <span class="author"><%= posts[i].author %></span>
+            <% var cats = [];
+            for(var j in categories) {
+                if(categories[j].pid == pid)
+                    cats.push(categories[j].title);
+            } %>
+            <% if(cats.length != 0) { %>
+            <span class="cat">
+            <% for(var j in cats) { %>
+            <a href="#nogo" title="查看 <%=cats[j] %> 中的全部文章"><%= cats[j] %></a>
+            <% } %>
+            </span>
+            <% } %>
+            <span class="comments"><a href="#nogo" title="<%= posts[i].title %>上有0条评论">0</a></span>
         </p>
         <p></p>
         <p class="more"></p>

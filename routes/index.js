@@ -10,7 +10,17 @@ exports.index = function(req, resp) {
     var baseInfo = config.site;
     var vtype = 1;
     var dh = req.dataHandler;
-    resp.render('index', {vtype: vtype, site: baseInfo, menus: dh.menus, posts: dh.posts, url: req.url, links: dh.links});
+    var data = {
+        vtype: vtype, 
+        site: baseInfo, 
+        menus: dh.menus, 
+        posts: dh.posts, 
+        tags: dh.tags,
+        categories: dh.categories,  
+        url: req.url, 
+        links: dh.links
+    }
+    resp.render('index', data);
 };
 
 exports.test = function(req, res) {

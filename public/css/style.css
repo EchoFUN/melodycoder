@@ -131,23 +131,31 @@ h2 {
     padding-bottom: 10px;
 }
 
-#body .main .post .post-meta {
+p.post-meta {
     color: #AAAAAA;
     margin-top: 5px;
 }
 
-#body .main p.post-meta span.date {
-    background-position: 3px -3px;
-}
-
-#body .main p.post-meta span {
+p.post-meta span {
     background: url("/images/icons.png") no-repeat scroll 0 0 transparent;
     line-height: 20px;
     padding: 2px 0 2px 25px;
 }
 
-#body .main p.post-meta span.author {
+p.post-meta span.date {
+    background-position: 3px -3px;
+}
+
+p.post-meta span.author {
     background-position: 3px -23px;
+}
+
+p.post-meta span.cat {
+    background-position: 3px -43px;
+}
+
+p.post-meta span.comments {
+    background-position: 3px -63px;
 }
 
 #body .side-bar {

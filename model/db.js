@@ -8,30 +8,26 @@ var mongoose = require('mongoose'),
     EventProxy = require('eventproxy').EventProxy;
 
 exports.initialize = function() { 
-
-    // 取出公用的组件，将其放入到界面上
     var db = mongoose.createConnection(config.db.DB_HOST, config.db.DB_NAME);
     global.db = db;
     
-    // 创建菜单选项模型
     var menuSchema = mongoose.Schema({title: String, url: String});
     db.model('Menu', menuSchema);
 
-    // 创建文章选项的模型
     var postSchema = mongoose.Schema({date: Date, author: String, title: String, content: String});
     db.model('Post', postSchema);
 
-    // 创建连接部分的模型
     var linkSchema = mongoose.Schema({title: String, url: String});
     db.model('Link', linkSchema);
 
-    // 创建分类模型
     var categorySchema = mongoose.Schema({pid: String, title: String});
     db.model('Category', categorySchema);
 
-    // 创建标签模型
     var tagSchema = mongoose.Schema({pid: String, title: String});
     db.model('Tag', tagSchema);
+
+    var commentSchema = mongoose.Schema({pid: String});
+    db.model('Comment', commentSchema);
 
     var self = this;
     return function initialize(req, resp, next) {
