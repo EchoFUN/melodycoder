@@ -1,7 +1,5 @@
 var site = require('./routes/index'),
-	user = require('./routes/user'),
-	comment = require('./routes/comment'),
-	reply = require('./routes/reply');
+	user = require('./routes/user');
 
 module.exports = function(app) {
     app.get('/', site.index);
