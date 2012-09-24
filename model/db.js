@@ -91,7 +91,7 @@ exports.getAllPosts = function(callback) {
         Category.find({pid: {'$in': pids}}, function(error, categories) {
             proxy.trigger('categories', categories);
         });
-        Category.find({pid: {'$in': pids}}, function(error, tags) {
+        Tag.find({pid: {'$in': pids}}, function(error, tags) {
             proxy.trigger('tags', tags)
         });
         proxy.trigger('posts', posts);

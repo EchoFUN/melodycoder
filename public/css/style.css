@@ -13,6 +13,14 @@ h2 {
     background: url("/images/big-line.gif") 0 bottom no-repeat;
 }
 
+h2 a {
+    color: #444444;
+}
+
+h2 a:hover {
+    color: #ff6000;
+}
+
 #header .header-wrap {
     padding-top: 20px;
     width: 960px;
@@ -139,23 +147,40 @@ p.post-meta {
 p.post-meta span {
     background: url("/images/icons.png") no-repeat scroll 0 0 transparent;
     line-height: 20px;
-    padding: 2px 0 2px 25px;
+    padding: 2px 0 2px 20px;
 }
 
 p.post-meta span.date {
-    background-position: 3px -3px;
+    background-position: -3px -3px;
 }
 
 p.post-meta span.author {
-    background-position: 3px -23px;
+    background-position: -3px -23px;
 }
 
 p.post-meta span.cat {
-    background-position: 3px -43px;
+    background-position: -3px -43px;
 }
 
 p.post-meta span.comments {
-    background-position: 3px -63px;
+    background-position: -3px -63px;
+}
+
+p.post-content {
+    margin: 1em 0;
+}
+
+p.tags {
+    float: left;
+    font-size: 0.917em;
+    margin-bottom: 5px;
+    margin-top: 0.5em;
+    width: 500px;
+}
+
+p.tags span {
+    background: url("/images/icons.png") no-repeat scroll 0 -144px transparent;
+    padding-left: 25px;
 }
 
 #body .side-bar {
