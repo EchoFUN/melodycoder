@@ -5,5 +5,5 @@ module.exports = function(app) {
     app.get('/', site.index);
     app.get('/about-me', site.about);
     app.get('/site/login', site.login);
-    app.get('/experiment', site.experiment);
+    app.get('/experiment', site.experiment); 
 };
