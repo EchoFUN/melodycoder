@@ -1,5 +1,5 @@
 <div class="main left">
-    <% if (posts) { %>
+    <% if (typeof posts != 'undefined') { %>
     <% for(var i=0; i<posts.length; i++) { %>
     <% var pid = posts[i].id %>
     <div class="post" id="post-<%= pid %>">

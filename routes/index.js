@@ -17,13 +17,13 @@ var _middle = function(req, resp, func) {
     var dbEvt = req.dbEvt;
     dbEvt.getAllMenus(function(menus) {
         dh.menus = menus;
-        proxy.trigger('getPosts');
+        proxy.trigger('getMenus');
     });
     dbEvt.getAllPosts(function(posts, categories, tags) {
         dh.posts = posts;
-        dh .categories = categories;
+        dh.categories = categories;
         dh.tags = tags;
-        proxy.trigger('getMenus');
+        proxy.trigger('getPosts');
     });
     dbEvt.getLinks(function(links) {
         dh.links = links;

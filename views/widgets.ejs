@@ -1,7 +1,7 @@
 <div class="widget">
 	<h3>Link</h3>
 	<ul>
-		<% if (links) { %>
+		<% if (typeof links != 'undefined') { %>
 		<% for(var j=0; j<links.length; j++) { %>
 		<li><a target="_blank" href="<%= links[j].url %>" ><%= links[j].title %></a></li>
 		<% } %>
