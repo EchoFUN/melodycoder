@@ -3,7 +3,7 @@
     <% for(var i=0; i<posts.length; i++) { %>
     <% var pid = posts[i].id %>
     <div class="post" id="post-<%= pid %>">
-        <h2><a href="/post?pid=<%= posts[i].id %>" target="_blank"><%= posts[i].title %></a></h2>
+        <h2><a href="/post?pid=<%= posts[i].id %>"><%= posts[i].title %></a></h2>
         <p class="post-meta">
             <span class="date"><%= posts[i].date.getFullYear() %>年<%= posts[i].date.getMonth() %>月<%= posts[i].date.getDate() %>日</span>
             <span class="author"><%= posts[i].author %></span>

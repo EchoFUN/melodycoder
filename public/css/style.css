@@ -8,7 +8,7 @@ a {
     color: #FF6000;
 }
 
-h2 {
+h2, .main h1 {
     padding-bottom: 5px;
     background: url("/images/big-line.gif") 0 bottom no-repeat;
 }

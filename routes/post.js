@@ -37,7 +37,7 @@ exports.index = function(req, resp) {
             proxy.trigger('view', 'index');
             dbEvt.getPost(pid, function(item) {
                 var baseInfo = config.site;
-                data = {vtype: 4, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links};
+                data = {vtype: 4, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links, post:item};
                 proxy.trigger('options', data);
             });
         } else {

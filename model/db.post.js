@@ -4,16 +4,14 @@
  *
  */
 
- var EventProxy = require('eventproxy').EventProxy;
+var EventProxy = require('eventproxy').EventProxy;
 
 /**
  * @description 获取所有的文章的方法
  * @param {function} callback 获取成功后触发的回调函数
  */
 exports.getAllPosts = function(callback) {
-    var Post = db.models.Post,
-        Tag = db.models.Tag,
-        Category = db.models.Category;
+    var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
 
     var proxy = new EventProxy;
     var eventHooks = ['posts', 'categories', 'tags'];
@@ -41,5 +39,8 @@ exports.getAllPosts = function(callback) {
  * @param {function} callback 获取内容成功后的回调
  */
 exports.getPost = function(pid, callback) {
-    callback();
+    var Post = db.models.Post;
+    Post.findById(pid, function(error, post) {
+        callback(post);
+    });
 }
