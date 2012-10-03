@@ -1,26 +1,43 @@
-
-/*
- * GET home page.
+/**
+ * @fileoverview 站点核心部分控制器
+ * @version 2012.10.03
+ *
  */
 
 var config = require('../config').config,
-    db = require('../model/db');
+    EventProxy = require('eventproxy').EventProxy;
+
+var dh = dh || {};
+
+var _middle = function(req, resp, func) {
+    var proxy = new EventProxy();
+    var eventHooks = ['getPosts', 'getMenus', 'getLinks'];
+    proxy.assign(eventHooks, func);
+
+    var dbEvt = req.dbEvt;
+    dbEvt.getAllMenus(function(menus) {
+        dh.menus = menus;
+        proxy.trigger('getPosts');
+    });
+    dbEvt.getAllPosts(function(posts, categories, tags) {
+        dh.posts = posts;
+        dh .categories = categories;
+        dh.tags = tags;
+        proxy.trigger('getMenus');
+    });
+    dbEvt.getLinks(function(links) {
+        dh.links = links;
+        proxy.trigger('getLinks');
+    })
+}
 
 exports.index = function(req, resp) {
-    var baseInfo = config.site;
-    var vtype = 1;
-    var dh = req.dataHandler;
-    var data = {
-        vtype: vtype, 
-        site: baseInfo, 
-        menus: dh.menus, 
-        posts: dh.posts, 
-        tags: dh.tags,
-        categories: dh.categories,  
-        url: req.url, 
-        links: dh.links
-    }
-    resp.render('index', data);
+    _middle(req, resp, function(){
+        var baseInfo = config.site;
+        var vtype = 1;
+        var data = {vtype: vtype, site: baseInfo, menus: dh.menus, posts: dh.posts, tags: dh.tags, categories: dh.categories,  url: req.url, links: dh.links};
+        resp.render('index', data);
+    });
 };
 
 exports.test = function(req, res) {
@@ -30,15 +47,17 @@ exports.test = function(req, res) {
 };
 
 exports.about = function(req, resp) {
-    var baseInfo = config.site;
-    var vtype = 2;
-    var dh = req.dataHandler;
-    resp.render('index', {vtype: vtype, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links});
+    _middle(req, resp, function(){
+        var baseInfo = config.site;
+        var vtype = 2;
+        resp.render('index', {vtype: vtype, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links});
+    });
 };
 
 exports.experiment = function(req, resp) {
-    var baseInfo = config.site;
-    var vtype = 3;
-    var dh = req.dataHandler;
-    resp.render('index', {vtype: vtype, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links});
+    _middle(req, resp, function(){
+        var baseInfo = config.site;
+        var vtype = 3;
+        resp.render('index', {vtype: vtype, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links});
+    });
 };

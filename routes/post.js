@@ -4,14 +4,14 @@
  * 
  */
 
- var db = require('../model/db');
+ var dbEvts = require('../model/db');
 
 exports.index = function(req, resp) {
     var pid = req.query.pid;
     if(pid) {
-
+    	
     } else {
-
+    	console.log('Not found');
     }
     
     resp.end('test');
