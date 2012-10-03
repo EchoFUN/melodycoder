@@ -136,7 +136,6 @@ h2 a:hover {
     clear: both;
     margin-bottom: 30px;
     overflow: hidden;
-    padding-bottom: 10px;
 }
 
 p.post-meta {
@@ -168,6 +167,11 @@ p.post-meta span.comments {
 
 p.post-content {
     margin: 1em 0;
+}
+
+#reply-title {
+    color: #969696;
+    font: normal 1.5em "MuseoSans",sans-serif;color: #969696;
 }
 
 p.tags {

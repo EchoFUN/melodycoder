@@ -1,6 +1,18 @@
 <div class="main left">
-	<h1><%= post.title %></h1>
-	<p class="post-content"><%= post.content %></p>
+    <% if(typeof post != 'undefined') { %>
+    <h1><%= post.title %></h1>
+    <p class="post-content"><%= post.content %></p>
+    <div class="comments">
+        <div id="respond">
+            <h3 id="reply-title">回复</h3>
+            <form>
+
+            </form>
+        </div>
+    </div>
+    <% } else { %>
+    <p>未找到相应的文章！</p>
+    <% } %>
 </div>
 <div class="sidebar right">
     <% include ../widgets %>
