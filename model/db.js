@@ -36,6 +36,10 @@ exports.initialize = function() {
     }
 }
 
+var extend = function() {
+    
+}
+
 var dbMenu = require('./db.menu'),
     dbPost = require('./db.post'),
     dbLink = require('./db.link');
@@ -51,3 +55,6 @@ exports.getLinks = dbLink.getLinks;
 
 // 获取单篇文章
 exports.getPost = dbPost.getPost;
+
+// 获取近期发表的文章列表
+exports.getRecentPosts = dbPost.getRecentPosts;

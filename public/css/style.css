@@ -199,7 +199,9 @@ p.tags span {
     line-height: 20px;
 }
 
-
+.widget {
+    margin-bottom: 1.5em;
+}
 
 
 

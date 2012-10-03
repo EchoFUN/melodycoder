@@ -1,10 +1,16 @@
+ <% if (typeof links != 'undefined') { %>
 <div class="widget">
-	<h3>Link</h3>
-	<ul>
-		<% if (typeof links != 'undefined') { %>
-		<% for(var j=0; j<links.length; j++) { %>
-		<li><a target="_blank" href="<%= links[j].url %>" ><%= links[j].title %></a></li>
-		<% } %>
-		<% } %>
-	</ul>
+    <h3>链接</h3>
+    <ul>
+        <% for(var j=0; j<links.length; j++) { %>
+        <li><a target="_blank" href="<%= links[j].url %>" ><%= links[j].title %></a></li>
+        <% } %>
+    </ul>
 </div>
+<% } %>
+<div class="widget">        
+    <h3>近期文章</h3>       
+    <ul>
+        <li><a href="#nogo" title="Linux学习笔记–对文本的操作及正则表达式">Linux学习笔记–对文本的操作及正则表达式</a></li>
+    </ul>
+</div>      

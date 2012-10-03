@@ -40,8 +40,6 @@ exports.index = function(req, resp) {
                 data = {vtype: 4, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links, post:item};
                 proxy.trigger('options', data);
             });
-        } else {
-            console.log('Not found');
         }
     });
 }
