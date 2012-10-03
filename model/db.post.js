@@ -34,3 +34,12 @@ exports.getAllPosts = function(callback) {
         proxy.trigger('posts', posts);
     });
 }
+
+/**
+ * @description 获取单篇文章的内容
+ * @param {string} pid 需要获取的文章的id
+ * @param {function} callback 获取内容成功后的回调
+ */
+exports.getPost = function(pid, callback) {
+    callback();
+}

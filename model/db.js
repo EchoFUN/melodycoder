@@ -48,3 +48,6 @@ exports.getAllPosts = dbPost.getAllPosts;
 
 // 获取所有的链接的列表
 exports.getLinks = dbLink.getLinks;
+
+// 获取单篇文章
+exports.getPost = dbPost.getPost;

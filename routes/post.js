@@ -7,38 +7,39 @@
 var config = require('../config').config,
     EventProxy = require('eventproxy').EventProxy;
 
-var dh = dh || {};
+var dh = dh || {},
+    dbEvt = {},
+    proxy = new EventProxy;
 
 var _middle = function(req, resp, func) {
-    var proxy = new EventProxy();
-    var eventHooks = ['getPosts', 'getMenus', 'getLinks'];
+    dbEvt = req.dbEvt;
+    var eventHooks = ['getMenus', 'getLinks'];
     proxy.assign(eventHooks, func);
 
-    var dbEvt = req.dbEvt;
     dbEvt.getAllMenus(function(menus) {
         dh.menus = menus;
         proxy.trigger('getMenus');
     });
-    dbEvt.getAllPosts(function(posts, categories, tags) {
-        dh.posts = posts;
-        dh.categories = categories;
-        dh.tags = tags;
-        proxy.trigger('getPosts');
-    });
     dbEvt.getLinks(function(links) {
         dh.links = links;
         proxy.trigger('getLinks');
-    })
+    });
 }
 
 exports.index = function(req, resp) {
     _middle(req, resp, function(){
         var pid = req.query.pid;
         if(pid) {
-            var baseInfo = config.site;
-            var vtype = 1;
-            data = {vtype: vtype, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links};
-            resp.render('index', data);
+            var render = function(view, options) {
+                resp.render(view, options);
+            }
+            proxy.assign('view', 'options', render);
+            proxy.trigger('view', 'index');
+            dbEvt.getPost(pid, function(item) {
+                var baseInfo = config.site;
+                data = {vtype: 4, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links};
+                proxy.trigger('options', data);
+            });
         } else {
             console.log('Not found');
         }
