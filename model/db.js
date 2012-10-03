@@ -64,45 +64,21 @@ exports.initialize = function() {
     }
 }
 
+var dbMenu = require('./db.menu'),
+    dbPost = require('./db.post'),
+    dbLink = require('./db.link');
+
 // 获取所有的菜单选项
 exports.getAllMenus = function(callback) {
-    var Menu = db.models.Menu;
-    Menu.find(function(error, content){
-        callback(content);
-    });
+    dbMenu.getAllMenus(callback);
 }
 
 // 获取所有的文章列表
 exports.getAllPosts = function(callback) {
-    var Post = db.models.Post,
-        Tag = db.models.Tag,
-        Category = db.models.Category;
-
-    var proxy = new EventProxy;
-    var eventHooks = ['posts', 'categories', 'tags'];
-    proxy.assign(eventHooks, callback);
-
-    Post.find(function(error, posts) {
-        var pids = [];
-        for(var i in posts) {
-            var pid = posts[i]._id;
-            pids.push(pid.toString());
-        }
-        Category.find({pid: {'$in': pids}}, function(error, categories) {
-            proxy.trigger('categories', categories);
-        });
-        Tag.find({pid: {'$in': pids}}, function(error, tags) {
-            proxy.trigger('tags', tags)
-        });
-        proxy.trigger('posts', posts);
-    });
-
+    dbPost.getAllPosts(callback);
 }
 
 // 获取所有的链接的列表
 exports.getLinks = function(callback) {
-    var Link = db.models.Link;
-    Link.find(function(error, content) {
-        callback(content);
-    });
+    dbLink.getLinks(callback);
 }

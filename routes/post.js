@@ -4,6 +4,15 @@
  * 
  */
 
- exportt.show = function(req, resp) {
- 	
- }
+ var db = require('../model/db');
+
+exports.index = function(req, resp) {
+    var pid = req.query.pid;
+    if(pid) {
+
+    } else {
+
+    }
+    
+    resp.end('test');
+}
