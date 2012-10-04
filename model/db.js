@@ -26,7 +26,7 @@ exports.initialize = function() {
     var tagSchema = mongoose.Schema({pid: String, title: String});
     db.model('Tag', tagSchema);
 
-    var commentSchema = mongoose.Schema({pid: String});
+    var commentSchema = mongoose.Schema({pid: String, name: String, email: String, content: String});
     db.model('Comment', commentSchema);
 
     var self = this;
@@ -36,7 +36,7 @@ exports.initialize = function() {
     }
 }
 
-var extend = function() {
+var extend = function(source, target) {
     
 }
 
