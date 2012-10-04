@@ -177,16 +177,42 @@ p.post-content {
 }
 
 p.tags {
-    float: left;
     font-size: 0.917em;
     margin-bottom: 5px;
-    margin-top: 0.5em;
-    width: 500px;
 }
 
 p.tags span {
-    background: url("/images/icons.png") no-repeat scroll 0 -144px transparent;
-    padding-left: 20px;
+    background: url("/images/icons.png") no-repeat scroll -2px -144px transparent;
+    padding-left: 19px;
+}
+
+p.pagination {
+    margin: 1em 0;
+    clear: both;
+    overflow: hidden;
+}
+
+p.pagination .prev {
+    float: left;
+}
+
+p.pagination .next {
+    float: right;
+}
+
+p.pagination .prev a {
+    padding: 0 0 0 19px;
+    background-position: -2px -124px;
+}
+
+p.pagination .next a {
+    padding: 0 21px 0 0;
+    background-position: 100% -104px;
+}
+
+p.pagination a {
+    background: url("/images/icons.png") no-repeat;
+    font-weight: bold;
 }
 
 #body .side-bar {
