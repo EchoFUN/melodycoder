@@ -35,9 +35,11 @@ exports.index = function(req, resp) {
             }
             proxy.assign('view', 'options', render);
             proxy.trigger('view', 'index');
-            dbEvt.getPost(pid, function(item) {
+            dbEvt.getPost(pid, function(post, tags, categories) {
+                post.tags = tags;
+                post.categories = categories;
                 var baseInfo = config.site;
-                data = {vtype: 4, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links, post:item};
+                data = {vtype: 4, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links, post:post};
                 proxy.trigger('options', data);
             });
         }

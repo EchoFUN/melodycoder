@@ -150,19 +150,21 @@ p.post-meta span {
 }
 
 p.post-meta span.date {
-    background-position: -3px -3px;
+    background-position: -3px -2px;
 }
 
 p.post-meta span.author {
-    background-position: -3px -23px;
+    background-position: -1px -23px;
 }
 
 p.post-meta span.cat {
     background-position: -3px -43px;
+    margin-left: 9px;
 }
 
 p.post-meta span.comments {
-    background-position: -3px -63px;
+    background-position: -2px -63px;
+    margin-left: 9px;
 }
 
 p.post-content {

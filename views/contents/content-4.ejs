@@ -1,6 +1,21 @@
 <div class="main left">
     <% if(typeof post != 'undefined') { %>
     <h1><%= post.title %></h1>
+    <p class="post-meta">
+        <span class="date"><%= post.date.getFullYear() %>年<%= post.date.getMonth() %>月<%= post.date.getDate() %>日</span>
+        <span class="author"><%= post.author %></span>
+        <span class="cat">
+            <% if(typeof post.categories != 'undefined') { %>
+            <% for(var i in post.categories) { %>
+            <% var title = post.categories[i].title; %>
+            <a href="#nogo" title="查看 <%= title %> 中的全部文章"><%= title %></a>
+            <% } %>
+            <% } %>
+        </span>
+        <span class="comments"><a href="#nogo" title="<%= post.title %>文章上有0条评论">0</a></span>
+    </p>
+
+
     <p class="post-content"><%= post.content %></p>
     <div class="comments">
         <div id="respond">

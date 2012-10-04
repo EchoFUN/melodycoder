@@ -12,7 +12,6 @@ var EventProxy = require('eventproxy').EventProxy;
  */
 exports.getAllPosts = function(callback) {
     var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
-
     var proxy = new EventProxy;
     var eventHooks = ['posts', 'categories', 'tags'];
     proxy.assign(eventHooks, callback);
@@ -39,9 +38,18 @@ exports.getAllPosts = function(callback) {
  * @param {function} callback 获取内容成功后的回调
  */
 exports.getPost = function(pid, callback) {
-    var Post = db.models.Post;
+    var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
+    var proxy = new EventProxy;
+    var eventHooks = ['post', 'tags', 'categories'];
+    proxy.assign(eventHooks, callback);
     Post.findById(pid, function(error, post) {
-        callback(post);
+        proxy.trigger('post', post);
+    });
+    Tag.find({pid: pid}, function(error, tags) {
+        proxy.trigger('tags', tags);
+    });
+    Category.find({pid: pid}, function(error, categories) {
+        proxy.trigger('categories', categories);
     });
 }
 
