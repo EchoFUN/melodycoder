@@ -12,7 +12,8 @@
             <% } %>
             <% } %>
         </span>
-        <span class="comments"><a href="#nogo" title="<%= post.title %>文章上有0条评论">0</a></span>
+        <% cmtLen = post.comments.length; %>
+        <span class="comments"><a href="#nogo" title="<%= post.title %>文章上有<%= cmtLen %>条评论"><%= cmtLen %></a></span>
     </p>
     <p class="post-content"><%= post.content %></p>
     <p class="tags">

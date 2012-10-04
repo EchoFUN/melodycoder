@@ -38,9 +38,9 @@ exports.getAllPosts = function(callback) {
  * @param {function} callback 获取内容成功后的回调
  */
 exports.getPost = function(pid, callback) {
-    var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
+    var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category, Comment = db.models.Comment;
     var proxy = new EventProxy;
-    var eventHooks = ['post', 'tags', 'categories'];
+    var eventHooks = ['post', 'tags', 'categories', 'comments'];
     proxy.assign(eventHooks, callback);
     Post.findById(pid, function(error, post) {
         proxy.trigger('post', post);
@@ -50,6 +50,9 @@ exports.getPost = function(pid, callback) {
     });
     Category.find({pid: pid}, function(error, categories) {
         proxy.trigger('categories', categories);
+    });
+    Comment.find({pid: pid}, function(error, comments) {
+        proxy.trigger('comments', comments);
     });
 }
 
