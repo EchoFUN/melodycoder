@@ -5,7 +5,8 @@
 
 var mongoose = require('mongoose'),
     config = require('../config').config,
-    EventProxy = require('eventproxy').EventProxy;
+    EventProxy = require('eventproxy').EventProxy,
+    utils = require('../utils');
 
 exports.initialize = function() { 
     var db = mongoose.createConnection(config.db.DB_HOST, config.db.DB_NAME);
@@ -36,25 +37,10 @@ exports.initialize = function() {
     }
 }
 
-var extend = function(source, target) {
-    
-}
-
-var dbMenu = require('./db.menu'),
-    dbPost = require('./db.post'),
-    dbLink = require('./db.link');
-
-// 获取所有的菜单选项
-exports.getAllMenus = dbMenu.getAllMenus
-
-// 获取所有的文章列表
-exports.getAllPosts = dbPost.getAllPosts;
-
-// 获取所有的链接的列表
-exports.getLinks = dbLink.getLinks;
-
-// 获取单篇文章
-exports.getPost = dbPost.getPost;
-
-// 获取近期发表的文章列表
-exports.getRecentPosts = dbPost.getRecentPosts;
+var dbMenu = require('./db.menu'), dbPost = require('./db.post'), dbLink = require('./db.link');
+for(var i in dbMenu)
+    exports[i] = dbMenu[i];
+for(var i in dbPost)
+    exports[i] = dbPost[i];
+for(var i in dbLink)
+    exports[i] = dbLink[i];
