@@ -1,7 +1,7 @@
 /**
  * For the database connection
  */
-
+ 
 var mongoose = require('mongoose'),
     config = require('../config').config,
     EventProxy = require('eventproxy').EventProxy,
