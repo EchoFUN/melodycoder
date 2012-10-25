@@ -43,6 +43,13 @@ exports.getPost = function(pid, callback) {
     var eventHooks = ['post', 'tags', 'categories', 'comments'];
     proxy.assign(eventHooks, callback);
     Post.findById(pid, function(error, post) {
+    	
+    	// 更具时间获取前后两篇文章
+    	
+    	
+    	var postTime = post.time;
+    	
+    	
         proxy.trigger('post', post);
     });
     Tag.find({pid: pid}, function(error, tags) {
