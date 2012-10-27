@@ -45,9 +45,8 @@ exports.getPost = function(pid, callback) {
     Post.findById(pid, function(error, post) {
     	
     	// 更具时间获取前后两篇文章
-    	
-    	
-    	var postTime = post.time;
+    	var postTime = post.date;
+    	console.log(postTime.toString());
     	
     	
         proxy.trigger('post', post);
