@@ -171,9 +171,24 @@ p.post-content {
     margin: 1em 0;
 }
 
-#reply-title {
+#reply-title,
+#comments-title {
     color: #969696;
     font: normal 1.5em "MuseoSans",sans-serif;color: #969696;
+}
+
+.comment-list .comment {
+	margin: 0.5em 0;
+	padding: 10px 20px;
+	border: 1px solid #E6E6E6;
+}
+
+.comment-list .odd {
+	background: #FAFAFA;
+}
+
+.comment-list .even {
+	
 }
 
 p.tags {

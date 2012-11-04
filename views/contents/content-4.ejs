@@ -24,8 +24,17 @@
         <span class="next"><a href="#nogo">下一页</a></span>
     </p>
     <div class="comments">
+        <h3 id="comments-title">关于“<%= title %>”的<%= post.comments.length %>个想法</h3>
+    	<div class="comment-list" id="comment-list">
+    		<% for(var i in post.comments) { %>
+    		<% var comment = post.comments[i]; %>
+    		<div class="comment <%= ((i % 2) == 1)? 'even' : 'odd' %>" data-rid="<%= comment.id %>">
+    		
+    		</div>
+    		<% } %>
+    	</div>
         <div id="respond">
-            <h3 id="reply-title">关于“<%= title %>”的0个想法</h3>
+        	<h3 id="reply-title">回复</h3>
             <form>
                 
             </form>
