@@ -12,7 +12,7 @@ var EventProxy = require('eventproxy').EventProxy;
  */
 exports.getAllPosts = function(callback) {
     var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
-    var proxy = new EventProxy;
+    var proxy = new EventProxy; 
     var eventHooks = ['posts', 'categories', 'tags'];
     proxy.assign(eventHooks, callback);
 
