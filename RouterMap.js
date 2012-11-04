@@ -1,6 +1,4 @@
-var site = require('./routes/index'),
-	user = require('./routes/user'),
-	post = require('./routes/post');
+var site = require('./routes/index'), user = require('./routes/user'), post = require('./routes/post');
 
 module.exports = function(app) {
     app.get('/', site.index);

@@ -29,7 +29,7 @@
     		<% for(var i in post.comments) { %>
     		<% var comment = post.comments[i]; %>
     		<div class="comment <%= ((i % 2) == 1)? 'even' : 'odd' %>" data-rid="<%= comment.id %>">
-    		
+    			
     		</div>
     		<% } %>
     	</div>
