@@ -2,8 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title><%= site.SITE_NAME %></title>
-        <link rel='stylesheet' href='/css/common.css' />
-        <link rel='stylesheet' href='/css/style.css' />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<meta name="Description" content="音韵码工是我自己的一个个人博客" />
+		<meta name="Keywords" content="代码，吉他" />
+        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/common.css" />
+        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/style.css" />
     </head>
     <body>
         <div id="pagewrap">
@@ -48,6 +52,12 @@
         <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/html5.js"></script>
         <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/sea.js"></script>
         <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/prototype.js"></script>
+        <script type="text/javascript">
+			var YYMG = {};
+			(function(global, undefined) {
+				YYMG.modules = [];
+			)(window)
+        </script>
         <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/general.js"></script>
     </body>
 </html>
