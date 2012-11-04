@@ -6,6 +6,9 @@ exports.config = {
 
         // 网站最基本的URL地址
         SITE_BASE_URL: 'http://127.0.0.1:3000',
+        
+        // 站点静态网址
+        SITE_STATIC_URL: 'http://127.0.0.1:3000'
     },
 
     db: { 
