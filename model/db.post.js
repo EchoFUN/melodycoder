@@ -5,7 +5,7 @@
  */
 
 var EventProxy = require('eventproxy').EventProxy;
-
+ 
 /**
  * @description 获取所有的文章的方法
  * @param {function} callback 获取成功后触发的回调函数
