@@ -1,7 +1,7 @@
 body {
     color: #444;
     background-color: #F1F1F1;
-    font: normal 12px 微软雅黑,arial,sans-serif;
+    font: normal 12px "微软雅黑",arial,sans-serif;
 }
 
 a {
@@ -82,7 +82,6 @@ h2 a:hover {
 
 #body .body-wrap {
     width: 960px;
-    min-height: 640px;
     margin: 0 auto;
     padding: 20px 0;
 }
@@ -150,20 +149,20 @@ p.post-meta span {
 }
 
 p.post-meta span.date {
-    background-position: -3px -2px;
+    background-position: -3px 0px;
 }
 
 p.post-meta span.author {
-    background-position: -1px -23px;
+    background-position: -1px -21px;
 }
 
 p.post-meta span.cat {
-    background-position: -3px -43px;
+    background-position: -3px -41px;
     margin-left: 9px;
 }
 
 p.post-meta span.comments {
-    background-position: -2px -63px;
+    background-position: -2px -61px;
     margin-left: 9px;
 }
 
@@ -174,7 +173,8 @@ p.post-content {
 #reply-title,
 #comments-title {
     color: #969696;
-    font: normal 1.5em "MuseoSans",sans-serif;color: #969696;
+    font-weight: normal;
+    font-size: 1.5em;
 }
 
 .comment-list .comment {
@@ -213,7 +213,7 @@ p.tags {
 }
 
 p.tags span {
-    background: url("/images/icons.png") no-repeat scroll -2px -144px transparent;
+    background: url("/images/icons.png") no-repeat scroll -2px -143px transparent;
     padding-left: 19px;
 }
 
