@@ -45,3 +45,7 @@ exports.index = function(req, resp) {
         }
     });
 }
+
+exports.addComment = function(req, resp) {
+	
+}

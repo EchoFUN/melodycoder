@@ -8,4 +8,7 @@ module.exports = function(app) {
 
     // post页面
     app.get('/post', post.index);
+    
+    // ajax 交互请求
+    app.get('/comment/add', post.addComment);
 };

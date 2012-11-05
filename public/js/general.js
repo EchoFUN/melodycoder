@@ -12,6 +12,10 @@ seajs.config({
 YYMG.modules.push('prototype');
 seajs.use(YYMG.modules, function(module) {
 	document.observe("dom:loaded", function() {
-		module.init();
+		try {
+			module.init();
+		} catch(e) {
+			alert(e);
+		}
 	});
 }); 
