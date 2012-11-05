@@ -8,6 +8,12 @@
 		<meta name="Keywords" content="代码，吉他" />
         <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/common.css" />
         <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/style.css" />
+        <script type="text/javascript">
+			var YYMG = {};
+			(function(global, undefined) {
+				YYMG.modules = [];
+			})(window);
+        </script>
     </head>
     <body>
         <div id="pagewrap">
@@ -50,14 +56,8 @@
             </div>
         </div>
         <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/html5.js"></script>
-        <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/sea.js"></script>
+        <!-- <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/sea.js"></script> -->
         <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/prototype.js"></script>
-        <script type="text/javascript">
-			var YYMG = {};
-			(function(global, undefined) {
-				YYMG.modules = [];
-			)(window)
-        </script>
         <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/general.js"></script>
     </body>
 </html>
