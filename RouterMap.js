@@ -10,5 +10,5 @@ module.exports = function(app) {
     app.get('/post', post.index);
     
     // ajax 交互请求
-    app.get('/comment/add', post.addComment);
+    app.post('/comment/add', post.addComment);
 };

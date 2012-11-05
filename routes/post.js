@@ -47,5 +47,10 @@ exports.index = function(req, resp) {
 }
 
 exports.addComment = function(req, resp) {
-	
+	var ret  = {
+		
+	};
+	var author = req.body.author, webside = req.body.webside, mail = req.body.mail, comment = req.body.comment;
+	dbEvt.addComment();
+	resp.end(JSON.stringify(ret));
 }

@@ -5,6 +5,6 @@
 
 define(function(require, exports, module) {
 	
-	exports.ADD_COMMENT = YYMG.SITE_BASE_URL + '/';	
+	exports.ADD_COMMENT = YYMG.baseUrl + '/comment/add';	
 	
 });
