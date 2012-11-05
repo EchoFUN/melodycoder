@@ -10,10 +10,15 @@ seajs.config({
 });
 
 YYMG.modules.push('prototype');
-seajs.use(YYMG.modules, function(module) {
+seajs.use(YYMG.modules, function() {
+	var arg = arguments, argLen = arg.length;
 	document.observe("dom:loaded", function() {
 		try {
-			module.init();
+			for(var i=0; i<argLen; i++) {
+				var module = arg[i];
+				if(module && module.init && typeof module.init == 'function')
+					module.init();
+			}
 		} catch(e) {
 			alert(e);
 		}
