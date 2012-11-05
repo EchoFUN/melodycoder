@@ -121,6 +121,10 @@ h2 a:hover {
     width: 650px;
 }
 
+#body .article-list {
+	margin-top: 6px;
+}
+
 #body .main .introduction-1 {
     background: url("/images/about/part-0.png") no-repeat scroll 0 0 transparent;
     height: 538px;

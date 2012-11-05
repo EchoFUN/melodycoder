@@ -19,10 +19,11 @@ var _middle = function(req, resp, func) {
         dh.menus = menus;
         proxy.trigger('getMenus');
     });
-    dbEvt.getAllPosts(function(posts, categories, tags) {
-        dh.posts = posts;
-        dh.categories = categories;
+    dbEvt.getAllPosts(function(posts, categories, tags, comments) {
         dh.tags = tags;
+        dh.posts = posts;
+        dh.comments = comments;
+        dh.categories = categories;
         proxy.trigger('getPosts');
     });
     dbEvt.getLinks(function(links) {
@@ -35,7 +36,7 @@ exports.index = function(req, resp) {
     _middle(req, resp, function(){
         var baseInfo = config.site;
         var vtype = 1;
-        var data = {vtype: vtype, site: baseInfo, menus: dh.menus, posts: dh.posts, tags: dh.tags, categories: dh.categories,  url: req.url, links: dh.links};
+        var data = {vtype: vtype, site: baseInfo, menus: dh.menus, posts: dh.posts, tags: dh.tags, comments: dh.comments, categories: dh.categories,  url: req.url, links: dh.links};
         resp.render('index', data);
     });
 };
