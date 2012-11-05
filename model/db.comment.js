@@ -24,6 +24,10 @@ exports.getComments = function(pid) {
 exports.addComment = function(author, webside, mail, comment) {
 	var Comment = db.models.Comment;
 	var c = new Comment({
-		
+		name: author, 
+		email: mail, 
+		content: comment, 
+		date: '232'
 	});
+	console.log(c.save());
 }

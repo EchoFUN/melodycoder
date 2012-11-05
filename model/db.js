@@ -36,10 +36,12 @@ exports.initialize = function() {
     }
 }
 
-var dbMenu = require('./db.menu'), dbPost = require('./db.post'), dbLink = require('./db.link');
+var dbMenu = require('./db.menu'), dbPost = require('./db.post'), dbLink = require('./db.link'), dbComment = require('./db.comment');
 for(var i in dbMenu)
     exports[i] = dbMenu[i];
 for(var i in dbPost)
     exports[i] = dbPost[i];
 for(var i in dbLink)
     exports[i] = dbLink[i];
+for(var i in dbComment)
+    exports[i] = dbComment[i];
