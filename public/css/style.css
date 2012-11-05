@@ -21,6 +21,10 @@ h2 a:hover {
     color: #ff6000;
 }
 
+.required {
+	color: red;
+}
+
 #header .header-wrap {
     padding-top: 20px;
     width: 960px;
@@ -207,6 +211,51 @@ p.post-content {
 	margin-top: 10px;
 }
 
+.respond-content {
+	padding: 10px 20px;
+	background-color: #FAFAFA;
+	border: 1px solid #E6E6E6;
+	margin-top: 0.5em;
+}
+
+.respond-content .item {
+	margin: 1em 0;
+}
+
+.respond-content .item input {
+	width: 300px;
+	margin: 5px 0;
+	padding: 4px 10px;
+	border: 1px solid #CACACA;
+	background: white;
+	vertical-align: middle;
+}	
+
+.respond-content .item input.submit {
+	height: 24px;
+	padding: 0 15px;
+	border: 1px solid #CACACA;
+	background: #FF6D16 url("/images/button.png") repeat-x top;
+	color: white;
+	font-weight: bold;
+	line-height: 24px;
+	text-shadow: #C57240 1px 1px 1px;
+	vertical-align: middle;
+	width: 120px;
+}
+	
+.respond-content .item label {
+	font-weight: bold;
+	width: 53px;
+	display: inline-block;
+}
+
+.respond-content .item textarea {
+	resize: vertical;
+	padding: 4px 10px;
+	border: 1px solid #CACACA;
+}
+
 p.tags {
     font-size: 0.917em;
     margin-bottom: 5px;
@@ -233,12 +282,12 @@ p.pagination .next {
 
 p.pagination .prev a {
     padding: 0 0 0 19px;
-    background-position: -2px -124px;
+    background-position: -2px -122px;
 }
 
 p.pagination .next a {
     padding: 0 21px 0 0;
-    background-position: 100% -104px;
+    background-position: 100% -102px;
 }
 
 p.pagination a {
