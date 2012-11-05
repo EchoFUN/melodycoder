@@ -29,7 +29,13 @@
     		<% for(var i in post.comments) { %>
     		<% var comment = post.comments[i]; %>
     		<div class="comment <%= ((i % 2) == 1)? 'even' : 'odd' %>" data-rid="<%= comment.id %>">
-    			
+    			<div class="avatar"><img height="38" width="38" src="" /></div>
+    			<div class="comment-info">
+    				<div class="name"><%= comment.name %>说：</div>
+    				<div class="date"></div>
+    			</div>
+    			<div class="clear"></div>
+    			<div class="comment-content"><%= comment.content %></div>
     		</div>
     		<% } %>
     	</div>

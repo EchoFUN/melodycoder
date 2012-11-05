@@ -1,36 +1,46 @@
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 a {
-    text-decoration: none;
-    outline: none;
+	text-decoration: none;
+	outline: none;
 }
 
 a:hover {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .clear {
-    clear: both;
+	clear: both;
 }
 
 .left {
-    float: left;
+	float: left;
 }
 
 .right {
-    float: right;
+	float: right;
 }
 
 li {
-    list-style: none;
+	list-style: none;
 }
 
 form, form[class] {
-    margin: 1.5em 0;
-    padding: 10px 20px;
-    border: 1px solid #F0F0F0;
-    background: #FAFAFA;
+	margin: 1.5em 0;
+	padding: 10px 20px;
+	border: 1px solid #F0F0F0;
+	background: #FAFAFA;
+}
+
+.clearfix {
+	*zoom: 1
+}
+
+.clearfix:after {
+	content: "\20";
+	display: block;
+	clear: both
 }
