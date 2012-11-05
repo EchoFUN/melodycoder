@@ -4,11 +4,14 @@
  */
 
 seajs.config({
-	alias: {
-		'prototype': 'http://127.0.0.1:3000/js/libs/prototype.js'
+	alias : {
+		'prototype' : 'http://127.0.0.1:3000/js/libs/prototype.js'
 	}
 });
 
+YYMG.modules.push('prototype');
 seajs.use(YYMG.modules, function(module) {
-	module.init();
-});
+	document.observe("dom:loaded", function() {
+		module.init();
+	});
+}); 
