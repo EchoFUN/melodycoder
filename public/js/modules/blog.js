@@ -5,8 +5,7 @@
 
 define(function(require, exports, module) {
 	exports.init = function() {
-		alert('test~');
-	}
+		// alert('test~');	}
 	
 	exports.listInit = function() {
 		
