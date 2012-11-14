@@ -8,12 +8,13 @@
  * @param {string} pid 需要获取评论数目的文章的id
  */
 exports.getComments = function(pid) {
-    var Comment = db.models.Comment;
-    Comment.find({pid: pid}, function(error, comments) {
+	var Comment = db.models.Comment;
+	Comment.find({
+		pid : pid
+	}, function(error, comments) {
 
-    });
+	});
 }
-
 /**
  * @description 保存评论
  * @param {Object} author 用户名
@@ -21,13 +22,20 @@ exports.getComments = function(pid) {
  * @param {Object} mail
  * @param {Object} comment
  */
-exports.addComment = function(author, webside, mail, comment) {
+exports.addComment = function(cmt) {
 	var Comment = db.models.Comment;
 	var c = new Comment({
-		name: author, 
-		email: mail, 
-		content: comment, 
-		date: '232'
+		pid : cmt.postId,
+		name : cmt.author,
+		email : cmt.mail,
+		webside : cmt.webside,
+		content : cmt.comment,
+		date : new Date()
 	});
-	console.log(c.save());
+	try {
+		c.save();
+	} catch (e) {
+		return 0;
+	}
+	return 1;
 }

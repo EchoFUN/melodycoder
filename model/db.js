@@ -26,7 +26,7 @@ exports.initialize = function() {
     var tagSchema = mongoose.Schema({pid: String, title: String});
     db.model('Tag', tagSchema);
 
-    var commentSchema = mongoose.Schema({pid: String, name: String, email: String, content: String, date: Date});
+    var commentSchema = mongoose.Schema({pid: String, name: String, email: String, webisde: String, content: String, date: Date});
     db.model('Comment', commentSchema);
 
     var self = this;

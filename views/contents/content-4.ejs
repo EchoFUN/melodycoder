@@ -2,6 +2,7 @@
 	(function(global) {
 		YYMG || (YYMG = {});
 		YYMG.modules.push('./js/modules/blog');
+		YYMG.pid = '<%= post.id %>';
 	})(window);
 </script>
 <div class="main article-view left">
@@ -39,7 +40,7 @@
 	    			<div class="avatar"><img height="38" width="38" src="" /></div>
 	    			<div class="comment-info">
 	    				<div class="name"><%= comment.name %>说：</div>
-	    				<div class="date"></div>
+	    				<div class="date"><%= comment.date %></div>
 	    			</div>
 	    			<div class="clear"></div>
 	    			<div class="comment-content"><%= comment.content %></div>

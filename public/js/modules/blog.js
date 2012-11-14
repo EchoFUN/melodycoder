@@ -19,7 +19,7 @@ define(function(require, exports, module) {
 				var authorEl = This.select('.author')[0], mailEl = This.select('.mail')[0], websideEl = This.select('.webside')[0], commentEl = This.select('.comment')[0];
 				
 				new Ajax.Request(i.ADD_COMMENT, {
-					parameters: 'author=' + authorEl.value + '&mail=' + mailEl.value + '&webside=' + websideEl.value + '&comment=' + commentEl.value,
+					parameters: 'author=' + authorEl.value + '&mail=' + mailEl.value + '&webside=' + websideEl.value + '&comment=' + commentEl.value + '&postId=' + YYMG.pid,
 					onSuccess: function(r) {
 						
 					},
