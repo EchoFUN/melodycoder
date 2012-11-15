@@ -11,7 +11,7 @@ var dh = dh || {};
 
 var _middle = function(req, resp, func, params) {
     var proxy = new EventProxy();
-    var eventHooks = ['getMenus', 'getLinks'];
+    var eventHooks = ['getMenus', 'getLinks', 'getRectPosts'];
     if(params.hasPost) 
     	eventHooks.push('getPosts');
     proxy.assign(eventHooks, func);
@@ -21,7 +21,15 @@ var _middle = function(req, resp, func, params) {
         dh.menus = menus;
         proxy.trigger('getMenus');
     });
-    if(params.hasPost)
+    dbEvt.getLinks(function(links) {
+        dh.links = links;
+        proxy.trigger('getLinks');
+    })
+    dbEvt.getRectPosts(function(rectPosts) {
+    	dh.rectPosts = rectPosts;
+    	proxy.trigger('getRectPosts');
+    });
+    if(params.hasPost) {
 	    dbEvt.getPosts(params.startPost, params.endPost, function(posts, categories, tags, comments) {
 	        dh.tags = tags;
 	        dh.posts = posts;
@@ -29,10 +37,7 @@ var _middle = function(req, resp, func, params) {
 	        dh.categories = categories;
 	        proxy.trigger('getPosts');
 	    });
-    dbEvt.getLinks(function(links) {
-        dh.links = links;
-        proxy.trigger('getLinks');
-    })
+    }
 }
 
 exports.index = function(req, resp) {
@@ -46,7 +51,18 @@ exports.index = function(req, resp) {
     _middle(req, resp, function(){
         var baseInfo = config.site;
         var vtype = 1;
-        var data = {vtype: vtype, site: baseInfo, menus: dh.menus, posts: dh.posts, tags: dh.tags, comments: dh.comments, categories: dh.categories,  url: req.url, links: dh.links};
+        var data = {
+        	vtype: vtype, 
+        	site: baseInfo, 
+        	menus: dh.menus, 
+        	posts: dh.posts, 
+        	tags: dh.tags, 
+        	comments: dh.comments, 
+        	categories: dh.categories,  
+        	url: req.url, 
+        	links: dh.links, 
+        	rectPosts: db.rectPosts
+        };
         resp.render('index', data);
     }, params);
 };
@@ -58,7 +74,14 @@ exports.about = function(req, resp) {
     _middle(req, resp, function(){
         var baseInfo = config.site;
         var vtype = 2;
-        resp.render('index', {vtype: vtype, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links});
+        var data = {
+        	vtype: vtype, 
+        	site: baseInfo, 
+        	menus: dh.menus, 
+        	url: req.url, 
+        	links: dh.links
+        };
+        resp.render('index', data);
     }, params);
 };
 
@@ -69,6 +92,13 @@ exports.experiment = function(req, resp) {
     _middle(req, resp, function(){
         var baseInfo = config.site;
         var vtype = 3;
-        resp.render('index', {vtype: vtype, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links});
+        var data = {
+        	vtype: vtype, 
+        	site: baseInfo, 
+        	menus: dh.menus, 
+        	url: req.url, 
+        	links: dh.links
+        };
+        resp.render('index', data);
     }, params);
 };

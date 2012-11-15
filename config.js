@@ -14,7 +14,7 @@ exports.config = {
         PAGE_COUNT: 10
     },
 
-    db: { 
+    db: {
 
     	DB_HOST: '127.0.0.1',
 

@@ -76,7 +76,19 @@ exports.getPost = function(pid, callback) {
  * @description 获取近期发表的文章
  * @param {function} callback 获取内容成功后的回调
  */
-exports.getRecentPosts = function(callback) {
+exports.getRectPosts = function(callback) {
     var Post = db.models.Post;
-    callback();
+    Post.find({}).exec(function(error, Posts) {
+    	callback(Posts);
+    });
 }
+
+
+
+
+
+
+
+
+
+
