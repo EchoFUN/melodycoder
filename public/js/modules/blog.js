@@ -7,13 +7,12 @@
 define(function(require, exports, module) {
 	var i = require('../common/interface'); dialog = require('../common/components').dialog;
 	
-	var messageHTML = '';
 	var messageTPL = new Template('');
 	
 	exports.init = function() {
 		
 		// 回复区域的问题
-		var submitEl = $('respond');
+		var submitEl = $('respond'), commentList = $('comment-list');
 		Event.observe(submitEl, 'click', function(evt) {
 			var This = Element.extend(this), target = Element.extend(evt.target);
 			
@@ -26,7 +25,11 @@ define(function(require, exports, module) {
 					onSuccess: function(r) {
 						var r = r.responseText.evalJSON();
 						if (r.status.code == 1) {
-							
+							var view = {
+								
+							}
+							var messageHTML = messageTPL.evaluate(view);
+							commentList.insert(messageHTML);
 						} else {
 							new dialog({content: r.status.content});
 						}
