@@ -11,7 +11,9 @@ var dh = dh || {};
 
 var _middle = function(req, resp, func, params) {
     var proxy = new EventProxy();
-    var eventHooks = ['getPosts', 'getMenus', 'getLinks'];
+    var eventHooks = ['getMenus', 'getLinks'];
+    if(params.hasPost) 
+    	eventHooks.push('getPosts');
     proxy.assign(eventHooks, func);
 
     var dbEvt = req.dbEvt;
@@ -19,13 +21,14 @@ var _middle = function(req, resp, func, params) {
         dh.menus = menus;
         proxy.trigger('getMenus');
     });
-    dbEvt.getPosts(function(posts, categories, tags, comments) {
-        dh.tags = tags;
-        dh.posts = posts;
-        dh.comments = comments;
-        dh.categories = categories;
-        proxy.trigger('getPosts');
-    });
+    if(params.hasPost)
+	    dbEvt.getPosts(params.startPost, params.endPost, function(posts, categories, tags, comments) {
+	        dh.tags = tags;
+	        dh.posts = posts;
+	        dh.comments = comments;
+	        dh.categories = categories;
+	        proxy.trigger('getPosts');
+	    });
     dbEvt.getLinks(function(links) {
         dh.links = links;
         proxy.trigger('getLinks');
@@ -36,6 +39,7 @@ exports.index = function(req, resp) {
 	var PAGE_COUNT = config.site.PAGE_COUNT, page = (!isNaN(Number(req.query.page)))? Number(req.query.page) : 1; 
 	
 	var params = {
+		hasPost: true,
 		startPost: (page - 1) * PAGE_COUNT,
 		endPost: page * PAGE_COUNT
 	}
@@ -55,7 +59,7 @@ exports.about = function(req, resp) {
         var baseInfo = config.site;
         var vtype = 2;
         resp.render('index', {vtype: vtype, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links});
-    });
+    }, params);
 };
 
 exports.experiment = function(req, resp) {
@@ -66,5 +70,5 @@ exports.experiment = function(req, resp) {
         var baseInfo = config.site;
         var vtype = 3;
         resp.render('index', {vtype: vtype, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links});
-    });
+    }, params);
 };
