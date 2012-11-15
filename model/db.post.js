@@ -18,9 +18,7 @@ exports.getPosts = function() {
     if (typeof arg[0] == 'function') {
     	callback = arg[0];
     } else {
-    	startPost = arg[0];
-    	endPost = arg[1]; 
-    	callback = arg[2];
+    	startPost = arg[0]; endPost = arg[1]; callback = arg[2];
     }
     var eventHooks = ['posts', 'categories', 'tags', 'comments'];
     proxy.assign(eventHooks, callback);

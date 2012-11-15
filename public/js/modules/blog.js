@@ -36,7 +36,7 @@ define(function(require, exports, module) {
 								hour: date.getHours(),
 								minute: date.getMinutes()
 							}
-							var commentHTML = commentTPL.evaluate(view);
+							var commentHTML = commentTPL.evaluate(view).escapeHTML();
 							commentList.insert(commentHTML);
 						} else {
 							new dialog({content: r.status.content});
