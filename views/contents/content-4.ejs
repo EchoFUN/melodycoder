@@ -41,7 +41,9 @@
 	    			<div class="comment-info">
 	    				<div class="name"><a href="<%= comment.webside %>"><%= comment.name %></a>&nbsp;说：</div>
 	    				<% var date = comment.date, m = new Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec'); %>
+	    				<% if (typeof date != 'undefined') { %>
 	    				<div class="date"><%= m[date.getMonth()] %>&nbsp;<%= date.getDate() %>,&nbsp;<%= date.getFullYear() %>&nbsp;at&nbsp;<%= date.getHours() %>:<%= date.getMinutes() %></div>
+	    				<% } %>
 	    			</div>
 	    			<div class="clear"></div>
 	    			<div class="comment-content"><%= comment.content %></div>

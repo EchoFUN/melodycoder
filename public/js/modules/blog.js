@@ -5,7 +5,10 @@
  */
 
 define(function(require, exports, module) {
-	var i = require('../common/interface'); dialog = require('../commmon/components').dialog;
+	var i = require('../common/interface'); dialog = require('../common/components').dialog;
+	
+	var messageHTML = '';
+	var messageTPL = new Template('');
 	
 	exports.init = function() {
 		
@@ -21,13 +24,15 @@ define(function(require, exports, module) {
 				new Ajax.Request(i.ADD_COMMENT, {
 					parameters: 'author=' + authorEl.value + '&mail=' + mailEl.value + '&webside=' + websideEl.value + '&comment=' + commentEl.value + '&postId=' + YYMG.pid,
 					onSuccess: function(r) {
-						
+						var r = r.responseText.evalJSON();
+						if (r.status.code == 1) {
+							
+						} else {
+							new dialog({content: r.status.content});
+						}
 					},
 					onFailure: function() {
-						new dialog({
-							type: 'error',
-							content: ''
-						});
+						new dialog({type: 'error', content: ''});
 					}
 				});
 			}

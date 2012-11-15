@@ -6,10 +6,7 @@
 define(function(require, exports, module) {
 	
 	// 弹框组件	
-	var dialogHTML = '\
-					 	
-					 	
-					 ';
+	var dialogHTML = '';
 	var dialogTPL = new Template('');
 	
 	var dialog = Class.create({
