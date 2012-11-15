@@ -286,6 +286,7 @@ p.pagination {
     margin: 1em 0;
     clear: both;
     overflow: hidden;
+	display: none;
 }
 
 p.pagination .prev {
@@ -331,6 +332,9 @@ p.pagination a {
     margin-bottom: 1.5em;
 }
 
+.comments {
+	margin-top: 15px;
+}
 
 
 
