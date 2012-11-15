@@ -11,7 +11,7 @@ var dh = dh || {};
 
 var _middle = function(req, resp, func, params) {
     var proxy = new EventProxy();
-    var eventHooks = ['getMenus', 'getLinks', 'getRectPosts'];
+    var eventHooks = ['getMenus', 'getLinks'];
     if(params.hasPost) 
     	eventHooks.push('getPosts');
     proxy.assign(eventHooks, func);
@@ -25,10 +25,6 @@ var _middle = function(req, resp, func, params) {
         dh.links = links;
         proxy.trigger('getLinks');
     })
-    dbEvt.getRectPosts(function(rectPosts) {
-    	dh.rectPosts = rectPosts;
-    	proxy.trigger('getRectPosts');
-    });
     if(params.hasPost) {
 	    dbEvt.getPosts(params.startPost, params.endPost, function(posts, categories, tags, comments) {
 	        dh.tags = tags;
@@ -60,8 +56,7 @@ exports.index = function(req, resp) {
         	comments: dh.comments, 
         	categories: dh.categories,  
         	url: req.url, 
-        	links: dh.links, 
-        	rectPosts: dh.rectPosts
+        	links: dh.links
         };
         resp.render('index', data);
     }, params);

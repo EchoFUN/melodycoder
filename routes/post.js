@@ -12,12 +12,16 @@ var dh = dh || {},
 
 var _middle = function(req, resp, func) {
     dbEvt = req.dbEvt;
-    var eventHooks = ['getMenus', 'getLinks'];
+    var eventHooks = ['getMenus', 'getLinks', 'getRectPosts'];
     proxy.assign(eventHooks, func);
 
     dbEvt.getAllMenus(function(menus) {
         dh.menus = menus;
         proxy.trigger('getMenus');
+    });
+    dbEvt.getRectPosts(function(rectPosts) {
+    	dh.rectPosts = rectPosts;
+    	proxy.trigger('getRectPosts');
     });
     dbEvt.getLinks(function(links) {
         dh.links = links;
@@ -39,7 +43,15 @@ exports.index = function(req, resp) {
                 post.categories = categories;
                 post.comments = comments;
                 var baseInfo = config.site;
-                data = {vtype: 4, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links, post:post};
+                data = {
+                	vtype: 4, 
+                	site: baseInfo, 
+                	menus: dh.menus, 
+                	url: req.url, 
+                	links: dh.links, 
+                	post: post,
+                	rectPosts: dh.rectPosts
+                };
                 proxy.trigger('options', data);
             });
         }
