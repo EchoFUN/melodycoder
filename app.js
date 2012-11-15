@@ -7,7 +7,7 @@ var express = require('express'),
     route = require('./RouterMap'), 
     http = require('http'), 
     path = require('path'), 
-    db = require('./model/db'),
+    db = require('./model/db'), 
     config = require('./config').config; 
 
 var app = express();
