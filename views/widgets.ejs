@@ -14,7 +14,7 @@
     <h3>近期文章</h3>       
     <ul>
     	<% for(var j=0; j<rectPosts.length; j++) { %>
-        <li><a href="<%= site.SITE_BASE_URL + '/post?pid=' + rectPosts[j]._id %>" title="<%= rectPosts[j].title %>"><%= rectPosts[j].title %></a></li>
+        <li><a target="_blank" href="<%= site.SITE_BASE_URL + '/post?pid=' + rectPosts[j]._id %>" title="<%= rectPosts[j].title %>"><%= rectPosts[j].title %></a></li>
     	<% } %>
     </ul>
 </div>    
