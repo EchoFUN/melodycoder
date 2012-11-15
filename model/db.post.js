@@ -23,7 +23,7 @@ exports.getPosts = function() {
     
     var eventHooks = ['posts', 'categories', 'tags', 'comments'];
     proxy.assign(eventHooks, callback);
-	Post.find({}).skip(startPost).limit(endPost).exec(function(error, posts) {
+	Post.find().skip(startPost).limit(endPost).sort({date: 1}).exec(function(error, posts) {
         var pids = [];
         for(var i in posts) {
             var pid = posts[i]._id;
@@ -78,7 +78,7 @@ exports.getPost = function(pid, callback) {
  */
 exports.getRectPosts = function(callback) {
     var Post = db.models.Post;
-    Post.find({}).exec(function(error, Posts) {
+    Post.find({}, '_id, title').sort({date: 1}).limit(10).exec(function(error, Posts) {
     	callback(Posts);
     });
 }

@@ -61,7 +61,7 @@ exports.index = function(req, resp) {
         	categories: dh.categories,  
         	url: req.url, 
         	links: dh.links, 
-        	rectPosts: db.rectPosts
+        	rectPosts: dh.rectPosts
         };
         resp.render('index', data);
     }, params);
