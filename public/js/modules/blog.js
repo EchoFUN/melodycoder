@@ -5,7 +5,7 @@
  */
 
 define(function(require, exports, module) {
-	var i = require('../common/interface');
+	var i = require('../common/interface'); dialog = require('../commmon/components').dialog;
 	
 	exports.init = function() {
 		
@@ -23,7 +23,12 @@ define(function(require, exports, module) {
 					onSuccess: function(r) {
 						
 					},
-					onFailure: function() {}
+					onFailure: function() {
+						new dialog({
+							type: 'error',
+							content: ''
+						});
+					}
 				});
 			}
 		});

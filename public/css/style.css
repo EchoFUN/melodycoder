@@ -211,6 +211,18 @@ p.post-content {
 	margin-left: 55px;
 }
 
+.comment-info .name {
+	margin-top: 2px;
+}
+
+.comment-info .name a {
+	font-weight: bold;
+}
+
+.comment-info .date {
+	margin-top: 8px;
+}
+
 .comment .comment-content {
 	margin-top: 10px;
 }

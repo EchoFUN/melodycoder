@@ -15,20 +15,20 @@
             <% if(typeof post.categories != 'undefined') { %>
             <% for(var i in post.categories) { %>
             <% var title = post.categories[i].title; %>
-            <a href="#nogo" title="查看 <%= title %> 中的全部文章"><%= title %></a>
+            <a href="javascript:;" title="查看 <%= title %> 中的全部文章"><%= title %></a>
             <% } %>
             <% } %>
         </span>
         <% cmtLen = post.comments.length; %>
-        <span class="comments"><a href="#nogo" title="<%= post.title %>文章上有<%= cmtLen %>条评论"><%= cmtLen %></a></span>
+        <span class="comments"><a href="javascript:;" title="<%= post.title %>文章上有<%= cmtLen %>条评论"><%= cmtLen %></a></span>
     </p>
     <p class="post-content"><%= post.content %></p>
     <p class="tags">
-        <span><a href="#nogo" title="吉他">吉他</a></span>
+        <span><a href="javascript:;" title="吉他">吉他</a></span>
     </p>
     <p class="pagination">
-        <span class="prev"><a href="#nogo">上一页</a></span>
-        <span class="next"><a href="#nogo">下一页</a></span>
+        <span class="prev"><a href="javascript:;">上一页</a></span>
+        <span class="next"><a href="javascript:;">下一页</a></span>
     </p>
     <div class="comments">
     	<% if(post.comments.length) { %>
@@ -39,8 +39,9 @@
 	    		<div class="comment <%= ((i % 2) == 1)? 'even' : 'odd' %>" data-rid="<%= comment.id %>">
 	    			<div class="avatar"><img height="38" width="38" src="" /></div>
 	    			<div class="comment-info">
-	    				<div class="name"><%= comment.name %>说：</div>
-	    				<div class="date"><%= comment.date %></div>
+	    				<div class="name"><a href="<%= comment.webside %>"><%= comment.name %></a>&nbsp;说：</div>
+	    				<% var date = comment.date, m = new Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec'); %>
+	    				<div class="date"><%= m[date.getMonth()] %>&nbsp;<%= date.getDate() %>,&nbsp;<%= date.getFullYear() %>&nbsp;at&nbsp;<%= date.getHours() %>:<%= date.getMinutes() %></div>
 	    			</div>
 	    			<div class="clear"></div>
 	    			<div class="comment-content"><%= comment.content %></div>

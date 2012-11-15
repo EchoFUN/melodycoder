@@ -38,6 +38,9 @@ exports.index = function(req, resp) {
                 post.tags = tags;
                 post.categories = categories;
                 post.comments = comments;
+                
+                console.log(post.comments);
+                
                 var baseInfo = config.site;
                 data = {vtype: 4, site: baseInfo, menus: dh.menus, url: req.url, links: dh.links, post:post};
                 proxy.trigger('options', data);
