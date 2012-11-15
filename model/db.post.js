@@ -20,10 +20,10 @@ exports.getPosts = function() {
     } else {
     	startPost = arg[0]; endPost = arg[1]; callback = arg[2];
     }
+    
     var eventHooks = ['posts', 'categories', 'tags', 'comments'];
     proxy.assign(eventHooks, callback);
-
-    Post.find(function(error, posts) {
+	Post.find({}).skip(startPost).limit(endPost).exec(function(error, posts) {
         var pids = [];
         for(var i in posts) {
             var pid = posts[i]._id;
@@ -39,7 +39,7 @@ exports.getPosts = function() {
         	proxy.trigger('comments', comments);
         });
         proxy.trigger('posts', posts);
-    });
+	});
 }
 
 /**

@@ -29,14 +29,14 @@ define(function(require, exports, module) {
 							var view = {
 								pid: YYMG.pid,
 								author: authorEl.value,
-								comment: commentEl.value,
+								comment: commentEl.value.escapeHTML(),
 								month: m[date.getMonth()],
 								date: date.getDate(),
 								year: date.getFullYear(),
 								hour: date.getHours(),
 								minute: date.getMinutes()
 							}
-							var commentHTML = commentTPL.evaluate(view).escapeHTML();
+							var commentHTML = commentTPL.evaluate(view);
 							commentList.insert(commentHTML);
 						} else {
 							new dialog({content: r.status.content});
