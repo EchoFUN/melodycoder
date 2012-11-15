@@ -122,7 +122,7 @@ exports.getArchives = function(callback) {
 	}).exec(function(error, oriArchives) {
 		var Archives = [];
 		for (var i = 0; i < oriArchives.length; i++) {
-			var _a = oriArchives[i];
+			var _a = oriArchives[i].date;
 			var date = _a.getFullYear() + '年' + _a.getMonth() + '月';
 			for (var j = 0; j < Archives.length; j++) {
 				if (Archives[j].summary == data) {

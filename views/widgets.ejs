@@ -20,9 +20,13 @@
 </div>    
 <% } %>  
 
+<% if(typeof archives != 'undefined') { %>
 <div class="widget">        
     <h3>文章归档</h3>       
     <ul>
-    	<li><a href="#nogo">2012年11月</a></li>
+    	<% for(var j=0; j<archives.length; j++) { %>
+    	<li><a href="#nogo"><%= archives[j].summary %></a></li>
+    	<% } %>
     </ul>
 </div>
+<% } %>

@@ -60,7 +60,8 @@ exports.index = function(req, resp) {
         	comments: dh.comments, 
         	categories: dh.categories,  
         	url: req.url, 
-        	links: dh.links
+        	links: dh.links,
+        	archives: dh.archives
         };
         resp.render('index', data);
     }, params);
