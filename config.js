@@ -8,7 +8,10 @@ exports.config = {
         SITE_BASE_URL: 'http://127.0.0.1:3000',
         
         // 站点静态网址
-        SITE_STATIC_URL: 'http://127.0.0.1:3000'
+        SITE_STATIC_URL: 'http://127.0.0.1:3000',
+        
+        // 每页显示的文章数目
+        PAGE_COUNT: 10
     },
 
     db: { 

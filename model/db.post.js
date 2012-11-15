@@ -10,7 +10,7 @@ var EventProxy = require('eventproxy').EventProxy;
  * @description 获取所有的文章的方法
  * @param {function} callback 获取成功后触发的回调函数
  */
-exports.getAllPosts = function(callback) {
+exports.getPosts = function(callback) {
     var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category, Comment = db.models.Comment;
     var proxy = new EventProxy; 
     var eventHooks = ['posts', 'categories', 'tags', 'comments'];
