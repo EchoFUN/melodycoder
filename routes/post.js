@@ -50,7 +50,8 @@ exports.addComment = function(req, resp) {
 	var ret  = {
 		status: {
 			code: 0
-		}
+		},
+		data: new Date().getTime()
 	};
 	ret.status.code = dbEvt.addComment(req.body);
 	resp.end(JSON.stringify(ret));

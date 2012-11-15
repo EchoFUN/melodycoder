@@ -5,9 +5,9 @@
  */
 
 define(function(require, exports, module) {
-	var i = require('../common/interface'); dialog = require('../common/components').dialog;
+	var i = require('../common/interface'); dialog = require('../common/components').dialog, tpl = require('../common/tpl');
 	
-	var messageTPL = new Template('');
+	var commentTPL = new Template(tpl.commentTPL);
 	
 	exports.init = function() {
 		
@@ -25,11 +25,19 @@ define(function(require, exports, module) {
 					onSuccess: function(r) {
 						var r = r.responseText.evalJSON();
 						if (r.status.code == 1) {
+							var date = new Date(r.data), m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec'];
 							var view = {
-								
+								pid: YYMG.pid,
+								author: authorEl.value,
+								comment: commentEl.value,
+								month: m[date.getMonth()],
+								date: date.getDate(),
+								year: date.getFullYear(),
+								hour: date.getHours(),
+								minute: date.getMinutes()
 							}
-							var messageHTML = messageTPL.evaluate(view);
-							commentList.insert(messageHTML);
+							var commentHTML = commentTPL.evaluate(view);
+							commentList.insert(commentHTML);
 						} else {
 							new dialog({content: r.status.content});
 						}
