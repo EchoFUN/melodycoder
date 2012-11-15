@@ -8,7 +8,7 @@ var express = require('express'),
     http = require('http'), 
     path = require('path'), 
     db = require('./model/db'),
-    config = require('./config').config;
+    config = require('./config').config; 
 
 var app = express();
 
