@@ -18,7 +18,7 @@ exports.initialize = function() {
     db.model('Post', postSchema);
 
     var linkSchema = mongoose.Schema({title: String, url: String});
-    db.model('Link', linkSchema);
+    var Link = db.model('Link', linkSchema);
 
     var categorySchema = mongoose.Schema({pid: String, title: String});
     db.model('Category', categorySchema);
