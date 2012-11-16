@@ -58,12 +58,13 @@ exports.getPosts = function() {
 		proxy.trigger('posts', posts);
 	});
 }
+
 /**
  * @description 获取单篇文章的内容
  * @param {string} pid 需要获取的文章的id
  * @param {function} callback 获取内容成功后的回调
  */
-exports.getPost = function(pid, callback) {
+exports.getPostById = function(pid, callback) {
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category, Comment = db.models.Comment;
 	var proxy = new EventProxy;
 	var eventHooks = ['post', 'tags', 'categories', 'comments'];
@@ -96,6 +97,7 @@ exports.getPost = function(pid, callback) {
 		proxy.trigger('comments', comments);
 	});
 }
+
 /**
  * @description 获取近期发表的文章
  * @param {function} callback 获取内容成功后的回调
@@ -108,6 +110,7 @@ exports.getRectPosts = function(callback) {
 		callback(Posts);
 	});
 }
+
 /**
  * @description 获取所有的归档文件
  * @param {function} callback 获取内容成功后的回调
