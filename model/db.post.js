@@ -128,7 +128,7 @@ exports.getArchives = function(callback) {
 					break;
 				}
 			}
-			if(!_has) {
+			if (!_has) {
 				Archives.push({
 					full : _a,
 					summary : date
