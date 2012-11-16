@@ -1,14 +1,3 @@
- <% if(typeof links != 'undefined') { %>
-<div class="widget">
-    <h3>链接</h3>
-    <ul>
-        <% for(var j=0; j<links.length; j++) { %>
-        <li><a target="_blank" href="<%= links[j].url %>" ><%= links[j].title %></a></li>
-        <% } %>
-    </ul>
-</div>
-<% } %>
-
 <% if(typeof rectPosts != 'undefined') {%>
 <div class="widget">
     <h3>近期文章</h3>
@@ -27,6 +16,17 @@
     	<% for(var j=0; j<archives.length; j++) { %>
     	<li><a target="_blank" href="<%= site.SITE_BASE_URL + '/post?archive=' + archives[j].full.getTime() %>"><%= archives[j].summary %></a></li>
     	<% } %>
+    </ul>
+</div>
+<% } %>
+
+<% if(typeof links != 'undefined') { %>
+<div class="widget">
+    <h3>链接</h3>
+    <ul>
+        <% for(var j=0; j<links.length; j++) { %>
+        <li><a target="_blank" href="<%= links[j].url %>" ><%= links[j].title %></a></li>
+        <% } %>
     </ul>
 </div>
 <% } %>
