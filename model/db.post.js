@@ -121,15 +121,18 @@ exports.getArchives = function(callback) {
 		for (var i = 0; i < oriArchives.length; i++) {
 			var _a = oriArchives[i].date;
 			var date = _a.getFullYear() + '年' + _a.getMonth() + '月';
+			var _has = false;
 			for (var j = 0; j < Archives.length; j++) {
-				if (Archives[j].summary == data) {
+				if (Archives[j].summary == date) {
+					_has = true;
 					break;
-				} else {
-					Archives.push({
-						full : _a,
-						summary : date
-					});
 				}
+			}
+			if(!_has) {
+				Archives.push({
+					full : _a,
+					summary : date
+				});
 			}
 		}
 		callback(Archives);

@@ -25,7 +25,7 @@
     <h3>文章归档</h3>       
     <ul>
     	<% for(var j=0; j<archives.length; j++) { %>
-    	<li><a href="#nogo"><%= archives[j].summary %></a></li>
+    	<li><a target="_blank" href="<%= site.SITE_BASE_URL + '/post?archive=' + archives[j].full.getTime() %>"><%= archives[j].summary %></a></li>
     	<% } %>
     </ul>
 </div>
