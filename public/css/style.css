@@ -336,9 +336,13 @@ p.pagination a {
 	margin-top: 15px;
 }
 
+.tag-cloud {
+	padding: 5px;
+}
 
-
-
+.tag-cloud .tag-item {
+	margin-left: 10px;
+}
 
 
 

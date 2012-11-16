@@ -15,7 +15,7 @@
             <% if(cats.length != 0) { %>
             <span class="cat">
                 <% for(var j in cats) { %>
-                <a href="#nogo" title="查看 <%=cats[j] %> 中的全部文章"><%= cats[j] %></a>
+                <a href="#nogo" title="查看 <%=cats[j] %> 中的全部文章"><%= cats[j] %></a>,
                 <% } %>
             </span>
             <% } %>
@@ -37,7 +37,7 @@
         <p class="tags">
             <span>
                 <% for(var j in tlist) { %>
-                <a href="#nogo" title="<%=tlist[j] %>"><%= tlist[j] %></a>
+                <a href="#nogo" title="<%=tlist[j] %>"><%= tlist[j] %></a>,
                 <% } %>
             </span>
         </p>

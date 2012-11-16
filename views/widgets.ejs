@@ -20,10 +20,16 @@
 </div>
 <% } %>
 
+<% if(typeof tags != 'undefined') { %>
 <div class="widget">
     <h3>标签</h3>
-    <div></div>
+    <div class="tag-cloud">
+    	<% for(var j=0; j<tags.length; j++) { %>
+    	<a class="tag-item" href="javascript:;"><%= tags[j].title %></a>
+    	<% } %>
+    </div>
 </div>
+<% } %>
 
 <% if(typeof links != 'undefined') { %>
 <div class="widget">
