@@ -18,7 +18,7 @@ exports.initialize = function() {
     db.model('Post', postSchema);
 
     var linkSchema = mongoose.Schema({title: String, url: String});
-    var Link = db.model('Link', linkSchema);
+    db.model('Link', linkSchema);
 
     var categorySchema = mongoose.Schema({pid: String, title: String});
     db.model('Category', categorySchema);
@@ -26,7 +26,7 @@ exports.initialize = function() {
     var tagSchema = mongoose.Schema({pid: String, title: String});
     db.model('Tag', tagSchema);
 
-    var commentSchema = mongoose.Schema({pid: String, name: String, email: String, webisde: String, content: String, date: Date});
+    var commentSchema = mongoose.Schema({pid: String, name: String, email: String, webisde: String, content: String, date: Date, approved: false});
     db.model('Comment', commentSchema);
 
     var self = this;

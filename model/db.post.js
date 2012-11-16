@@ -58,7 +58,6 @@ exports.getPosts = function() {
 		proxy.trigger('posts', posts);
 	});
 }
-
 /**
  * @description 获取单篇文章的内容
  * @param {string} pid 需要获取的文章的id
@@ -92,12 +91,12 @@ exports.getPostById = function(pid, callback) {
 		proxy.trigger('categories', categories);
 	});
 	Comment.find({
-		pid : pid
+		pid : pid,
+		approved : true
 	}, function(error, comments) {
 		proxy.trigger('comments', comments);
 	});
 }
-
 /**
  * @description 获取近期发表的文章
  * @param {function} callback 获取内容成功后的回调
@@ -110,7 +109,6 @@ exports.getRectPosts = function(callback) {
 		callback(Posts);
 	});
 }
-
 /**
  * @description 获取所有的归档文件
  * @param {function} callback 获取内容成功后的回调
