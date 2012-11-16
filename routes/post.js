@@ -5,29 +5,26 @@
 
 var config = require('../config').config, EventProxy = require('eventproxy').EventProxy;
 
-var dh = dh || {}, dbEvt = {}, proxy = new EventProxy;
+var dbEvt = {}, proxy = new EventProxy;
 
 var _middle = function(req, resp, func) {
 	dbEvt = req.dbEvt;
-	var eventHooks = ['getMenus', 'getLinks', 'getRectPosts'];
+	var eventHooks = ['menus', 'links', 'rectPosts'];
 	proxy.assign(eventHooks, func);
 
 	dbEvt.getAllMenus(function(menus) {
-		dh.menus = menus;
-		proxy.trigger('getMenus');
+		proxy.trigger('menus', menus);
 	});
 	dbEvt.getRectPosts(function(rectPosts) {
-		dh.rectPosts = rectPosts;
-		proxy.trigger('getRectPosts');
+		proxy.trigger('rectPosts', rectPosts);
 	});
 	dbEvt.getLinks(function(links) {
-		dh.links = links;
-		proxy.trigger('getLinks');
+		proxy.trigger('links', links);
 	});
 }
 
 exports.index = function(req, resp) {
-	_middle(req, resp, function() {
+	_middle(req, resp, function(menus, links, rectPosts) {
 		var pid = req.query.pid, archive = req.query.archive;
 		if (pid) {
 			var render = function(view, options) {
@@ -41,13 +38,13 @@ exports.index = function(req, resp) {
 				post.comments = comments;
 				var baseInfo = config.site;
 				data = {
+					post : post,
+					menus : menus,
+					links : links,
+					rectPosts : rectPosts,
 					vtype : 4,
 					site : baseInfo,
-					menus : dh.menus,
-					url : req.url,
-					links : dh.links,
-					post : post,
-					rectPosts : dh.rectPosts
+					url : req.url
 				};
 				proxy.trigger('options', data);
 			});

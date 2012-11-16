@@ -12,6 +12,7 @@ var _middle = function(req, resp, func) {
 	if (isLogin) {
 		resp.redirect(config.site.SITE_BASE_URL);
 	}
+	func();
 }
 
 exports.comments = function(req, resp) {
