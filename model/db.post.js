@@ -51,7 +51,8 @@ exports.getPosts = function() {
 		Comment.find({
 			pid : {
 				'$in' : pids
-			}
+			},
+			approved: true
 		}, function(error, comments) {
 			proxy.trigger('comments', comments);
 		});
