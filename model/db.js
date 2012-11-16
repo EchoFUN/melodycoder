@@ -11,8 +11,8 @@ exports.initialize = function() {
     var db = mongoose.createConnection(config.db.DB_HOST, config.db.DB_NAME);
     global.db = db;
     
-    var menuSchema = mongoose.Schema({title: String, url: String});
-    db.model('Menu', menuSchema);
+    var menuSchema = mongoose.Schema({title: String, url: String, weight: Number});
+    var Menu = db.model('Menu', menuSchema);
 
     var postSchema = mongoose.Schema({date: Date, author: String, title: String, content: String});
     db.model('Post', postSchema);

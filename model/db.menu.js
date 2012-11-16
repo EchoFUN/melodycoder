@@ -10,7 +10,7 @@
  */
 exports.getAllMenus = function(callback) {
     var Menu = db.models.Menu;
-    Menu.find(function(error, content){
+    Menu.find().sort({weight: 1}).exec(function(error, content){
         callback(content);
     });
 }
