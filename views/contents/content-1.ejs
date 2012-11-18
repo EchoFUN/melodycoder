@@ -44,6 +44,12 @@
         <% } %>
     </div>  
     <% } %>
+    <% if(posts.length > site.PAGE_COUNT) { %>
+    <p class="pagination">
+        <span class="prev"><a href="#nogo">上一页</a></span>
+        <span class="next"><a href="#nogo">下一页</a></span>
+    </p>
+    <% } %>
     <% } %>
 </div>
 <div class="sidebar right">

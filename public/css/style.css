@@ -286,7 +286,6 @@ p.pagination {
     margin: 1em 0;
     clear: both;
     overflow: hidden;
-	display: none;
 }
 
 p.pagination .prev {
@@ -299,12 +298,12 @@ p.pagination .next {
 
 p.pagination .prev a {
     padding: 0 0 0 19px;
-    background-position: -2px -122px;
+    background-position: -2px -124px;
 }
 
 p.pagination .next a {
     padding: 0 21px 0 0;
-    background-position: 100% -102px;
+    background-position: 100% -104px;
 }
 
 p.pagination a {
