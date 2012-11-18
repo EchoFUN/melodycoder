@@ -25,7 +25,7 @@ define(function(require, exports, module) {
 					onSuccess: function(r) {
 						var r = r.responseText.evalJSON();
 						if (r.status.code == 1) {
-							var date = new Date(r.data), m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec'];
+							/* var date = new Date(r.data), m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec'];
 							var view = {
 								pid: YYMG.pid,
 								author: authorEl.value,
@@ -37,7 +37,9 @@ define(function(require, exports, module) {
 								minute: date.getMinutes()
 							}
 							var commentHTML = commentTPL.evaluate(view);
-							commentList.insert(commentHTML);
+							commentList.insert(commentHTML); */
+							
+							
 						} else {
 							new dialog({content: r.status.content});
 						}

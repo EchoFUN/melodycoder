@@ -30,7 +30,8 @@ exports.addComment = function(cmt) {
 		email : cmt.mail,
 		webside : cmt.webside,
 		content : cmt.comment,
-		date : new Date()
+		date : new Date(),
+		approved: false
 	});
 	try {
 		c.save();

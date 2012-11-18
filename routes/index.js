@@ -8,7 +8,7 @@ var config = require('../config').config, EventProxy = require('eventproxy').Eve
 
 var _middle = function(req, resp, func, params) {
 	var proxy = new EventProxy();
-	var eventHooks = ['menus', 'links', 'archives'];
+	var eventHooks = ['menus', 'links', 'archives', 'widgetTags'];
 	if (params.hasPost)
 		eventHooks.push('posts');
 	proxy.assign(eventHooks, func);
@@ -22,6 +22,9 @@ var _middle = function(req, resp, func, params) {
 	})
 	dbEvt.getArchives(function(archives) {
 		proxy.trigger('archives', archives);
+	});
+	dbEvt.getWidgetTags(function(widgetTags) {
+		proxy.trigger('widgetTags', widgetTags);
 	});
 	if (params.hasPost) {
 		dbEvt.getPosts(params.startPost, params.endPost, function(posts, categories, tags, comments) {
@@ -43,7 +46,7 @@ exports.index = function(req, resp) {
 		startPost : (page - 1) * PAGE_COUNT,
 		endPost : page * PAGE_COUNT
 	}
-	_middle(req, resp, function(menus, links, archives, posts) {
+	_middle(req, resp, function(menus, links, archives, widgetTags, posts) {
 		var baseInfo = config.site;
 		var vtype = 1;
 		var data = {
@@ -51,6 +54,7 @@ exports.index = function(req, resp) {
 			site : baseInfo,
 			menus : menus,
 			links : links,
+			widgetTags: widgetTags,
 			archives : archives,
 			posts : posts.posts,
 			tags : posts.tags,

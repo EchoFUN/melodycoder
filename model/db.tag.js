@@ -10,10 +10,17 @@ exports.getWidgetTags = function(callback) {
 		for (var i = 0; i < oriTags.length; i++) {
 			_t = oriTags[i];
 			var _has = false;
-			for(var j=0; j<tags.length; j++) {
-				if(tags[j].title == _t.title) {
-					;
+			for (var j = 0; j < tags.length; j++) {
+				if (tags[j].title == _t.title) {
+					_has = true;
+					tags[j].counter++;
 				}
+			}
+			if (!_has) {
+				tags.push({
+					title : _t.title,
+					counter : 1
+				})
 			}
 		}
 		callback(tags);

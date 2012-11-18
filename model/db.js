@@ -12,7 +12,7 @@ exports.initialize = function() {
     global.db = db;
     
     var menuSchema = mongoose.Schema({title: String, url: String, weight: Number});
-    var Menu = db.model('Menu', menuSchema);
+    db.model('Menu', menuSchema);
 
     var postSchema = mongoose.Schema({date: Date, author: String, title: String, content: String});
     db.model('Post', postSchema);
@@ -36,7 +36,7 @@ exports.initialize = function() {
     }
 }
 
-var dbMenu = require('./db.menu'), dbPost = require('./db.post'), dbLink = require('./db.link'), dbComment = require('./db.comment');
+var dbMenu = require('./db.menu'), dbPost = require('./db.post'), dbLink = require('./db.link'), dbComment = require('./db.comment'), dbTag = require('./db.tag');
 for(var i in dbMenu)
     exports[i] = dbMenu[i];
 for(var i in dbPost)
@@ -45,3 +45,5 @@ for(var i in dbLink)
     exports[i] = dbLink[i];
 for(var i in dbComment)
     exports[i] = dbComment[i];
+for(var i in dbTag)
+	exports[i] = dbTag[i];

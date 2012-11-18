@@ -20,12 +20,12 @@
 </div>
 <% } %>
 
-<% if(typeof tags != 'undefined') { %>
+<% if(typeof widgetTags != 'undefined') { %>
 <div class="widget">
     <h3>标签</h3>
     <div class="tag-cloud">
-    	<% for(var j=0; j<tags.length; j++) { %>
-    	<a class="tag-item" href="javascript:;"><%= tags[j].title %></a>
+    	<% for(var j=0; j<widgetTags.length; j++) { %>
+    	<a class="tag-item" href="javascript:;" style="font-size: <%= widgetTags[j].counter*2 + 10 %>px"><%= widgetTags[j].title %></a>
     	<% } %>
     </div>
 </div>
