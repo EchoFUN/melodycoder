@@ -179,6 +179,10 @@ p.post-content {
     margin: 1em 0;
 }
 
+.article-view p.post-content {
+	height: 200px;
+}
+
 #reply-title,
 #comments-title {
     color: #969696;
@@ -297,13 +301,17 @@ p.pagination .next {
 }
 
 p.pagination .prev a {
+	display: inline-block;
+	line-height: 24px;
     padding: 0 0 0 19px;
-    background-position: -2px -124px;
+    background-position: -2px -120px;
 }
 
 p.pagination .next a {
-    padding: 0 21px 0 0;
-    background-position: 100% -104px;
+	display: inline-block;
+	line-height: 24px;
+	padding: 0 21px 0 0;
+	background-position: 100% -99px;
 }
 
 p.pagination a {

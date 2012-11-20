@@ -47,6 +47,13 @@ exports.index = function(req, resp) {
 		endPost : page * PAGE_COUNT
 	}
 	_middle(req, resp, function(menus, links, archives, widgetTags, posts) {
+		var proxy = new EventProxy();
+		proxy.assign('postCount', 'data', function(postCount, data) {
+			data.postCount = postCount;
+			resp.render('index', data);
+		});
+		
+		// 页面的基本数据
 		var baseInfo = config.site;
 		var vtype = 1;
 		var data = {
@@ -54,6 +61,7 @@ exports.index = function(req, resp) {
 			site : baseInfo,
 			menus : menus,
 			links : links,
+			currentPage: page,
 			widgetTags: widgetTags,
 			archives : archives,
 			posts : posts.posts,
@@ -62,7 +70,13 @@ exports.index = function(req, resp) {
 			categories : posts.categories,
 			url : req.url
 		};
-		resp.render('index', data);
+		proxy.trigger('data', data);
+	
+		// 翻页信息
+		var dbEvt = req.dbEvt;
+		dbEvt.getPostCount(function(postCount) {
+			proxy.trigger('postCount', postCount);
+		});
 	}, params);
 };
 

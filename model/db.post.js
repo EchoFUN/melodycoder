@@ -141,3 +141,15 @@ exports.getArchives = function(callback) {
 	});
 }
 
+/**
+ * @description 获取所有文章的总数
+ * @param {function} callback
+ */
+exports.getPostCount = function(callback) {
+	var Post = db.models.Post;
+	Post.count(function(error, postCount) {
+		callback(postCount);
+	});
+}
+
+
