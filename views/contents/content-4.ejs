@@ -15,7 +15,7 @@
             <% if(typeof post.categories != 'undefined') { %>
             <% for(var i in post.categories) { %>
             <% var title = post.categories[i].title; %>
-            <a href="javascript:;" title="查看 <%= title %> 中的全部文章"><%= title %></a>
+            <a href="javascript:;" title="查看 <%= title %> 中的全部文章"><%= title %></a>,
             <% } %>
             <% } %>
         </span>
