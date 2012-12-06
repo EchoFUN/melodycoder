@@ -5,10 +5,10 @@ exports.config = {
         SITE_NAME: '音韵码工',
 
         // 网站最基本的URL地址
-        SITE_BASE_URL: 'http://10.2.116.27:3000',
+        SITE_BASE_URL: 'http://10.2.116.38:3000',
         
         // 站点静态网址
-        SITE_STATIC_URL: 'http://10.2.116.27:3000',
+        SITE_STATIC_URL: 'http://10.2.116.38:3000',
         
         // 每页显示的文章数目
         PAGE_COUNT: 5
