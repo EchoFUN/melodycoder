@@ -5,7 +5,7 @@
 
 seajs.config({
 	alias : {
-		'prototype' : 'http://127.0.0.1:3000/js/libs/prototype.js'
+		'prototype' : YYMG.baseUrl + '/js/libs/prototype.js'
 	}
 });
 
