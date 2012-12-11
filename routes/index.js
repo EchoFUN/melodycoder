@@ -4,7 +4,16 @@
  *
  */
 
-var config = require('../config').config, EventProxy = require('eventproxy').EventProxy;
+var config = require('../config').config, EventProxy = require('eventproxy').EventProxy, utils = require('../utils');
+
+var isIE6 = function(req) {
+	var userAgent = req.headers['user-agent'], browser = utils.browser(userAgent);
+	var isIE6 = false;
+	if (browser.browser == 'msie' && browser.version == 6) {
+		isIE6 = true;
+	}
+	return isIE6;
+};
 
 var _middle = function(req, resp, func, params) {
 	var proxy = new EventProxy();
@@ -36,7 +45,7 @@ var _middle = function(req, resp, func, params) {
 			});
 		});
 	}
-}
+};
 
 exports.index = function(req, resp) {
 	var PAGE_COUNT = config.site.PAGE_COUNT, page = (!isNaN(Number(req.query.page))) ? Number(req.query.page) : 1;
@@ -52,7 +61,7 @@ exports.index = function(req, resp) {
 			data.postCount = postCount;
 			resp.render('index', data);
 		});
-		
+
 		// 页面的基本数据
 		var baseInfo = config.site;
 		var vtype = 1;
@@ -61,8 +70,8 @@ exports.index = function(req, resp) {
 			site : baseInfo,
 			menus : menus,
 			links : links,
-			currentPage: page,
-			widgetTags: widgetTags,
+			currentPage : page,
+			widgetTags : widgetTags,
 			archives : archives,
 			posts : posts.posts,
 			tags : posts.tags,
@@ -71,7 +80,7 @@ exports.index = function(req, resp) {
 			url : req.url
 		};
 		proxy.trigger('data', data);
-	
+
 		// 翻页信息
 		var dbEvt = req.dbEvt;
 		dbEvt.getPostCount(function(postCount) {
@@ -110,7 +119,8 @@ exports.experiment = function(req, resp) {
 			menus : menus,
 			vtype : vtype,
 			site : baseInfo,
-			url : req.url
+			url : req.url,
+			isIE6 : isIE6(req)
 		};
 		resp.render('index', data);
 	}, params);

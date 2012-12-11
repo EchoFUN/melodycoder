@@ -66,3 +66,17 @@ exports.addComment = function(req, resp) {
 	ret.status.code = dbEvt.addComment(req.body);
 	resp.end(JSON.stringify(ret));
 }
+
+/**
+ * @description 发布文章接口
+ * @param {Object} req
+ * @param {Object} resp
+ */
+exports.publishPost = function(req, resp) {
+	
+}
+
+
+
+
+
