@@ -5,7 +5,7 @@
 
 seajs.config({
 	alias : {
-		'prototype' : YYMG.baseUrl + '/js/libs/prototype.js'
+		'prototype' : YYMG.staticUrl + '/js/libs/prototype.js'
 	}
 });
 
