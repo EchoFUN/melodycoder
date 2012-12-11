@@ -19,6 +19,9 @@ seajs.use(YYMG.modules, function() {
 				if(module && module.init && typeof module.init == 'function')
 					module.init();
 			}
+			
+			// IE6背景半透明修复
+			DD_belatedPNG.fix('.pngfix');
 		} catch(e) {
 			alert(e);
 		}

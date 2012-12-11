@@ -28,7 +28,6 @@ h2 a:hover {
 #header .header-wrap {
     padding-top: 20px;
     width: 960px;
-    height: 28px;
     margin: 0 auto;
     position: relative;
 }
@@ -39,9 +38,10 @@ h2 a:hover {
 }
 
 #header #site-description {
-	position: absolute;
-	bottom: -1px;
+	bottom: 0;
 	left: 120px;
+	*left: 150px;
+	position: absolute;
 }
 
 #header .navigator {
@@ -64,8 +64,10 @@ h2 a:hover {
 }
 
 #header .navigator .item {
-    float: left;
     cursor: pointer;
+    float: left;
+    text-align: center;
+    _width: 90px;
 }
 
 #header .navigator .item a {
