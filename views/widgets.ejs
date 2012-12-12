@@ -1,4 +1,4 @@
-<% if(typeof rectPosts != 'undefined') {%>
+<% if(typeof rectPosts != 'undefined' && rectPosts.length != 0) {%>
 <div class="widget">
     <h3>近期文章</h3>
     <ul>
@@ -9,7 +9,7 @@
 </div>    
 <% } %>  
 
-<% if(typeof archives != 'undefined') { %>
+<% if(typeof archives != 'undefined' && archives.length != 0) { %>
 <div class="widget">        
     <h3>文章归档</h3>       
     <ul>
@@ -20,7 +20,7 @@
 </div>
 <% } %>
 
-<% if(typeof widgetTags != 'undefined') { %>
+<% if(typeof widgetTags != 'undefined' && widgetTags.length != 0) { %>
 <div class="widget">
     <h3>标签</h3>
     <div class="tag-cloud">
@@ -31,7 +31,7 @@
 </div>
 <% } %>
 
-<% if(typeof links != 'undefined') { %>
+<% if(typeof links != 'undefined' && links.length != 0) { %>
 <div class="widget">
     <h3>链接</h3>
     <ul>
