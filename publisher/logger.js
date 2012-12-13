@@ -13,9 +13,9 @@ var Logger = {
 
 	_check : function() {
 		var isExist = fs.existsSync(LOGGER);
-		if (!isExist) {
-			return fs.openSync(LOGGER, "w");
-		}
+		if (!this.toFile)
+			if (!isExist)
+				return fs.openSync(LOGGER, "w");
 	},
 
 	log : function(message) {
