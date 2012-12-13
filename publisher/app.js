@@ -16,7 +16,8 @@ var Publisher = function(opts) {
 
 var pFn = Publisher.prototype;
 pFn.init = function() {
-	var articles = [];
+	var articles = [], isSuccess = false;
+	;
 
 	// 查找统计目录中扩展名为.json的文件
 	var files = fs.readdirSync('./');
@@ -33,15 +34,22 @@ pFn.init = function() {
 	// 分析该文件的结构是否合法
 	for (var j = 0; j < articles.length; j++) {
 		var article = articles[j];
-		
+
 		try {
-			Logger.log('debugger');
 			var content = fs.readFileSync(article.name);
+			var flag = this.opts.parser.parse(content);
 		} catch (e) {
-			Logger.log('debugger');
+			Logger.log('Error getting the content for the file.');
 		}
 	}
+
+	if (isSuccess)
+		Logger.error('Publish error !');
+	else
+		Logger.success('Publish success !');
 };
 
-var parser = new require('./parser');
-new Publisher(parser);
+var Parser = parser.Parser;
+new Publisher({
+	parser : new Parser('BASIC')
+});

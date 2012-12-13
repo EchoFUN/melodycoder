@@ -5,8 +5,22 @@
  *
  */
 
-var Parser = function() {
+var Logger = require('./logger');
 
-}
+var Parser = function(type) {
+	this.type = type
+	if ( typeof this[type] == 'undefined')
+		Logger.error('Has no parser for pasrsing the document !');
+};
 
-exports.Parser = Parser; 
+var fn = Parser.prototype;
+fn['BASIC'] = function(content) {
+	
+};
+
+fn.parse = function(content) {
+	var parser = this[type];
+	return parser(content);
+};
+
+exports.Parser = Parser;

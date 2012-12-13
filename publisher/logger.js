@@ -9,6 +9,8 @@ var fs = require('fs');
 
 var LOGGER = './puglisher.log';
 var Logger = {
+	toFile : false,
+
 	_check : function() {
 		var isExist = fs.existsSync(LOGGER);
 		if (!isExist) {
@@ -17,15 +19,25 @@ var Logger = {
 	},
 
 	log : function(message) {
-		var handle = this._check();
+		this._check();
+		var prefix = '------ Log ------ + ';
+		message = prefix + message;
+		if (this.toFile)
+			fs.appendFile(LOGGER, message, encoding = 'utf8');
+		else
+			console.log(message);
 	},
 
 	warm : function() {
-		var handle = this._check();
+		this._check();
 	},
 
 	error : function() {
-		var handle = this._check();
+		this._check();
+	},
+
+	success : function() {
+
 	}
 };
 
