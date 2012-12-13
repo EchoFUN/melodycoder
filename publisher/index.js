@@ -5,15 +5,18 @@
  *
  */
 
-var fs = require('fs');
+// 包引入
+var fs = require('fs'), parser = require('./parser'), log = require('./logger');
+
+var Logger = log.Logger;
 
 var Publisher = function(opts) {
 	this.opts = opts || {};
 	this.init();
 };
 
-var fn = Publisher.prototype;
-fn.init = function() {
+var pFn = Publisher.prototype;
+pFn.init = function() {
 	var articles = [];
 
 	// 查找统计目录中扩展名为.json的文件
@@ -22,12 +25,22 @@ fn.init = function() {
 		var fName = files[j];
 		var extName = fName.split('.').pop();
 		if (extName == 'json') {
-			articles.push(fName);
+			articles.push({
+				name : fName
+			});
 		}
 	}
 
 	// 分析该文件的结构是否合法
+	for (var j = 0; j < articles.length; j++) {
+		var article = articles[j];
 
+		try {
+			var content = fs.readFileSync(article.name);
+		} catch (e) {
+			Logger.log('debugger');
+		}
+	}
 };
 
 var parser = new require('./parser');
