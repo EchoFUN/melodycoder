@@ -2,7 +2,7 @@
  * @fileOverview Melody coder 文章的发布器，包括了对文章的读取，分析，以及最后的发布一套流程
  * @author <a href="mailto:xukai.ken@gmail.com">(XU Kai)xukai.ken@gmail.com</a>
  * @version 0.1
- * 
+ *
  */
 
 var fs = require('fs');
@@ -27,7 +27,8 @@ fn.init = function() {
 	}
 
 	// 分析该文件的结构是否合法
-	
+
 };
 
-new Publisher();
+var parser = new require('./parser');
+new Publisher(parser);
