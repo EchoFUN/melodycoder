@@ -16,6 +16,9 @@ var Parser = function(type) {
 var fn = Parser.prototype;
 fn['BASIC'] = function(content) {
 	
+	
+	
+	return {};
 };
 
 fn.parse = function(content) {

@@ -5,7 +5,7 @@
  *
  */
 
-var fs = require('fs'), parser = require('./parser'), log = require('./logger');
+var fs = require('fs'), parser = require('./parser'), log = require('./logger'), http = require('http');
 
 var Logger = log.Logger;
 
@@ -15,6 +15,8 @@ var Publisher = function(opts) {
 };
 
 var pFn = Publisher.prototype;
+
+// 初始化
 pFn.init = function() {
 	var articles = [], isSuccess = false;
 	;
@@ -37,16 +39,34 @@ pFn.init = function() {
 
 		try {
 			var content = fs.readFileSync(article.name);
-			var flag = this.opts.parser.parse(content);
+
+			var Parser;
+			if (this.opts.parser)
+				Parser = this.opts.parser
+			var hook = Parser.parse(content);
+			if (hook)
+				for (var i in hook)
+				article[i] = hook[i];
 		} catch (e) {
 			Logger.log('Error getting the content for the file.');
 		}
 	}
+	this.publish(articles);
 
 	if (isSuccess)
 		Logger.error('Publish error !');
 	else
 		Logger.success('Publish success !');
+};
+
+// 发布文章
+pFn.publish = function(articles) {
+	var send = function(article, index) {
+		
+		// 发送文章到服务器
+		
+	};
+	articles.forEach(send);
 };
 
 var Parser = parser.Parser;
