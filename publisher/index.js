@@ -5,7 +5,6 @@
  *
  */
 
-// 包引入
 var fs = require('fs'), parser = require('./parser'), log = require('./logger');
 
 var Logger = log.Logger;
@@ -34,8 +33,9 @@ pFn.init = function() {
 	// 分析该文件的结构是否合法
 	for (var j = 0; j < articles.length; j++) {
 		var article = articles[j];
-
+		
 		try {
+			Logger.log('debugger');
 			var content = fs.readFileSync(article.name);
 		} catch (e) {
 			Logger.log('debugger');

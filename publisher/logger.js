@@ -5,6 +5,8 @@
  *
  */
 
+var fs = require('fs');
+
 var LOGGER = './puglisher.log';
 var Logger = {
 	_check : function() {
