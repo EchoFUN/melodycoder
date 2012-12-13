@@ -19,7 +19,7 @@ fn['BASIC'] = function(content) {
 };
 
 fn.parse = function(content) {
-	var parser = this[type];
+	var parser = this[this.type];
 	return parser(content);
 };
 
