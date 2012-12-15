@@ -68,12 +68,13 @@ exports.addComment = function(req, resp) {
 }
 
 exports.publishPost = function(req, resp) {
-	console.log(req.body);
-	resp.end(JSON.stringify({
+	var ret = {
 		status: {
-			code: 1
+			code: 0
 		}
-	}));
+	}
+	ret.status.code = dbEvt.addPost(req.body);
+	resp.end(JSON.stringify(ret));
 }
 
 

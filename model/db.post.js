@@ -52,13 +52,14 @@ exports.getPosts = function() {
 			pid : {
 				'$in' : pids
 			},
-			approved: true
+			approved : true
 		}, function(error, comments) {
 			proxy.trigger('comments', comments);
 		});
 		proxy.trigger('posts', posts);
 	});
-}
+};
+
 /**
  * @description 获取单篇文章的内容
  * @param {string} pid 需要获取的文章的id
@@ -97,7 +98,8 @@ exports.getPostById = function(pid, callback) {
 	}, function(error, comments) {
 		proxy.trigger('comments', comments);
 	});
-}
+};
+
 /**
  * @description 获取近期发表的文章
  * @param {function} callback 获取内容成功后的回调
@@ -109,7 +111,8 @@ exports.getRectPosts = function(callback) {
 	}).limit(5).exec(function(error, Posts) {
 		callback(Posts);
 	});
-}
+};
+
 /**
  * @description 获取所有的归档文件
  * @param {function} callback 获取内容成功后的回调
@@ -139,7 +142,7 @@ exports.getArchives = function(callback) {
 		}
 		callback(Archives);
 	});
-}
+};
 
 /**
  * @description 获取所有文章的总数
@@ -150,6 +153,12 @@ exports.getPostCount = function(callback) {
 	Post.count(function(error, postCount) {
 		callback(postCount);
 	});
-}
+};
 
+/**
+ * @description 添加文章
+ */
+exports.addPost = function(pst) {
+	
+}
 

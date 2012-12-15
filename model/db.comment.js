@@ -14,7 +14,8 @@ exports.getComments = function(pid) {
 	}, function(error, comments) {
 
 	});
-}
+};
+
 /**
  * @description 保存评论
  * @param {Object} author 用户名
@@ -39,4 +40,4 @@ exports.addComment = function(cmt) {
 		return 0;
 	}
 	return 1;
-}
+};
