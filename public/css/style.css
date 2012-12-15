@@ -122,6 +122,7 @@ h2 a:hover {
 
 #body .main {
     width: 650px;
+    margin-top: 10px;
 }
 
 #body .article-list {
@@ -193,7 +194,7 @@ p.post-content {
 }
 
 .comment-list .comment {
-	margin: 0.5em 0;
+	margin-top: 5px;
 	padding: 10px 20px;
 	border: 1px solid #E6E6E6;
 }
@@ -342,7 +343,7 @@ p.pagination a {
 }
 
 .comments {
-	margin-top: 15px;
+	margin-top: 30px;
 }
 
 .tag-cloud {
