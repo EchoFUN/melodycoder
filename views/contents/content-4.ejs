@@ -24,7 +24,11 @@
     </p>
     <p class="post-content"><%= post.content %></p>
     <p class="tags">
-        <span><a href="javascript:;" title="吉他">吉他</a></span>
+    	<span>
+    	<% for(var i in post.tags) { %>
+			<a href="javascript:;" title="<%= post.tags[i].title %>"><%= post.tags[i].title %></a>    	
+    	<% } %>
+    	</span>
     </p>
     <!--
     <p class="pagination">
