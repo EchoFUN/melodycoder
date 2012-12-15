@@ -182,7 +182,7 @@ p.post-content {
 }
 
 .article-view p.post-content {
-	height: 200px;
+	/* height: 200px; */
 }
 
 #reply-title,
