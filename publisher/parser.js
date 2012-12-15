@@ -15,10 +15,7 @@ var Parser = function(type) {
 
 var fn = Parser.prototype;
 fn['BASIC'] = function(content) {
-	
-	
-	
-	return {};
+	return JSON.parse(content);
 };
 
 fn.parse = function(content) {

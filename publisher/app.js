@@ -38,7 +38,7 @@ pFn.init = function() {
 		var article = articles[j];
 
 		try {
-			var content = fs.readFileSync(article.name);
+			var content = fs.readFileSync('./' + article.name);
 
 			var Parser;
 			if (this.opts.parser)
