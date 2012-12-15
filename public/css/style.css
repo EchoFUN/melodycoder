@@ -358,7 +358,9 @@ p.pagination a {
 	margin-left: 10px;
 }
 
-
+.sina-widget {
+	border: 1px solid #ccc;
+}
 
 
 
