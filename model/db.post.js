@@ -159,6 +159,36 @@ exports.getPostCount = function(callback) {
  * @description 添加文章
  */
 exports.addPost = function(pst) {
-	
-}
+	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
+	var p = new Post({
+		date : new Date(),
+		author : pst.author,
+		title : pst.title,
+		content : pst.content
+	});
 
+	try {
+		var saveHook = function(error, postHook) {
+			if (error)
+				throw error;
+
+			var pid = postHook.id;
+			var tags = pst.tags.split(',');
+			tags.forEach(function(tag, index) {
+				new Tag({
+					pid : pid,
+					title : tag
+				}).save();
+			});
+			var c = new Category({
+				pid : pid,
+				title : pst.category
+			});
+			c.save();
+		};
+		p.save(saveHook);
+	} catch (e) {
+		return 0;
+	}
+	return 1;
+}

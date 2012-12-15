@@ -68,16 +68,17 @@ exports.addComment = function(req, resp) {
 }
 
 exports.publishPost = function(req, resp) {
+	dbEvt = req.dbEvt;
 	var ret = {
-		status: {
-			code: 0
+		status : {
+			code : 0
 		}
 	}
-	ret.status.code = dbEvt.addPost(req.body);
+	try {
+		var postData = JSON.parse(req.body.r);
+	} catch (e) {
+		throw Error('Error parsing the request.');
+	}
+	ret.status.code = dbEvt.addPost(postData);
 	resp.end(JSON.stringify(ret));
 }
-
-
-
-
-
