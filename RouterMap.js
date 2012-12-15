@@ -1,4 +1,5 @@
 var site = require('./routes/index'), user = require('./routes/user'), post = require('./routes/post'), admin = require('./routes/admin');
+var config = require('./config').config;
 
 module.exports = function(app) {
 	app.get('/', site.index);
@@ -14,4 +15,9 @@ module.exports = function(app) {
 
 	// 管理评论
 	app.get('/admin/comments', admin.comments);
+	
+	// 文章发布
+	var publishUrl = config.site.ARTICLE_PUBLISH_URL;
+	app.post(publishUrl, post.publishPost);
+	app.get(publishUrl, post.publishPost);
 }; 

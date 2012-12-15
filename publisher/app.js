@@ -5,7 +5,11 @@
  *
  */
 
-var fs = require('fs'), parser = require('./parser'), log = require('./logger'), http = require('http');
+var fs = require('fs'), 
+	http = require('http'),
+	log = require('./logger'),
+	config = require('../config').config;
+	parser = require('./parser'); 
 
 var Logger = log.Logger;
 
@@ -19,7 +23,6 @@ var pFn = Publisher.prototype;
 // 初始化
 pFn.init = function() {
 	var articles = [], isSuccess = false;
-	;
 
 	// 查找统计目录中扩展名为.json的文件
 	var files = fs.readdirSync('./');
@@ -48,23 +51,30 @@ pFn.init = function() {
 				for (var i in hook)
 				article[i] = hook[i];
 		} catch (e) {
-			Logger.log('Error getting the content for the file.');
+			Logger.log('Error getting the content for the file .');
 		}
 	}
-	this.publish(articles);
-
-	if (isSuccess)
-		Logger.error('Publish error !');
-	else
-		Logger.success('Publish success !');
+	this.publish(articles, function() {
+		
+	});
 };
 
 // 发布文章
-pFn.publish = function(articles) {
+pFn.publish = function(articles, callback) {
 	var send = function(article, index) {
-		
+
 		// 发送文章到服务器
-		
+		var options = {
+			hostname : config.SITE_BASE_URL,
+			port : 80,
+			path : config.ARTICLE_PUBLISH_URL,
+			method : 'POST'
+		}
+		Logger.log('Request the interface form server side .');
+		var req = http.request(options, function(resp) {
+			
+			callback();
+		});
 	};
 	articles.forEach(send);
 };
@@ -73,3 +83,4 @@ var Parser = parser.Parser;
 new Publisher({
 	parser : new Parser('BASIC')
 });
+
