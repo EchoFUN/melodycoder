@@ -68,6 +68,7 @@ exports.addComment = function(req, resp) {
 }
 
 exports.publishPost = function(req, resp) {
+	console.log(req.body);
 	resp.end(JSON.stringify({
 		status: {
 			code: 1

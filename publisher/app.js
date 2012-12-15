@@ -5,11 +5,8 @@
  *
  */
 
-var fs = require('fs'), 
-	http = require('http'),
-	log = require('./logger'),
-	config = require('../config').config;
-	parser = require('./parser'); 
+var fs = require('fs'), http = require('http'), log = require('./logger'), config = require('../config').config;
+parser = require('./parser');
 
 var Logger = log.Logger;
 
@@ -31,7 +28,7 @@ pFn.init = function() {
 		var extName = fName.split('.').pop();
 		if (extName == 'json') {
 			articles.push({
-				name : fName
+				title : fName
 			});
 		}
 	}
@@ -41,7 +38,8 @@ pFn.init = function() {
 		var article = articles[j];
 
 		try {
-			var content = fs.readFileSync('./' + article.name);
+			var content = fs.readFileSync('./' + article.title);
+			Logger.log('Read the content from article ' + article.title + ' .');
 
 			var Parser;
 			if (this.opts.parser)
@@ -55,26 +53,47 @@ pFn.init = function() {
 		}
 	}
 	this.publish(articles, function() {
-		
+		Logger.log('Publish the article successfully !');
 	});
 };
 
 // 发布文章
 pFn.publish = function(articles, callback) {
 	var send = function(article, index) {
+		var reqData = 'r=' + JSON.stringify(article);
 
 		// 发送文章到服务器
 		var options = {
-			hostname : config.SITE_BASE_URL,
-			port : 80,
-			path : config.ARTICLE_PUBLISH_URL,
-			method : 'POST'
+			hostname : 'localhost',
+			port : 3000,
+			path : config.site.ARTICLE_PUBLISH_URL,
+			method : 'POST',
+			headers : {
+				'Content-Type' : 'application/x-www-form-urlencoded',
+				'Content-Length' : reqData.length
+			}
 		}
+
 		Logger.log('Request the interface form server side .');
 		var req = http.request(options, function(resp) {
-			
-			callback();
+			if (resp.statusCode == 200) {
+				resp.on('data', function(chunk) {
+					chunk = JSON.parse(chunk);
+					if (chunk.status.code == 1) {
+						callback();
+					} else {
+						Logger.error(chunk.status.content);
+					}
+				});
+			}
 		});
+		req.on('error', function(e) {
+			Logger.log('Problem with request: ' + e.message);
+		});
+		
+		// 写数据
+		req.write(reqData);
+		req.end();
 	};
 	articles.forEach(send);
 };

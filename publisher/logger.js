@@ -18,14 +18,16 @@ var Logger = {
 				return fs.openSync(LOGGER, "w");
 	},
 
-	log : function(message) {
-		this._check();
-		var prefix = '------ Log ------ + ';
-		message = prefix + message;
+	_output : function(message) {
 		if (this.toFile)
 			fs.appendFile(LOGGER, message, encoding = 'utf8');
 		else
 			console.log(message);
+	},
+
+	log : function(message) {
+		this._check();
+		this._output('------ Log ------ + ' + message);
 	},
 
 	warm : function() {
