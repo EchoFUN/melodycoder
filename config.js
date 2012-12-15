@@ -14,7 +14,7 @@ exports.config = {
         ARTICLE_PUBLISH_URL: '/publish',
         
         // 每页显示的文章数目
-        PAGE_COUNT: 5
+        PAGE_COUNT: 10
     },
 
     db: {
