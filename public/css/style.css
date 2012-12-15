@@ -346,6 +346,10 @@ p.pagination a {
 	margin-top: 30px;
 }
 
+.comments .respond {
+	margin-top: 9px;
+}
+
 .tag-cloud {
 	padding: 5px;
 }
