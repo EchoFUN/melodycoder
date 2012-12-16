@@ -61,10 +61,16 @@ exports.addComment = function(req, resp) {
 		status : {
 			code : 0
 		},
-		data : new Date().getTime()
+		data : {
+			time: new Date().getTime()
+		}
 	};
-	ret.status.code = dbEvt.addComment(req.body);
-	resp.end(JSON.stringify(ret));
+	dbEvt.addComment(req.body, function(code, isApproved, content) {
+		ret.status.code = code;
+		ret.status.content = content || '';
+		ret.data.isApproved = isApproved || false;
+		resp.end(JSON.stringify(ret));
+	});
 }
 
 exports.publishPost = function(req, resp) {

@@ -23,21 +23,35 @@ exports.getComments = function(pid) {
  * @param {Object} mail
  * @param {Object} comment
  */
-exports.addComment = function(cmt) {
+exports.addComment = function(cmt, callback) {
 	var Comment = db.models.Comment;
-	var c = new Comment({
-		pid : cmt.postId,
-		name : cmt.author,
-		email : cmt.mail,
-		webside : cmt.webside,
-		content : cmt.comment,
-		date : new Date(),
-		approved: false
+	Comment.find({
+		name : cmt.author
+	}, function(error, comments) {
+		if (error)
+			throw Error();
+
+		var isApproved = false;
+		if (comments.length != 0) {
+			isApproved = true;
+		}
+		var c = new Comment({
+			pid : cmt.postId,
+			name : cmt.author,
+			email : cmt.mail,
+			webside : cmt.webside,
+			content : cmt.comment,
+			date : new Date(),
+			approved : isApproved
+		});
+		c.save(function(error, commentHook) {
+			if (error) {
+				callback(0, isApproved, error);
+			} else {
+				if (commentHook.id) {
+					callback(1, isApproved);
+				}
+			}
+		});
 	});
-	try {
-		c.save();
-	} catch (e) {
-		return 0;
-	}
-	return 1;
 };
