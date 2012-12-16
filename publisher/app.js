@@ -60,7 +60,7 @@ pFn.init = function() {
 // 发布文章
 pFn.publish = function(articles, callback) {
 	var send = function(article, index) {
-		var reqData = 'r=' + JSON.stringify(article);
+		var reqData = 'r=' + encodeURIComponent(JSON.stringify(article));
 
 		// 发送文章到服务器
 		var options = {
