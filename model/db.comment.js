@@ -33,7 +33,13 @@ exports.addComment = function(cmt, callback) {
 
 		var isApproved = false;
 		if (comments.length != 0) {
-			isApproved = true;
+			for (var i in comments) {
+				var tmpCmt = comments[i];
+				if (tmpCmt.approved) {
+					isApproved = true;
+					break;					
+				}
+			}
 		}
 		var c = new Comment({
 			pid : cmt.postId,

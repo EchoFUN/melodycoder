@@ -4,31 +4,54 @@
  */
 
 define(function(require, exports, module) {
-	
-	// 弹框组件	
-	var dialogHTML = '';
-	var dialogTPL = new Template('');
-	
+
+	// 弹框组件
 	var dialog = Class.create({
-		initialize: function(opts) {
+		initialize : function(opts) {
+			var scrollTop = document.viewport.getScrollOffsets().top;
 			var dopts = {
-				title: '提示',
-				top: 0,
-				left: 0,
-				content: ''
+				title : '提示',
+				top : scrollTop + 200,
+				left : 0,
+				content : ''
 			}
 			opts = Object.extend(dopts, opts);
-			this.opts = opts;
+			this._opts = opts;
+			this._ready();
+			this._constructFrame();
 		},
-		
-		setWidth: function() {
-			
+
+		_ready : function() {
+
+			// 如果已经存在则删除
+			var dialogs = $$('.dialog');
+			dialogs.forEach(function(dia) {
+				dia.remove();
+			});
+			this._dialogEl = new Element('div', {
+				'class' : 'dialog'
+			});
 		},
-		
-		setContent: function() {
+
+		_constructFrame : function() {
+			var dialogEl = this._dialogEl;
+			document.body.appendChild(dialogEl);
 			
+			var _diaW = dialog.getStyle('width'), _diaH = dialog.getStyle('height');
+			dialog.setStyle({
+				top : this.opts.top,
+				left : this.opts.left 
+			});
+		},
+
+		setWidth : function() {
+
+		},
+
+		setContent : function() {
+
 		}
 	});
 	exports.dialog = dialog;
-		
+
 });

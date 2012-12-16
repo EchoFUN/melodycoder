@@ -17,6 +17,7 @@ define(function(require, exports, module) {
 	    					<div class="clear"></div>\
 	    					<div class="comment-content">#{comment}</div>\
 	    				</div>';
-	    				
+	   
+	  exports.dialogTPL = ''; 
 	
 });
