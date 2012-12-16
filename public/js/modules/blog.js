@@ -25,21 +25,26 @@ define(function(require, exports, module) {
 					onSuccess: function(r) {
 						var r = r.responseText.evalJSON();
 						if (r.status.code == 1) {
-							/* var date = new Date(r.data), m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec'];
-							var view = {
-								pid: YYMG.pid,
-								author: authorEl.value,
-								comment: commentEl.value.escapeHTML(),
-								month: m[date.getMonth()],
-								date: date.getDate(),
-								year: date.getFullYear(),
-								hour: date.getHours(),
-								minute: date.getMinutes()
+							if (r.data.isApproved) {
+								var date = new Date(r.data.time), m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec'];
+								var view = {
+									pid: YYMG.pid,
+									author: authorEl.value,
+									comment: commentEl.value.escapeHTML(),
+									month: m[date.getMonth()],
+									date: date.getDate(),
+									year: date.getFullYear(),
+									hour: date.getHours(),
+									minute: date.getMinutes()
+								}
+								var commentHTML = commentTPL.evaluate(view);
+								if (commentList)
+									commentList.insert(commentHTML);
+								else 
+									location.reload();
+							} else {
+								new dialog({type: 'inform', content: '评论成功！需呀管理员审核才能显示。'});
 							}
-							var commentHTML = commentTPL.evaluate(view);
-							commentList.insert(commentHTML); */
-							
-							
 						} else {
 							new dialog({content: r.status.content});
 						}
