@@ -18,7 +18,7 @@ exports.getPosts = function() {
 	};
 	if ( typeof arg[0] == 'function') {
 		callback = arg[0];
-	} else {
+	} else { 
 		startPost = arg[0];
 		endPost = arg[1];
 		callback = arg[2];

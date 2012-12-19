@@ -22,7 +22,7 @@
         <% cmtLen = post.comments.length; %>
         <span class="comments"><a href="javascript:;" title="<%= post.title %>文章上有<%= cmtLen %>条评论"><%= cmtLen %></a></span>
     </p>
-    <p class="post-content"><%- post.content %></p>
+    <div class="post-content"><%- post.content %></div>
     <p class="tags">
     	<span>
     	<% for(var i in post.tags) { %>
