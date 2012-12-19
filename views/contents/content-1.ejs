@@ -26,7 +26,7 @@
             } %>
             <span class="comments"><a href="#nogo" title="<%= posts[i].title %>上有<%= counter %>条评论"><%= counter %></a></span>
         </p>
-        <p class="post-content"><%= posts[i].content %></p>
+        <p class="post-content"><%- posts[i].content %></p>
         <p class="more"></p>
         <% var tlist = [];
         for(var j in tags) {
