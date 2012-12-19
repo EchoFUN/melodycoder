@@ -1,7 +1,7 @@
 {
 	"title": "开篇第一文章",
 	"author" : "EchoFUN",
-	"content": "历时三个月的开发，Melody coder 0.1版本上线了！Github地址：https://github.com/EchoFUN/melodycoder，欢迎fork（not fuck）！谢谢。",
+	"content": "<div id=\"testDOM\">Hello, world !</div>",
 	"tags": "node.js,web应用,博客",
 	"category": "node.js"
 }
