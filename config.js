@@ -5,10 +5,10 @@ exports.config = {
         SITE_NAME: '音韵码工',
 
         // 网站最基本的URL地址
-        SITE_BASE_URL: 'http://localhost:3000',
+        SITE_BASE_URL: 'http://node.renren.com',
         
         // 站点静态网址
-        SITE_STATIC_URL: 'http://localhost:3000',
+        SITE_STATIC_URL: 'http://node.renren.com',
         
         // 文章上传接口
         ARTICLE_PUBLISH_URL: '/publish',

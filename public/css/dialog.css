@@ -1,0 +1,16 @@
+.dialog {
+	font-size: 12px;
+	position: absolute;
+	width: 400px;
+	border: 1px solid #ccc;
+	height: 300px;
+	background-color: #F1F1F1;
+}
+
+.dialog .title {
+	color: #FF6000;
+	background-color: #2B2B2B;
+	height: 40px;
+	line-height: 40px;
+}
+
