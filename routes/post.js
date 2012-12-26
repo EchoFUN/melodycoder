@@ -81,7 +81,7 @@ exports.publishPost = function(req, resp) {
 		}
 	}
 	try {
-		var postData = JSON.parse(decodeURIComponent(req.body.r));
+		var postData = JSON.parse(req.body.r);
 	} catch (e) {
 		throw Error('Error parsing the request.');
 	}
