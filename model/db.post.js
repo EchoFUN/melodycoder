@@ -27,7 +27,7 @@ exports.getPosts = function() {
 	var eventHooks = ['posts', 'categories', 'tags', 'comments'];
 	proxy.assign(eventHooks, callback);
 	Post.find().skip(startPost).limit(endPost).sort({
-		date : 1
+		date : -1
 	}).exec(function(error, posts) {
 		var pids = [];
 		for (var i in posts) {
@@ -160,8 +160,9 @@ exports.getPostCount = function(callback) {
  */
 exports.addPost = function(pst) {
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
+	var date = (pst.time && pst.time.length != 0) ? new Date(parseInt(pst.time)) : new Date();
 	var p = new Post({
-		date : (pst.time && pst.time.length != 0) ? new Date(pst.time) : new Date(),
+		date : date,
 		author : pst.author,
 		title : pst.title,
 		content : pst.content
