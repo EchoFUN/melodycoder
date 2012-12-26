@@ -3,5 +3,6 @@
 	"author" : "EchoFUN",
 	"path": "./content/1",
 	"tags": "node.js,你好",
-	"category": "node.js"
+	"category": "node.js",
+	"time": ""
 }

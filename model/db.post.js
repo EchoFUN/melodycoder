@@ -18,7 +18,7 @@ exports.getPosts = function() {
 	};
 	if ( typeof arg[0] == 'function') {
 		callback = arg[0];
-	} else { 
+	} else {
 		startPost = arg[0];
 		endPost = arg[1];
 		callback = arg[2];
@@ -161,7 +161,7 @@ exports.getPostCount = function(callback) {
 exports.addPost = function(pst) {
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
 	var p = new Post({
-		date : new Date(),
+		date : (pst.time && pst.time.length != 0) ? new Date(pst.time) : new Date(),
 		author : pst.author,
 		title : pst.title,
 		content : pst.content
