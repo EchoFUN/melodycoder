@@ -5,7 +5,7 @@
  *
  */
 
-var Logger = require('./logger');
+var Logger = require('./logger'), fs = require('fs');
 
 var Parser = function(type) {
 	this.type = type
@@ -15,7 +15,14 @@ var Parser = function(type) {
 
 var fn = Parser.prototype;
 fn['BASIC'] = function(content) {
-	return JSON.parse(content);
+	var artInfo = JSON.parse(content);
+	var artPath = artInfo.path;
+	if (fs.existsSync(artPath)) {
+		artInfo.content = fs.readFileSync(artPath).toString();
+		return artInfo;
+	} else {
+		throw new Error('Article file not exist !');
+	}
 };
 
 fn.parse = function(content) {
