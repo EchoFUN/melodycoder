@@ -1,7 +1,7 @@
 {
 	"title": "开篇第一文章",
 	"author" : "EchoFUN",
-	"content": "<div id=\"testDOM\">Hello, world !</div>",
-	"tags": "node.js,web应用,博客",
+	"path": "./content/1",
+	"tags": "node.js,你好",
 	"category": "node.js"
 }
