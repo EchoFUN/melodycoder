@@ -125,3 +125,8 @@ exports.experiment = function(req, resp) {
 		resp.render('index', data);
 	}, params);
 };
+
+// 获取当前网站的状态信息
+exports.information = function() {
+	
+};
