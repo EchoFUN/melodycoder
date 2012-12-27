@@ -5,7 +5,7 @@
  *
  */
 
-var Logger = require('./logger'), fs = require('fs');
+var Logger = require('./logger'), fs = require('fs'), jsdom = require('jsdom');
 
 var Parser = function(type) {
 	this.type = type
@@ -18,7 +18,16 @@ fn['BASIC'] = function(content) {
 	var artInfo = JSON.parse(content);
 	var artPath = artInfo.path;
 	if (fs.existsSync(artPath)) {
-		artInfo.content = fs.readFileSync(artPath).toString();
+		
+		// 预定义需要转义的标签
+		var escapedTags = ['pre'];
+		
+		// 获取文章的内容，并且对一些固定的标签进行转义，例如<pre></pre>
+		var artContent = fs.readFileSync(artPath).toString();
+		
+		
+		
+		artInfo.content = artContent;
 		return artInfo;
 	} else {
 		throw new Error('Article file not exist !');

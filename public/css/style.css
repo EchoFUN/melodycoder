@@ -178,9 +178,13 @@ p.post-meta span.comments {
     margin-left: 9px;
 }
 
-p.post-content,
 div.post-content {
     margin: 1em 0;
+}
+
+div.post-content p {
+	margin: 0 0 1.2em;
+	padding: 0;
 }
 
 .article-view p.post-content {

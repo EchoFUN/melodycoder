@@ -1,0 +1,95 @@
+<p>本文中用到的示例代码：</p>
+
+<pre lang="javascript">
+<script src="./prototype.js"></script>
+<div>
+	<div class="node_1" id="node_1">
+		<span class="node_3" id="node_3"></span>
+	</div>
+	<div class="node_2" id="node_2">
+		<span class="node_4"></span>
+		<span class="node_4"></span>
+	</div>
+	<form id="test">
+		<input name="ipt_a" type="text" />
+		<input name="ipt_b" type="text" />
+		<input name="ipt_c" type="text" />
+	</form>
+</div>
+</pre><br />
+<p>$美元符号。</p>
+
+<p>
+关于对这个美元符号的认识。<br />
+普通前端：哦，这不是jQuery选择符号吗？<br />
+文艺前端：这是一个自定义的函数哦！<br />
+2B前端：我擦，尼玛钱啊！
+</p>
+
+<p>
+好吧，让我们言归正传。$符号，在很多编程语言中源于他的长度简洁（好吧，一个字符，没啥好说的了），标志性强（美元啊！），在很多地方都被广泛的使用了。<br />
+最有名的地方应该是属于PHP了吧。PHP的一般变量都是以$符号打头的了。说道前端，jQuery让他在前端的圈圈雷贯耳。以至于很多前端的新手，都会以为$就是jQuery的代名词。<br />
+今天我们说的是prototype.js，在这套框架中和$相关的函数有$, $$, $F, $A, $H, $R, $w… 好吧，别晕。让我们来一个个细数下这些函数。
+</p>
+
+<p>
+$ —— 这个很简单没有什么好说的了。就是一个简单的id选择器。<br />
+举个栗子来说：
+</p>
+
+<p>
+$('node_1'); // 返回值就是node_1元素<br />
+$$ —— 参数是个css选择器（你懂的），返回时是个按照在文档中顺序排列的数组。<br />
+官方的解释：采用随意数目的css选择器作为参数，返回的是被扩展过的（注：prototype会对原生的DOM元素进行扩展）DOM元素按照在文档中排序的数组。<br />
+和jQuery做个简单的类比，jQuery的方法$，其实就是整合prototype.js的$和$$，在prototype.js中，id选择器和css选择器被分离开来。至于优劣，不做过多评价。更多习惯<br />
+更多选择。<br />
+其实从实现的原理上讲，都是采用了Sizzle选择器。想要更深入了解的朋友请看这里<br />
+举个栗子：
+</p>
+
+<p>
+$$('#node_1');
+$$('.node_4');
+// 这样的方式也很熟悉吧，不就是和jQuery一样的嘛，简直弱爆了啦。如果你现在就这么认为了，那你就错了。
+$A —— 将任何array-like的结构变成array，是 Array.from的别称。
+这里就涉及到了一个概念array-like的结构。这个也是js中独有的结构。
+什么样的结构会是array-like的呢？array-like的结构和普通的结构又有什么区别？
+在js中arguments, HTMLCollection, 这样的结构就是array-like的。和普通的数组的区别，就在于他不存在普通数组中的一些像pop, push等等常用的方法。《javascript精粹》中业提到过，
+这种array-like的结构，其实是javascript设计中的一个缺陷。具体的一些差别，在这里就不做细讲了。
+具体代码额实现也很简单，可以查看Github.
+</p>
+
+function testCase() {
+	var arg = arguments;
+	console.log( typeof arg.push);
+	// 输出为undefined
+ 
+	arg = $A(arg);
+	console.log( typeof arg.push);
+	// 输出为function
+}
+testCase('a', 'b', 'c');
+$H —— 创建一个哈希列表
+感觉这也没啥好讲的了，直接上例子
+
+var h = $H({
+	name : 'John',
+	age : 26,
+	country : 'Australia'
+});
+// Equivalent to:
+var h = new Hash({
+	name : 'John',
+	age : 26,
+	country : 'Australia'
+});
+// Can then be accessed the classic Hash way
+h.get('country');
+// -> 'Australia'
+$w —— 将一个字符串切割成一个数组，切割的分隔符为空格（可以连续多个）
+如下所示：
+
+$w('apples bananas kiwis') // -> ['apples', 'bananas', 'kiwis']
+$F —— 返回一个单表的数据，等同于prototype.js中的 Form.Element.getValue
+最后登场的通常都是压轴的人物，$F也是本文需要重点介绍的一个。
+（未完，待续）
