@@ -90,7 +90,7 @@ pFn.publish = function(articles, callback) {
 		req.on('error', function(e) {
 			Logger.log('Problem with request: ' + e.message);
 		});
-		
+
 		// 写数据
 		req.write(reqData);
 		req.end();
