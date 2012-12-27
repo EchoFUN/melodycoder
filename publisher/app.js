@@ -64,8 +64,8 @@ pFn.publish = function(articles, callback) {
 
 		// 发送文章到服务器
 		var options = {
-			hostname : 'localhost',
-			port : 3000,
+			hostname : '184.82.243.20',
+			port : 80,
 			path : config.site.ARTICLE_PUBLISH_URL,
 			method : 'POST',
 			headers : {
