@@ -4,7 +4,7 @@
  *
  */
 
-var EventProxy = require('eventproxy').EventProxy;
+var EventProxy = require('eventproxy').EventProxy, config = require('../config').config;
 
 /**
  * @description 获取所有的文章的方法
@@ -14,19 +14,18 @@ exports.getPosts = function() {
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category, Comment = db.models.Comment;
 	var proxy = new EventProxy;
 
-	var arg = arguments, startPost = 0, endPost = 10, callback = function() {
+	var arg = arguments, startPost = 0, limitPost = config.site.PAGE_COUNT, callback = function() {
 	};
 	if ( typeof arg[0] == 'function') {
 		callback = arg[0];
 	} else {
 		startPost = arg[0];
-		endPost = arg[1];
-		callback = arg[2];
+		callback = arg[1];
 	}
 
 	var eventHooks = ['posts', 'categories', 'tags', 'comments'];
 	proxy.assign(eventHooks, callback);
-	Post.find().skip(startPost).limit(endPost).sort({
+	Post.find().skip(startPost).limit(limitPost).sort({
 		date : -1
 	}).exec(function(error, posts) {
 		var pids = [];

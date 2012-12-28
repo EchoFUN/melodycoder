@@ -46,8 +46,8 @@
     <% } %>
     <% if(posts.length < postCount) { %>
     <p class="pagination">
-    	<% if(currentPage != 1) { %><span class="prev"><a href="<%= site.SITE_BASE_URL + '?page=' + (currentPage - 1) %>">上一页</a></span><% } %>
-        <% if(currentPage != Math.ceil(postCount / site.PAGE_COUNT)) { %><span class="next"><a href="<%= site.SITE_BASE_URL +　'?page=' + (currentPage + 1) %>">下一页</a></span><% } %>
+    	<% if(currentPage > 1 && currentPage <= Math.ceil(postCount / site.PAGE_COUNT)) { %><span class="prev"><a href="<%= site.SITE_BASE_URL + '?page=' + (currentPage - 1) %>">上一页</a></span><% } %>
+        <% if(currentPage >= 1 && currentPage < Math.ceil(postCount / site.PAGE_COUNT)) { %><span class="next"><a href="<%= site.SITE_BASE_URL +　'?page=' + (currentPage + 1) %>">下一页</a></span><% } %>
     </p>
    	<% } %>
     <% } %>

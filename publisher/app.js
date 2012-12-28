@@ -64,7 +64,7 @@ pFn.publish = function(articles, callback) {
 
 		// 发送文章到服务器
 		var options = {
-			hostname : '184.82.243.20',
+			hostname : 'node.renren.com',
 			port : 80,
 			path : config.site.ARTICLE_PUBLISH_URL,
 			method : 'POST',

@@ -1,82 +1,126 @@
-	<p>没有需求，神马都浮云了，所以呢，让我们从需求说起。<br>
-假设，网页上有如下所示的一段html代码：</p>
+												
+	<p><a href="http://baike.baidu.com/view/25258.htm">Session</a>是神马？<br>
+百度百科（百度最有价值的产品）上的解释是<br>
+“在计算机专业术语中，session是指一个终端用户与交互系统进行通信的时间间隔，通常指从注册进入系统到注销退出系统之间所经过的时间以及如果需要的话，可能还有一定的操作空间。”<br>
+通俗的讲，就是服务器端一段记录当前访问用户的空间。客户端的则是cookie，因为http协议无状态的特性，所以session的存在则必须依托于cookie。<br>
+前段时间打算搞个NodeJS的简单框架来支持WALNUT的后台的。突然发现NodeJS神马的，连个session也没有，提供给一次请求的参数就是http. ServerResponse和http.ClientRequest实例化出来的对象。充满幻想的我顿时内牛满面 … …<br>
+只好自己动手丰衣足食了。<br>
+服务器端必须在客户端使用cookie，可以在返回的头文件中设置，使用http.ServerResponse类中的：</p>
 
-<div class="wp_syntax"><div class="code"><pre class="html" style="font-family:monospace;">&lt;div id="second"&gt;
-	&lt;div id="first"&gt;
-	&lt;/div&gt;
-&lt;/div&gt;</pre></div></div>
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;">response.<span style="color: #660066;">setHeader</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'Set-Cookie'</span><span style="color: #339933;">,</span> <span style="color: #009900;">[</span><span style="color: #3366CC;">'SID='</span> <span style="color: #339933;">+</span> sID<span style="color: #009900;">]</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span></pre></div></div>
 
-<p>形象的表示成如下图所示的结构：<br>
-<img src="http://botobe.com/wp-content/uploads/2011/10/111.png" alt="DOM结构"><br>
-假设存在了两个方法：</p>
+<p>再通过每次获得客户端传来的cookie的，取出存放在服务器端对应session的方式，则可以很简单的模拟出session的效果。<br>
+如果不存在则新建一个session，代码如下所示：</p>
 
-<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">function</span> evt_1<span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
-    <span style="color: #000066;">alert</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'I am first !'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">var</span> parse <span style="color: #339933;">=</span> require<span style="color: #009900;">(</span><span style="color: #3366CC;">'querystring'</span><span style="color: #009900;">)</span>.<span style="color: #660066;">parse</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #006600; font-style: italic;">/**
+ * @description 设置session过期时间
+ */</span>
+<span style="color: #003366; font-weight: bold;">var</span> EXPIRE_TIME <span style="color: #339933;">=</span> <span style="color: #CC0000;">3</span> <span style="color: #339933;">*</span> <span style="color: #CC0000;">60</span> <span style="color: #339933;">*</span> <span style="color: #CC0000;">1000</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #006600; font-style: italic;">/**
+ * @description 存放服务器端所有session
+ */</span>
+<span style="color: #003366; font-weight: bold;">var</span> _sessions <span style="color: #339933;">=</span> <span style="color: #009900;">{</span><span style="color: #009900;">}</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #003366; font-weight: bold;">function</span> genSID<span style="color: #009900;">(</span>pre<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+	pre <span style="color: #339933;">=</span> <span style="color: #009900;">(</span>pre<span style="color: #009900;">)</span><span style="color: #339933;">?</span>pre <span style="color: #339933;">:</span> <span style="color: #3366CC;">'SESSION'</span><span style="color: #339933;">;</span>
+	<span style="color: #003366; font-weight: bold;">var</span> time <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> Date<span style="color: #009900;">(</span><span style="color: #009900;">)</span>.<span style="color: #660066;">getTime</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #339933;">+</span> <span style="color: #3366CC;">''</span><span style="color: #339933;">;</span>
+    <span style="color: #003366; font-weight: bold;">var</span> id <span style="color: #339933;">=</span> pre <span style="color: #339933;">+</span> <span style="color: #3366CC;">'_'</span> <span style="color: #339933;">+</span> <span style="color: #009900;">(</span>time<span style="color: #009900;">)</span>.<span style="color: #660066;">substring</span><span style="color: #009900;">(</span>time.<span style="color: #660066;">length</span> <span style="color: #339933;">-</span> <span style="color: #CC0000;">6</span><span style="color: #009900;">)</span> <span style="color: #339933;">+</span> <span style="color: #3366CC;">'_'</span> <span style="color: #339933;">+</span> <span style="color: #009900;">(</span>Math.<span style="color: #660066;">round</span><span style="color: #009900;">(</span>Math.<span style="color: #660066;">random</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #339933;">*</span> <span style="color: #CC0000;">1000</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+    <span style="color: #000066; font-weight: bold;">return</span> id<span style="color: #339933;">;</span>
 <span style="color: #009900;">}</span>
-<span style="color: #003366; font-weight: bold;">function</span> evt_2<span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
-    <span style="color: #000066;">alert</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'I am second !'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #006600; font-style: italic;">/**
+ * @description 定时清理过期的session
+ */</span>
+setInterval<span style="color: #009900;">(</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span>
+	<span style="color: #000066; font-weight: bold;">for</span> <span style="color: #009900;">(</span><span style="color: #003366; font-weight: bold;">var</span> id <span style="color: #000066; font-weight: bold;">in</span> _sessions<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+	    <span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">(</span><span style="color: #339933;">!</span>_sessions.<span style="color: #660066;">hasOwnProperty</span><span style="color: #009900;">(</span>id<span style="color: #009900;">)</span><span style="color: #009900;">)</span> 
+	    	<span style="color: #000066; font-weight: bold;">continue</span><span style="color: #339933;">;</span>
+		<span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">(</span><span style="color: #003366; font-weight: bold;">new</span> Date<span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #339933;">-</span> _sessions<span style="color: #009900;">[</span>id<span style="color: #009900;">]</span>.<span style="color: #660066;">timestamp</span> <span style="color: #339933;">&gt;</span> EXPIRE_TIME<span style="color: #009900;">)</span>
+			<span style="color: #000066; font-weight: bold;">delete</span> _sessions<span style="color: #009900;">[</span>id<span style="color: #009900;">]</span><span style="color: #339933;">;</span>
+	<span style="color: #009900;">}</span>
+<span style="color: #009900;">}</span><span style="color: #339933;">,</span> <span style="color: #CC0000;">1000</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #003366; font-weight: bold;">var</span> createSession <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span>sID<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+	<span style="color: #003366; font-weight: bold;">var</span> session <span style="color: #339933;">=</span> <span style="color: #009900;">{</span>
+		SID<span style="color: #339933;">:</span> sID<span style="color: #339933;">,</span>
+		timestamp<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">new</span> Date<span style="color: #009900;">(</span><span style="color: #009900;">)</span>
+	<span style="color: #009900;">}</span>
+	<span style="color: #000066; font-weight: bold;">return</span> session<span style="color: #339933;">;</span>
+<span style="color: #009900;">}</span>
+&nbsp;
+<span style="color: #006600; font-style: italic;">/**
+ * @description 维护了对session的引用，可进行增删查改操作
+ * @param {string} sID 当前用户的session ID
+ * @param {object} _sessions
+ */</span>
+<span style="color: #003366; font-weight: bold;">var</span> context <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span>_sessions<span style="color: #339933;">,</span> sID<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+	<span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">poke</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+		_sessions<span style="color: #009900;">[</span>sID<span style="color: #009900;">]</span>.<span style="color: #660066;">timestamp</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> Date<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+	<span style="color: #009900;">}</span><span style="color: #339933;">;</span>
+	<span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">destory</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+		<span style="color: #000066; font-weight: bold;">delete</span> _sessions<span style="color: #009900;">[</span>sID<span style="color: #009900;">]</span><span style="color: #339933;">;</span>
+	<span style="color: #009900;">}</span><span style="color: #339933;">;</span>
+	<span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">del</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span>key<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+		<span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">poke</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+		<span style="color: #000066; font-weight: bold;">delete</span> _sessions<span style="color: #009900;">[</span>sID<span style="color: #009900;">]</span><span style="color: #009900;">[</span>key<span style="color: #009900;">]</span><span style="color: #339933;">;</span>
+	<span style="color: #009900;">}</span>
+	<span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">set</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span>key<span style="color: #339933;">,</span> value<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+		<span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">poke</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+		_sessions<span style="color: #009900;">[</span>sID<span style="color: #009900;">]</span><span style="color: #009900;">[</span>key<span style="color: #009900;">]</span> <span style="color: #339933;">=</span> value<span style="color: #339933;">;</span>
+	<span style="color: #009900;">}</span><span style="color: #339933;">;</span>
+	<span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">get</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span>key<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+		<span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">poke</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+		<span style="color: #000066; font-weight: bold;">return</span> _sessions<span style="color: #009900;">[</span>sID<span style="color: #009900;">]</span><span style="color: #009900;">[</span>key<span style="color: #009900;">]</span><span style="color: #339933;">;</span>
+	<span style="color: #009900;">}</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">}</span>
+&nbsp;
+<span style="color: #006600; font-style: italic;">/**
+ * @description 开始session
+ * @param {object} request 
+ * @param {object} response
+ * @param {function} process 回调函数
+ */</span>
+exports.<span style="color: #660066;">startSession</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span>request<span style="color: #339933;">,</span> response<span style="color: #339933;">,</span> process<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+	<span style="color: #003366; font-weight: bold;">var</span> cookies <span style="color: #339933;">=</span> parse<span style="color: #009900;">(</span>request.<span style="color: #660066;">headers</span>.<span style="color: #660066;">cookie</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'; '</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+	<span style="color: #003366; font-weight: bold;">var</span> sID<span style="color: #339933;">;</span>
+	<span style="color: #000066; font-weight: bold;">for</span> <span style="color: #009900;">(</span><span style="color: #003366; font-weight: bold;">var</span> i <span style="color: #000066; font-weight: bold;">in</span> cookies<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+		<span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">(</span>i <span style="color: #339933;">==</span> <span style="color: #3366CC;">'SID'</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+			sID <span style="color: #339933;">=</span> cookies<span style="color: #009900;">[</span>i<span style="color: #009900;">]</span><span style="color: #339933;">;</span>
+			<span style="color: #000066; font-weight: bold;">break</span><span style="color: #339933;">;</span>
+		<span style="color: #009900;">}</span>
+	<span style="color: #009900;">}</span>
+	<span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">(</span><span style="color: #339933;">!</span>sID <span style="color: #339933;">||</span> <span style="color: #000066; font-weight: bold;">typeof</span> _sessions<span style="color: #009900;">[</span>sID<span style="color: #009900;">]</span> <span style="color: #339933;">==</span> <span style="color: #3366CC;">'undefined'</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+		<span style="color: #003366; font-weight: bold;">var</span> sID <span style="color: #339933;">=</span> genSID<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+		_sessions<span style="color: #009900;">[</span>sID<span style="color: #009900;">]</span> <span style="color: #339933;">=</span> createSession<span style="color: #009900;">(</span>sID<span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+	<span style="color: #009900;">}</span>
+	response.<span style="color: #660066;">setHeader</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'Set-Cookie'</span><span style="color: #339933;">,</span> <span style="color: #009900;">[</span><span style="color: #3366CC;">'SID='</span> <span style="color: #339933;">+</span> sID<span style="color: #009900;">]</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+	process.<span style="color: #660066;">call</span><span style="color: #009900;">(</span><span style="color: #003366; font-weight: bold;">new</span> context<span style="color: #009900;">(</span>_sessions<span style="color: #339933;">,</span> sID<span style="color: #009900;">)</span><span style="color: #339933;">,</span> request<span style="color: #339933;">,</span> response<span style="color: #009900;">)</span><span style="color: #339933;">;</span>
 <span style="color: #009900;">}</span></pre></div></div>
 
-<p>可以有三种方式，让我们把这两个方法分别绑定到first和second这两个元素上去<br>
-1. 行内事件添加（比较简单，直接在html结构中加入onclick。遵循Web应用中行为，样式和结构分离的原则，不推荐使用这种方式）<br>
-2. 传统事件模型</p>
+<p>测试代码，主程序：</p>
 
-<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">function</span> ID<span style="color: #009900;">(</span>id<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
-	<span style="color: #000066; font-weight: bold;">return</span> document.<span style="color: #660066;">getElementById</span><span style="color: #009900;">(</span>id<span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">var</span> http <span style="color: #339933;">=</span> require<span style="color: #009900;">(</span><span style="color: #3366CC;">'http'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+<span style="color: #003366; font-weight: bold;">var</span> sessionFactory <span style="color: #339933;">=</span> require<span style="color: #009900;">(</span><span style="color: #3366CC;">'./session'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #003366; font-weight: bold;">var</span> server <span style="color: #339933;">=</span> http.<span style="color: #660066;">createServer</span><span style="color: #009900;">(</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span>request<span style="color: #339933;">,</span> response<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+	sessionFactory.<span style="color: #660066;">startSession</span><span style="color: #009900;">(</span>request<span style="color: #339933;">,</span> response<span style="color: #339933;">,</span> handler<span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">}</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #003366; font-weight: bold;">var</span> handler <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span>request<span style="color: #339933;">,</span> response<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+	<span style="color: #003366; font-weight: bold;">var</span> session <span style="color: #339933;">=</span> <span style="color: #000066; font-weight: bold;">this</span><span style="color: #339933;">;</span>
+	session.<span style="color: #660066;">set</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'banana'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'你个巴啦~'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+	response.<span style="color: #660066;">end</span><span style="color: #009900;">(</span>session.<span style="color: #660066;">get</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'banana'</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
 <span style="color: #009900;">}</span>
-<span style="color: #003366; font-weight: bold;">var</span> first  <span style="color: #339933;">=</span> ID<span style="color: #009900;">(</span><span style="color: #3366CC;">'first'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-<span style="color: #003366; font-weight: bold;">var</span> second <span style="color: #339933;">=</span> ID<span style="color: #009900;">(</span><span style="color: #3366CC;">'second'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-first.<span style="color: #660066;">onclick</span>  <span style="color: #339933;">=</span> evt_1<span style="color: #339933;">;</span>
-second.<span style="color: #660066;">onclick</span> <span style="color: #339933;">=</span> evt_2<span style="color: #339933;">;</span></pre></div></div>
-
-<p>3. w3c模型，或者微软模型</p>
-
-<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">function</span> ID<span style="color: #009900;">(</span>id<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
-	<span style="color: #000066; font-weight: bold;">return</span> document.<span style="color: #660066;">getElementById</span><span style="color: #009900;">(</span>id<span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-<span style="color: #009900;">}</span>
-<span style="color: #003366; font-weight: bold;">var</span> first  <span style="color: #339933;">=</span> ID<span style="color: #009900;">(</span><span style="color: #3366CC;">'first'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-<span style="color: #003366; font-weight: bold;">var</span> second <span style="color: #339933;">=</span> ID<span style="color: #009900;">(</span><span style="color: #3366CC;">'second'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
 &nbsp;
-<span style="color: #006600; font-style: italic;">// W3C模型</span>
-first.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'click'</span><span style="color: #339933;">,</span> evt_1<span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-second.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'click'</span><span style="color: #339933;">,</span> evt_2<span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-&nbsp;
-<span style="color: #006600; font-style: italic;">// 微软模型</span>
-<span style="color: #006600; font-style: italic;">// first.attachEvent('onclick', evt_1);</span>
-<span style="color: #006600; font-style: italic;">// second.attachEvent('onclick', evt_2);</span></pre></div></div>
+server.<span style="color: #660066;">listen</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'80'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span></pre></div></div>
 
-<p>ok, 点击first元素，问题出现了！<br>
-开发浏览器的聪明的攻城师们也无法预料到这样的一个哲学问题：<br>
-<strong>用户的意图究竟是什么？</strong></p>
-<p>a. 是想先触发first上的点击事件，然后再触发second上的点击事件？<br>
-b. 是想触发first上的点击事件，而不想触发second上的点击事件？<br>
-c. 是想触发second上的点击事件，而不想触发first上的点击事件？<br>
-d. 或者是先触发second上的点击事件，再去触发first上的点击事件？</p>
-<p>这个就涉及到了javascript事件的冒泡和捕获。<br>
-当用户点击了一下页面上的dom元素，假使我们给这个元素起一个代号叫做“d”，这个事件的信息中就包含了这次点击的位置，左键或是右键，单击或是双击等等。<br>
-事件的信号会先从document元素开始向d元素进行“游历”，这个过程就叫做事件的捕获过程。<br>
-当这个事件的信号游历至d元素后，这个信号会按照原路返回至document元素，而这样的一个过程就叫做事件的冒泡。<br>
-具体的过程如下图中所示：<br>
-<img src="http://botobe.com/wp-content/uploads/2011/11/test.png" alt="冒泡和捕获"><br>
-浏览器的行为是不可控的。<br>
-我们能做的操作是，给d元素添加相应操作的事件。用上面的点击例子来说，如果d元素就是id=“first”的元素，我可以给他添加一个onclick的事件（可参考上面添加事件的例子）。针对了这个click的事件，触发的首要条件自然是一次点击。还有就是，这是针对冒泡的过程触发呢，还是针对捕获的过程触发？<br>
-遗憾的是微软和传统的模型都没有给出这样的解决方案，w3c的事件模型则给出了这样的解决方案。<br>
-上面代码中的：</p>
-
-<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;">first.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'click'</span><span style="color: #339933;">,</span> evt_1<span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-second.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'click'</span><span style="color: #339933;">,</span> evt_2<span style="color: #009900;">)</span><span style="color: #339933;">;</span></pre></div></div>
-
-<p>addEventListener，还有第三个参数，是一个布尔值。如果为true则表示是为捕获的过程设置的，反之则表示为冒泡的过程设置的。默认的情况下这个值为false。<br>
-有兴趣的朋友可以试一试下面的两种情况：</p>
-
-<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #006600; font-style: italic;">// 情况一</span>
-first.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'click'</span><span style="color: #339933;">,</span> evt_1<span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-second.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'click'</span><span style="color: #339933;">,</span> evt_2<span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-&nbsp;
-<span style="color: #006600; font-style: italic;">// 情况二</span>
-first.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'click'</span><span style="color: #339933;">,</span> evt_1<span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-second.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'click'</span><span style="color: #339933;">,</span> evt_2<span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">true</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span></pre></div></div>
-
-<p>这样就可以解释用户意图中的a和d两种情况了。<br>
-b和c两种情况，会在<a href="http://botobe.com/?p=529">javascript的事件模型（二）</a>中解释。</p>
+<p>OK.<br>
+写在最后：<br>
+NodeJS，语言既是服务器，服务器既是语言的，这种方式很特别。想当初，nginx，apache的设计，就是为了把应用服务器和应用给分开来。这样的设计究竟是进步了还是倒退了，嗯~ 不好说。<br>
+总而言之，其实也无所谓啦！存在即合理，<strong>适合的就是最好的。</strong><br>
+2011.12.6，一切安好。<br>
+Merci !</p>
 	

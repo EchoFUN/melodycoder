@@ -36,7 +36,7 @@ var _middle = function(req, resp, func, params) {
 		proxy.trigger('widgetTags', widgetTags);
 	});
 	if (params.hasPost) {
-		dbEvt.getPosts(params.startPost, params.endPost, function(posts, categories, tags, comments) {
+		dbEvt.getPosts(params.startPost, function(posts, categories, tags, comments) {
 			proxy.trigger('posts', {
 				posts : posts,
 				tags : tags,
@@ -52,8 +52,7 @@ exports.index = function(req, resp) {
 
 	var params = {
 		hasPost : true,
-		startPost : (page - 1) * PAGE_COUNT,
-		endPost : page * PAGE_COUNT
+		startPost : (page - 1) * PAGE_COUNT
 	}
 	_middle(req, resp, function(menus, links, archives, widgetTags, posts) {
 		var proxy = new EventProxy();
