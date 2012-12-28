@@ -1,8 +1,8 @@
 {
-	"title": "NodeJS对session的简单封装",
+	"title": "javascript的事件模型（一）",
 	"author" : "EchoFUN",
 	"path": "./content/1",
-	"tags": "node.js,session,javascript",
-	"category": "node.js",
-	"time": "1327593660000"
+	"tags": "javascript,事件,冒泡,捕获",
+	"category": "JavaScript",
+	"time": "1321891260000"
 }
