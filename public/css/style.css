@@ -355,11 +355,12 @@ p.pagination a {
 }
 
 .tag-cloud {
-	padding: 5px;
+	padding: 5px 0;
+	line-height: 24px;
 }
 
 .tag-cloud .tag-item {
-	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .sina-widget {
