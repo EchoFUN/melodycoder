@@ -14,7 +14,7 @@ exports.getWidgetTags = function(callback) {
 			_t = oriTags[i];
 			var _has = false;
 			for (var j = 0; j < tags.length; j++) {
-				if (tags[j].title == _t.title) {
+				if (tags[j].title.trim() == _t.title.trim()) {
 					_has = true; 
 					if (tags[j].counter < tagsLimit)
 						tags[j].counter++;
