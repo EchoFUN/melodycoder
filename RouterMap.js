@@ -20,4 +20,7 @@ module.exports = function(app) {
 	var publishUrl = config.site.ARTICLE_PUBLISH_URL;
 	app.post(publishUrl, post.publishPost);
 	app.get(publishUrl, post.publishPost);
+	
+	// 获取当前网站的基本信息
+	app.get('/site/status', site.status);
 }; 

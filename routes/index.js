@@ -126,6 +126,6 @@ exports.experiment = function(req, resp) {
 };
 
 // 获取当前网站的状态信息
-exports.information = function() {
-	
+exports.status = function(req, resp) {
+	resp.render('status', {});
 };
