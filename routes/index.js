@@ -4,7 +4,7 @@
  *
  */
 
-var config = require('../config').config, EventProxy = require('eventproxy').EventProxy, utils = require('../utils');
+var config = require('../config').config, EventProxy = require('eventproxy').EventProxy, utils = require('../utils'), fs = require('fs');
 
 var isIE6 = function(req) {
 	var userAgent = req.headers['user-agent'], browser = utils.browser(userAgent);
@@ -61,6 +61,18 @@ exports.index = function(req, resp) {
 			resp.render('index', data);
 		});
 
+		// 处理加载的css
+		var ugcCss = [];
+		if (posts) {
+			for (var i in posts) {
+				var tpst = post[i];
+				var tpth = '../public/css/ugc/' + tpst._id.toString();
+				if (fs.existsSync(path)) {
+					ugcCss.push(tpst._id.toString() + '.css');
+				}
+			}
+		}
+
 		// 页面的基本数据
 		var baseInfo = config.site;
 		var vtype = 1;
@@ -76,7 +88,8 @@ exports.index = function(req, resp) {
 			tags : posts.tags,
 			comments : posts.comments,
 			categories : posts.categories,
-			url : req.url
+			url : req.url,
+			ugcCss: ugcCss
 		};
 		proxy.trigger('data', data);
 
