@@ -1,36 +1,42 @@
-<p>
-	一路走来，取个这样的题目。又是因为脑子里想不到其他的词汇了。<br />
-	好吧，作为一名程序猿，可能满脑的都是代码，再者对于我这样的会弹吉他的程序猿，满脑子的代码里还掺杂了很多的音符，所以基本上已经放不下任何的多余词汇了。<br />
-</p>
+												
+	<p>前几天在围脖上看到了个关于DailyJS的<a href="http://dailyjs.com/2012/12/24/javascript-survey-results/">javascript开发者的调查</a>，<br>
+发现了UglifyJS貌似非常火爆的样子。实话说，虽然作为一名前端开发人员，却显为耳闻UglifyJS，看来真是工作的时间越久，好奇心也跟着降低了。没有那股子初生牛犊的劲头去折腾这些新东西了。</p>
+<p>谷歌之，发现没有什么关于UglifyJS的具体的中文帮助文档。要不就是几篇被到处转载的基本上没有什么实质内容的文章。</p>
+<p>研读了下UglifyJS的文档（尼玛，文档什么的真的很重要啊！？有木有？我有告诉大家，yinyin网什么的某些网站，连个文档都没有，写个几千行代码的框架就可以充胖子了吗？有木有？？！搞得开发人员都在翻源码啊！博主真是忍不住想吐槽！！），做些笔记，给大家分享。</p>
+<p>UglifyJS是遵循了<a href="http://www.commonjs.org/">CommonJS规范</a>写成的，可以在支持CommonJS模块系统的javascript环境中运行。当然，这是官方的说法，通俗的说，就是可以在浏览器里和node.js的环境中兼可运行了。</p>
+<p>UglifyJS的作者在今年9月份的时候，开始了UglifyJS2的项目，作者本人也是比较推崇UglifyJS2，因此，本文就只是关于UglifyJS2的一些介绍。下文中所有的UglifyJS都是指代UglifyJS2。<br>
+UglifyJS其实不仅仅是个js的压缩工具，同时可以对代码进行最小化，和美化的工具包。</p>
+<p>担心篇幅太长，在这里只做关于node.js环境下使用UglifyJS的介绍。</p>
+<p><strong>1. 安装：</strong><br>
+—— 从npm安装</p>
 
-<p>
-	撰写此文，仅以纪念下我的博客，并无任何关于生活，愿景，命运的想法。话说，命再苦别怪（河蟹），点儿再被别怨社会。所以就事论事，谈谈博客吧。<br />
-	博主，开博客于2010年，也是大约在冬季吧。此情此景倒是和当下有几分相像。不过当时在屋里吹的是空调，现在在屋里吹的是暖气。也许在旁人的眼里，吃饱喝足了，再折腾一个博客，尤其想像这么二B的，非要自己写个博客，架设在自己买的vps上，会显得尤为蛋疼。<br />
-	但是我呢，也不想做啥解释了，因为本人是个非常懒的人，我都懒得去争这些问题了。<br />
-</p>
+<div class="wp_syntax"><div class="code"><pre class="text" style="font-family:monospace;">npm install uglify-js</pre></div></div>
 
-<p>
-	想做了就去做咯，没有那么多为什么。<br />
-</p>
+<p>—— 从github安装</p>
 
-<p>
-	两年多博客的运行，中间断断续续的记录了一些毕业后的一些经历。有开心的，也有不开心的。有花了很大力气写的文章，也有水文。这是第三回更换服务器了，前两回都是挂在了免费的服务器上，宕机，挂起啊什么的已是家常便饭了。<br 	/>
-	所以这次咬了咬牙，买了一台vps，应该会比较稳定了。<br />
-	今天又花了很大的力气，做了一下数据迁移。纯手工的，搞到最后，已经眼睛前都是小星星了，所以在本地做了备份，丢下了一些无用的连自己都看不进去的老水文。瞬间发现博客的文章少了很多，觉得好木有成就感了。<br />
-</p>
+<div class="wp_syntax"><div class="code"><pre class="text" style="font-family:monospace;">git clone git://github.com/mishoo/UglifyJS2.git
+cd UglifyJS2
+npm link .</pre></div></div>
 
-<p>
-	我和其他的程序猿们有点不一样的地方，在于不喜欢把工作中用到的东西拖到自己的博客上来。所以，文章的生产平率较低的。博文中贴的东西，都是一些自己业余折腾的。<br />
-	看来以后也要改变下行文思路了呀。
-</p>
+<p><strong>2. 使用：</strong><br>
+在控制台/命令行中输入uglifyjs –help，如果出来帮助信息，表明uglifyjs可以正确使用了。</p>
 
-<p>
-	总结起来，其实这又是水文一篇。<br />
-	不过，开心就好，呵呵，谁管呢？<br />
-</p>
+<div class="wp_syntax"><div class="code"><pre class="text" style="font-family:monospace;">uglifyjs [input files] [options]</pre></div></div>
 
-<p>
-	2012.12.28 <br />
-	一切安好。<br />
-	Merci !
-</p>
+<p>举个栗子：</p>
+
+<div class="wp_syntax"><div class="code"><pre class="text" style="font-family:monospace;">// 有个叫main.js的待压缩/美化的文件
+uglifyjs main.js -o main-min.js -c</pre></div></div>
+
+<p>uglifyjs的作者建议的就是先把文件放在前面，再把一些压缩/美化的参数跟在后边。</p>
+<p>一些常用的参数列表</p>
+
+<div class="wp_syntax"><div class="code"><pre class="text" style="font-family:monospace;">-o,--output      指定输出文件，默认情况下为命令行
+-b,--beautify    美化代码格式的参数
+-m,--mangle      改变变量名称（ex：在一些例如YUI Compressor压缩完的代码后你可以看到
+a,b,c,d,e,f之类的变量，加了-m参数，uglifyjs也可以做到，默认情况下，是不会改变变量名称的）
+-r,--reserved    保留的变量名称，不需要被-m参数改变变量名的
+-c,--compress    OK，主角登场了，这是让uglifyjs进行代码压缩的参数。可以在-c后边添加
+一些具体的参数来控制压缩的特性，下文中会具体介绍。
+--comments       用来控制注释的代码的</pre></div></div>
+
