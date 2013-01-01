@@ -68,7 +68,7 @@ exports.index = function(req, resp) {
 				var tpst = posts.posts[i];
 
 				var tpth = '/css/ugc/' + tpst._id.toString() + '.css';
-				if (path.existsSync('./public' + tpth))
+				if (fs.existsSync(path.resolve('./public' + tpth)))
 					ugcCss.push(tpth);
 			}
 		}

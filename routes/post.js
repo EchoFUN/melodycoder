@@ -3,7 +3,7 @@
  * @version 2012.10.02
  */
 
-var config = require('../config').config, EventProxy = require('eventproxy').EventProxy;
+var config = require('../config').config, EventProxy = require('eventproxy').EventProxy, fs = require('fs'), path = require('path');
 
 var dbEvt = {}, proxy = new EventProxy;
 
@@ -37,6 +37,14 @@ exports.index = function(req, resp) {
 				post.categories = categories;
 				post.comments = comments;
 				var baseInfo = config.site;
+				
+				var ugcCss = [];
+				if (post) {
+					var tpth = '/css/ugc/' + post._id.toString() + '.css';
+					
+					if (fs.existsSync(path.resolve('./public' + tpth)))
+						ugcCss.push(tpth);
+				}
 				data = {
 					post : post,
 					menus : menus,
@@ -44,7 +52,8 @@ exports.index = function(req, resp) {
 					rectPosts : rectPosts,
 					vtype : 4,
 					site : baseInfo,
-					url : req.url
+					url : req.url,
+					ugcCss : ugcCss
 				};
 				proxy.trigger('options', data);
 			});
