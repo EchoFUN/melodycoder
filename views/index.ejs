@@ -8,9 +8,9 @@
 		<meta name="Keywords" content="代码，吉他" />
         <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/common.css" />
         <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/general.css" />
-        <% if (ugcCss && ugcCss.length != 0) { %>
+        <% if (typeof ugcCss != 'undefined' && ugcCss.length != 0) { %>
     	<% for(var i=0; i<ugcCss.length; i++) { %>
-        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/ugc/<%= ugcCss[i] %>" />
+        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %><%= ugcCss[i] %>" />
     	<% } %>
         <% } %>
         <script type="text/javascript">

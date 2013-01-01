@@ -4,7 +4,7 @@
  *
  */
 
-var config = require('../config').config, EventProxy = require('eventproxy').EventProxy, utils = require('../utils'), fs = require('fs');
+var config = require('../config').config, EventProxy = require('eventproxy').EventProxy, utils = require('../utils'), fs = require('fs'), path = require('path');
 
 var isIE6 = function(req) {
 	var userAgent = req.headers['user-agent'], browser = utils.browser(userAgent);
@@ -63,13 +63,13 @@ exports.index = function(req, resp) {
 
 		// 处理加载的css
 		var ugcCss = [];
-		if (posts) {
-			for (var i in posts) {
-				var tpst = post[i];
-				var tpth = '../public/css/ugc/' + tpst._id.toString();
-				if (fs.existsSync(path)) {
-					ugcCss.push(tpst._id.toString() + '.css');
-				}
+		if (posts.posts) {
+			for (var i in posts.posts) {
+				var tpst = posts.posts[i];
+
+				var tpth = '/css/ugc/' + tpst._id.toString() + '.css';
+				if (path.existsSync('./public' + tpth))
+					ugcCss.push(tpth);
 			}
 		}
 
@@ -89,7 +89,7 @@ exports.index = function(req, resp) {
 			comments : posts.comments,
 			categories : posts.categories,
 			url : req.url,
-			ugcCss: ugcCss
+			ugcCss : ugcCss
 		};
 		proxy.trigger('data', data);
 
