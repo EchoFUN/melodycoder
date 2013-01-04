@@ -1,8 +1,8 @@
 {
-	"title": "一路走来",
+	"title": "UglifyJS使用指南",
 	"author" : "EchoFUN",
 	"path": "./content/1.html",
-	"tags": "心路,生活",
-	"category": "生活",
+	"tags": "代码,压缩,uglifyjs,node.js,优化",
+	"category": "node.js",
 	"time": ""
 }
