@@ -10,7 +10,7 @@ var express = require('express'),
     db = require('./model/db'), 
     config = require('./config').config; 
  
-var app = express();
+var app = express(); 
 
 app.configure(function() { 
     app.use(express.cookieParser());
