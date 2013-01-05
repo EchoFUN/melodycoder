@@ -2,3 +2,4 @@ node_modules/*
 .project
 /node_modules
 config.js
+public/dev.html

@@ -8,9 +8,17 @@
 }
 
 .dialog .title {
+	margin-left: 10px;
+}
+
+.dialog .title-bar {
 	color: #FF6000;
 	background-color: #2B2B2B;
 	height: 40px;
 	line-height: 40px;
 }
 
+.dialog .title-bar a {
+	color: #fff;
+	margin-right: 10px;
+}

@@ -10,9 +10,10 @@ define(function(require, exports, module) {
 		initialize : function(opts) {
 			var scrollTop = document.viewport.getScrollOffsets().top;
 			var dopts = {
-				title : '提示',
 				top : scrollTop + 200,
 				left : 0,
+				title : '提示',
+				frame : '<div class="dialog"><div class="normal"><div class="title-bar"><a href="javascript:;" class="title left">提示</a><a href="javascript:;" class="close right">关闭</a></div><div class="content"></div><div class="footer-bar" ></div></div></div>',
 				content : ''
 			}
 			opts = Object.extend(dopts, opts);
@@ -36,12 +37,12 @@ define(function(require, exports, module) {
 		_constructFrame : function() {
 			var dialogEl = this._dialogEl;
 			document.body.appendChild(dialogEl);
-			
-			var _diaW = dialog.getStyle('width'), _diaH = dialog.getStyle('height');
-			dialog.setStyle({
-				top : this.opts.top,
-				left : this.opts.left 
-			});
+
+			// var _diaW = dialog.getStyle('width'), _diaH = dialog.getStyle('height');
+			// dialog.setStyle({
+			//     top : this._opts.top,
+			//	   left : this._opts.left
+			// });
 		},
 
 		setWidth : function() {
