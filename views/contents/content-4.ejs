@@ -9,7 +9,11 @@
     <% if(typeof post != 'undefined') { %>
     <h1><%= post.title %></h1>
     <p class="post-meta">
-        <span class="date"><%= post.date.getFullYear() %>年<%= post.date.getMonth() %>月<%= post.date.getDate() %>日</span>
+    	<% var month = post.date.getMonth() + 1 + '';
+    	if (month.length == 1) {
+    		month = '0' + month;
+    	} %>
+        <span class="date"><%= post.date.getFullYear() %>年<%= month %>月<%= post.date.getDate() %>日</span>
         <span class="author"><%= post.author %></span>
         <span class="cat">
             <% if(typeof post.categories != 'undefined') { %>
