@@ -3,7 +3,7 @@
 	position: absolute;
 	width: 400px;
 	border: 1px solid #ccc;
-	height: 300px;
+	height: 155px;
 	background-color: #F1F1F1;
 }
 
@@ -16,6 +16,7 @@
 	background-color: #2B2B2B;
 	height: 40px;
 	line-height: 40px;
+	cursor: move;
 }
 
 .dialog .title-bar a {

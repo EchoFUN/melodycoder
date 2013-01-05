@@ -8,25 +8,27 @@ define(function(require, exports, module) {
 	// 弹框组件
 	var dialog = Class.create({
 		initialize : function(opts) {
-			var scrollTop = document.viewport.getScrollOffsets().top;
 			var dopts = {
-				top : scrollTop + 200,
-				left : 0,
+				top : undefined,
+				left : undefined,
+				autoHide: undefined,
 				title : '提示',
-				frame : '<div class="dialog"><div class="normal"><div class="title-bar"><a href="javascript:;" class="title left">提示</a><a href="javascript:;" class="close right">关闭</a></div><div class="content"></div><div class="footer-bar" ></div></div></div>',
-				content : ''
+				frameTPL : new Template('<div class="normal"><div class="title-bar"><a href="javascript:;" class="title left">#{title}</a><a href="javascript:;" class="close right">关闭</a></div><div class="content">#{content}</div><div class="footer-bar" ></div></div>'),
+				content : '',
+				showClose : true
 			}
 			opts = Object.extend(dopts, opts);
 			this._opts = opts;
 			this._ready();
 			this._constructFrame();
+			this._end();
 		},
 
 		_ready : function() {
 
 			// 如果已经存在则删除
 			var dialogs = $$('.dialog');
-			dialogs.forEach(function(dia) {
+			dialogs.each(function(dia) {
 				dia.remove();
 			});
 			this._dialogEl = new Element('div', {
@@ -35,22 +37,66 @@ define(function(require, exports, module) {
 		},
 
 		_constructFrame : function() {
-			var dialogEl = this._dialogEl;
-			document.body.appendChild(dialogEl);
+			var opts = this._opts;
 
-			// var _diaW = dialog.getStyle('width'), _diaH = dialog.getStyle('height');
-			// dialog.setStyle({
-			//     top : this._opts.top,
-			//	   left : this._opts.left
-			// });
+			var dialogEl = this._dialogEl;
+			var frameHTML = opts.frameTPL.evaluate({
+				title : opts.title,
+				content:　opts.content
+			});
+
+			dialogEl.update(frameHTML);
+			
+			document.body.appendChild(dialogEl);
+			this.resetPos();
+			
+			// 设置关闭按钮
+			var close = this.closeButton = dialogEl.select('.close').pop();				
+			if (opts.showClose) {
+				close.observe('click', function() {
+					dialogEl.remove();
+				});
+			} else {
+				close.remove();
+			}
+			
+			// 设置自动隐藏
+			var ah = opts.autoHide;
+			if (ah) {
+				if (typeof ah == 'number') {
+					window.setTimeout(function() {
+						dialogEl.remove();
+					}, ah * 1000);
+				}
+			}
+		},
+
+		_end : function() {
+			var self = this;
+			Event.observe(window, 'resize', function() {
+				self.resetPos.call(self);
+			});
 		},
 
 		setWidth : function() {
-
+			
 		},
 
 		setContent : function() {
+			
+		},
 
+		resetPos : function() {
+			var dialogEl = this._dialogEl;
+
+			var _diaW = dialogEl.getStyle('width'), _diaH = dialogEl.getStyle('height');
+
+			var vp = document.viewport;
+			var left = this._opts.left || (vp.getWidth() - parseInt(_diaW)) / 2, top = this._opts.top || vp.getScrollOffsets().top + (vp.getHeight() - parseInt(_diaH)) / 2;
+			dialogEl.setStyle({
+				top : top - 50 + 'px',
+				left : left + 'px'
+			});
 		}
 	});
 	exports.dialog = dialog;

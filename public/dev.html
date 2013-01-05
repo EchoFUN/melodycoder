@@ -14,16 +14,18 @@
 		<script type="text/javascript">
 			seajs.config({
 				alias : {
-					'prototype' : 'http://botobe.net/js/libs/prototype.js',
+					'pt' : 'http://botobe.net/js/libs/prototype.js',
 					'components' : 'http://botobe.net/js/common/components.js'
 				}
 			});
-			seajs.use(['prototype', 'components'], function(pt, components) {
+			seajs.use(['pt', 'components'], function(pt, components) {
 				var Dialog = components.dialog;
 				document.observe("dom:loaded", function() {
 					
 					new Dialog({
-						title: '111'
+						title: '测试代码',
+						content: '<div class="dialogContent" style="padding: 50px;">测试内容</div>',
+						autoHide: 3
 					});
 					
 				});
