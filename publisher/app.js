@@ -64,7 +64,7 @@ pFn.publish = function(articles, callback) {
 
 		// 发送文章到服务器
 		var options = {
-			hostname : 'node.renren.com',
+			hostname : 'botobe.net',
 			port : 80,
 			path : config.site.ARTICLE_PUBLISH_URL,
 			method : 'POST',
