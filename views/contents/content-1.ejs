@@ -5,7 +5,11 @@
     <div class="post" id="post-<%= pid %>">
         <h2><a href="/post?pid=<%= posts[i].id %>"><%= posts[i].title %></a></h2>
         <p class="post-meta">
-            <span class="date"><%= posts[i].date.getFullYear() %>年<%= posts[i].date.getMonth() %>月<%= posts[i].date.getDate() %>日</span>
+        	<% var month = posts[i].date.getMonth() + 1 + '';
+        	if (month.length == 1) {
+        		month = '0' + month;
+        	} %>
+            <span class="date"><%= posts[i].date.getFullYear() %>年<%= month %>月<%= posts[i].date.getDate() %>日</span>
             <span class="author"><%= posts[i].author %></span>
             <% var cats = [];
             for(var j in categories) {
