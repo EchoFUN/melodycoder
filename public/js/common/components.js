@@ -13,7 +13,7 @@ define(function(require, exports, module) {
 				left : undefined,
 				autoHide: undefined,
 				title : '提示',
-				frameTPL : new Template('<div class="normal"><div class="title-bar"><a href="javascript:;" class="title left">#{title}</a><a href="javascript:;" class="close right">关闭</a></div><div class="content">#{content}</div><div class="footer-bar" ></div></div>'),
+				frameTPL : new Template('<div class="normal"><div class="dialog-title"><a href="javascript:;" class="title left">#{title}</a><a href="javascript:;" class="close right">关闭</a></div><div class="dialog-content">#{content}</div><div class="dialog-footer" ></div></div>'),
 				content : '',
 				showClose : true
 			}
@@ -22,6 +22,7 @@ define(function(require, exports, module) {
 			this._ready();
 			this._constructFrame();
 			this._end();
+			return this;
 		},
 
 		_ready : function() {
@@ -50,8 +51,11 @@ define(function(require, exports, module) {
 			document.body.appendChild(dialogEl);
 			this.resetPos();
 			
+			// 获取footer部分
+			this._footerEl = dialogEl.select('.dialog-footer').pop();
+			
 			// 设置关闭按钮
-			var close = this.closeButton = dialogEl.select('.close').pop();				
+			var close = this._closeEl = dialogEl.select('.close').pop();				
 			if (opts.showClose) {
 				close.observe('click', function() {
 					dialogEl.remove();
@@ -79,11 +83,18 @@ define(function(require, exports, module) {
 		},
 
 		setWidth : function() {
-			
+			return this;
 		},
 
 		setContent : function() {
-			
+			return this;
+		},
+		
+		addButton : function(value, callback) {
+			var button = new Element('input', {type: 'button', class: 'button', value: value});
+			var footer = this._footerEl;
+			footer.appendChild(button);
+			return this;
 		},
 
 		resetPos : function() {
@@ -94,11 +105,13 @@ define(function(require, exports, module) {
 			var vp = document.viewport;
 			var left = this._opts.left || (vp.getWidth() - parseInt(_diaW)) / 2, top = this._opts.top || vp.getScrollOffsets().top + (vp.getHeight() - parseInt(_diaH)) / 2;
 			dialogEl.setStyle({
-				top : top - 50 + 'px',
+				top : top + 'px',
 				left : left + 'px'
 			});
+			return this;
 		}
 	});
+	
 	exports.dialog = dialog;
 
 });

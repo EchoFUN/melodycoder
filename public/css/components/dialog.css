@@ -3,15 +3,18 @@
 	position: absolute;
 	width: 400px;
 	border: 1px solid #ccc;
-	height: 155px;
+	min-height: 155px;
+	*height: 155px;
 	background-color: #F1F1F1;
 }
 
 .dialog .title {
-	margin-left: 10px;
+	margin-left: 15px;
+	font-size: 14px;
+	font-weight: bold;
 }
 
-.dialog .title-bar {
+.dialog .dialog-title {
 	color: #FF6000;
 	background-color: #2B2B2B;
 	height: 40px;
@@ -19,7 +22,16 @@
 	cursor: move;
 }
 
-.dialog .title-bar a {
+.dialog .dialog-title a {
 	color: #fff;
-	margin-right: 10px;
+	margin-right: 15px;
+}
+
+.dialog .dialog-content {
+	padding: 15px;
+}
+
+.dialog .dialog-footer {
+	text-align: right;
+	padding: 0 15px;
 }
