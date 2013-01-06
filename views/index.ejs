@@ -16,9 +16,18 @@
         <script type="text/javascript">
 			var YYMG = {};
 			(function(global, undefined) {
+				YYMG.errors = [];
 				YYMG.modules = [];
 				YYMG.baseUrl = '<%= site.SITE_BASE_URL %>';
 				YYMG.staticUrl = '<%= site.SITE_STATIC_URL %>';
+				
+				// 伟大的博主想关心一下IE6什么的。
+				if (!window.console) window.console = {log : function(){}};
+				
+				window.onerror = function(message, url, line) {
+					 YYMG.errors.push({message: message, url: url, line: line});
+					 return true;
+				};
 			})(window);
         </script>
     </head>
