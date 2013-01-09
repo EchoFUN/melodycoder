@@ -3,8 +3,6 @@
 	position: absolute;
 	width: 400px;
 	border: 1px solid #ccc;
-	min-height: 155px;
-	*height: 155px;
 	background-color: #F1F1F1;
 }
 
@@ -34,4 +32,18 @@
 .dialog .dialog-footer {
 	text-align: right;
 	padding: 0 15px;
+	height: 50px;
+	line-height: 50px;
+}
+
+.dialog .dialog-footer input {
+	border: 1px solid #333;
+	padding: 5px 15px;
+	cursor: pointer;
+	margin-left: 10px;
+	outline: none;
+}
+
+.dialog .dialog-footer input:hover {
+	background-color: #ccc;
 }
