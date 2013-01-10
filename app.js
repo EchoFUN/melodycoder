@@ -1,6 +1,9 @@
-
-/**
- * Module dependencies.
+/*
+ * Melodycoder
+ * http://botobe.net/
+ *
+ * Copyright (c) 2013 Kai.XU
+ * Licensed under the MIT license.
  */
 
 var express = require('express'), 
