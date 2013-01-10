@@ -11,7 +11,7 @@
 var fs = require('fs'), path = require('path');
 
 // 调用压缩css和js的工具包
-var uglifyJS = require('uglifyjs'), cleanCSS = require('clean-css');
+var uglifyJS = require('uglify-js'), cleanCSS = require('clean-css');
 
 
 

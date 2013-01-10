@@ -11,6 +11,8 @@
 		"eventproxy": "*",
 		"mongoose": "*",
 		"jsdom": "*",
-		"stylus": "*"
+		"stylus": "*",
+		"uglify-js": "*",
+		"clean-css": "*"
 	}
 }
