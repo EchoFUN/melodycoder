@@ -31,7 +31,7 @@ targetPath = targetPath + '/' + currentVersion;
 fs.mkdirSync(targetPath);
 fs.appendFileSync(path.resolve(LOG_FILE), '------ VERSION: ' + currentVersion + ' ------\n');
 
-// css归并压缩
+// css归并压缩，合并成home.css文件
 var cssFiles = [];
 var getCssFiles = function(path) {
 	var contentList = fs.readdirSync(path);
@@ -57,6 +57,8 @@ for(var i in cssFiles) {
 	var cssContent = fs.readFileSync(cssName);	cssContent = cleanCSS.process(cssContent.toString(), {keepBreaks: true});
 	fs.appendFileSync(targetPath + '/css/home.css', cssContent);
 }
+
+
 
 console.log('部署成功！');
 
