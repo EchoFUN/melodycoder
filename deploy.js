@@ -8,21 +8,21 @@
  */
 
 // 预定义变量
-var SOURCE_FOLD = "./public";
-var TARGET_FOLD = "./dist";
-var LOG_FILE = TARGET_FOLD + "/deploy.log";
+var SOURCE_FOLD = './public';
+var TARGET_FOLD = './dist';
+var LOG_FILE = TARGET_FOLD + '/deploy.log';
 
 // 使用基础包
-var fs = require("fs"), path = require("path");
+var fs = require('fs'), path = require('path');
 
 // 调用压缩css和js的工具包
-var uglifyJS = require("uglify-js"), cleanCSS = require("clean-css");
+var uglifyJS = require('uglify-js'), cleanCSS = require('clean-css');
 
 // main
 var targetPath = path.resolve(TARGET_FOLD), sourcePath = path.resolve(SOURCE_FOLD);
 
 if (!fs.existsSync(path.resolve(LOG_FILE))) {
-	console.error("文件目录结构不正确！部署失败！");
+	console.error('文件目录结构不正确！部署失败！');
 	process.exit();
 }
 
