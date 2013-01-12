@@ -8,8 +8,11 @@
  */
 
 // 预定义变量
+var VIEWS_FOLD = './view';
+var CONFIG_FILE = './config.js';
+
 var SOURCE_FOLD = './public';
-var TARGET_FOLD = './dist';
+var TARGET_FOLD = SOURCE_FOLD + '/dist';
 var LOG_FILE = TARGET_FOLD + '/deploy.log';
 
 // 使用基础包
@@ -19,7 +22,10 @@ var fs = require('fs'), path = require('path');
 var uglifyJS = require('uglify-js'), cleanCSS = require('clean-css');
 
 // main
-var targetPath = path.resolve(TARGET_FOLD), sourcePath = path.resolve(SOURCE_FOLD);
+var targetPath = path.resolve(TARGET_FOLD), 
+	sourcePath = path.resolve(SOURCE_FOLD), 
+	viewsPath  = path.resolve(VIEWS_FOLD),
+	configPath = path.resolve(CONFIG_FILE);
 
 if (!fs.existsSync(path.resolve(LOG_FILE))) {
 	console.error('文件目录结构不正确！部署失败！');
@@ -57,6 +63,15 @@ for(var i in cssFiles) {
 	var cssContent = fs.readFileSync(cssName);	cssContent = cleanCSS.process(cssContent.toString(), {keepBreaks: true});
 	fs.appendFileSync(targetPath + '/css/home.css', cssContent);
 }
+
+// 替换静态文件的版本号
+var configContent = fs.readFileSync(configPath).toString();
+var versionRegix = /\/v\d{13}/;
+configContent = configContent.replace(versionRegix, '/' + currentVersion);
+
+console.log(configContent);
+
+fs.writeFileSync(configPath, configContent);
 
 
 
