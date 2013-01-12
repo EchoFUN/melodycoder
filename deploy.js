@@ -64,16 +64,33 @@ for(var i in cssFiles) {
 	fs.appendFileSync(targetPath + '/css/home.css', cssContent);
 }
 
+// js文件的压缩归并
+var jsFiles = [];
+var getJsFiles = function(path) {
+	var contentList = fs.readdirSync(path);
+	for (var i in contentList) {
+		var name = path + '/' + contentList[i]
+		var isDir = fs.statSync(name).isDirectory();
+		if (isDir) {
+			getJsFiles(name);
+		} else {
+			if (name.substr(-2) == 'js')
+				jsFiles.push(name);
+		}
+	}
+}
+getJsFiles(sourcePath + '/js');
+
+fs.mkdirSync(targetPath + '/js');
+for (var i in jsFiles) {
+	;
+}
+
 // 替换静态文件的版本号
 var configContent = fs.readFileSync(configPath).toString();
 var versionRegix = /\/v\d{13}/;
 configContent = configContent.replace(versionRegix, '/' + currentVersion);
-
-console.log(configContent);
-
 fs.writeFileSync(configPath, configContent);
-
-
 
 console.log('部署成功！');
 
