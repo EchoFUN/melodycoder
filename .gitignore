@@ -5,5 +5,3 @@ config.js
 public/dev.html
 .pydevproject
 public/dist
-
-deploy.js
