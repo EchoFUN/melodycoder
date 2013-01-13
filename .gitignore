@@ -4,3 +4,4 @@ node_modules/*
 config.js
 public/dev.html
 .pydevproject
+public/dist
