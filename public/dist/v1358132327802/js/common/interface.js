@@ -1,0 +1,1 @@
+define(function(t,e){e.ADD_COMMENT=YYMG.baseUrl+"/comment/add"});
