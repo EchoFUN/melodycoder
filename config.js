@@ -8,7 +8,7 @@ exports.config = {
         SITE_BASE_URL: 'http://botobe.net',
         
         // 站点静态网址
-        SITE_STATIC_URL: 'http://botobe.net/dist/v1358050558355',
+        SITE_STATIC_URL: 'http://botobe.net/dist/v1358132327802',
         
         // 文章上传接口
         ARTICLE_PUBLISH_URL: '/publish',
