@@ -10,20 +10,14 @@ define(function(require, exports, module) {
 
         // 导航栏吸顶
         'always-0': function(hook) {
-            var topBannerEl = $('navigator');
-            if (hook < 68) 
+            var topBannerEl = $('navigator'), scrollTopEl = $('scrolltop');
+            if (hook < 68) {
                 topBannerEl.setStyle({'position': 'static', 'margin-top': '20px'});
-            else
-                topBannerEl.setStyle({'position': 'fixed', 'margin-top': '0'});
-        },
-
-        // 取消和影藏移动到最顶部按钮
-        'always-1': function(hook) {
-            var scrollTopEl = $('scrolltop');
-            if (hook == 0)
                 scrollTopEl.hide();
-            else 
+            } else {
+                topBannerEl.setStyle({'position': 'fixed', 'margin-top': '0'});
                 scrollTopEl.show();
+            }
         }
     });
 
@@ -45,7 +39,7 @@ define(function(require, exports, module) {
         });
 
         $('scrolltop').observe('click', function() {
-            
+
         });
     };
 });
