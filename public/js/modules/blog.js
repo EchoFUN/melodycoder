@@ -14,7 +14,7 @@ define(function(require, exports, module) {
 
 		// 回复区域的问题
 		var submitEl = $('respond'), commentList = $('comment-list');
-		Event.observe(submitEl, 'click', function(evt) {
+		submitEl.observe('click', function(evt) {
 			var This = Element.extend(this), target = Element.extend(evt.target);
 
 			// 提交单表
