@@ -6,7 +6,8 @@
 		<meta http-equiv="X-UA-Compatible" content="chrome=1">
 		<meta name="Description" content="音韵码工是我自己的一个个人博客" />
 		<meta name="Keywords" content="代码，吉他" />
-        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/home.css" />
+        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/common.css" />
+        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/general.css" />
         <% if (typeof ugcCss != 'undefined' && ugcCss.length != 0) { %>
     	<% for(var i=0; i<ugcCss.length; i++) { %>
         <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %><%= ugcCss[i] %>" />
@@ -23,10 +24,10 @@
 				// 伟大的博主想关心一下IE6什么的。
 				if (!window.console) window.console = {log : function(){}};
 				
-				window.onerror = function(message, url, line) {
-					 YYMG.errors.push({message: message, url: url, line: line});
-					 return true;
-				};
+				// window.onerror = function(message, url, line) {
+				// 	 YYMG.errors.push({message: message, url: url, line: line});
+				//	 return true;
+				// };
 			})(window);
         </script>
     </head>
@@ -89,6 +90,9 @@
                 <div class="footer-wrap">&copy; 音韵码工 2012 <br />Powered by <a target="_blank" href="http://nodejs.org">node.js</a> created by <a href="mailto:xukai.ken@gmail.com">EchoFUN</a></div>
             </div>
         </div>
+        <a id="scrolltop" href="javascript:;">
+            <span>返回顶部</span>
+        </a>
         <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/libs/html5.js"></script>
         <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/libs/pngfix.js"></script>
         <script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/libs/sea.js" data-main="<%= site.SITE_STATIC_URL %>/js/general"></script>
