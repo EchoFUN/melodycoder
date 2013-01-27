@@ -79,7 +79,7 @@ pFn.publish = function(articles, callback) {
 			if (resp.statusCode == 200) {
 				resp.on('data', function(chunk) {
 					chunk = JSON.parse(chunk);
-					if (chunk.status.code == 1) {
+					if (chunk.status.code == 1) { 
 						callback();
 					} else {
 						Logger.error(chunk.status.content);
