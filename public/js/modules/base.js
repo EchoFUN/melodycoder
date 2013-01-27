@@ -10,12 +10,19 @@ define(function(require, exports, module) {
 
         // 导航栏吸顶
         'always-0': function(hook) {
-            var topBannerEl = $('navigator'), scrollTopEl = $('scrolltop');
+        	
+        	// IE6不支持fixed属性
+        	if (Prototype.Browser.IE && parseInt(navigator.userAgent.substring(navigator.userAgent.indexOf("MSIE")+5)) == 6)
+        		return;
+        	
+            var topBannerEl = $('navigator'), scrollTopEl = $('scrolltop'), headerEl = $('header');
             if (hook < 68) {
-                topBannerEl.setStyle({'position': 'static', 'margin-top': '20px'});
+                topBannerEl.setStyle({'position': 'static'});
+                headerEl.setStyle({'height': '70px'});
                 scrollTopEl.hide();
             } else {
-                topBannerEl.setStyle({'position': 'fixed', 'margin-top': '0'});
+                topBannerEl.setStyle({'position': 'fixed'});
+                headerEl.setStyle({'height': '102px'});
                 scrollTopEl.show();
             }
         }

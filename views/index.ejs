@@ -40,33 +40,33 @@
                     </div>
                     <div id="site-description" classs="site-description">左手音符，右手代码 ！</div>
                 </div>
-                <div id="navigator" class="navigator">
-                    <div class="navigator-wrap">
-                        <ul>
-                            <% if (typeof menus != 'undefined') { %>
-                            <% for(var i=0; i<menus.length; i++) { %>
-                            <li class="<% if (menus[i].url == url ) { %>active<% } %> item nav-item-<%= i %>"><a href="<%= menus[i].url %>"><%= menus[i].title %></a></li>
-                            <% } %>
-                            <script>
-                            (function() {
-                            	var nav = document.getElementById('navigator');
-                            	var tabs = nav.getElementsByTagName('li');
-                            	var tabsLen = tabs.length;
-                            	var _hasAct = false;
-                            	for(var i=0; i<tabsLen; i++) {
-                            		if(tabs[i].className.indexOf('active') != -1) {
-                            			_hasAct = true;
-                            			break;
-                            		}
-                            	}
-                            	if(!_hasAct) {
-                            		tabs[0].className += ' active'
-                            	}
-                           	})();
-                            </script>
-                            <% } %>
-                        </ul>
-                    </div>
+            </div>
+            <div id="navigator" class="navigator">
+                <div class="navigator-wrap">
+                    <ul>
+                        <% if (typeof menus != 'undefined') { %>
+                        <% for(var i=0; i<menus.length; i++) { %>
+                        <li class="<% if (menus[i].url == url ) { %>active<% } %> item nav-item-<%= i %>"><a href="<%= menus[i].url %>"><%= menus[i].title %></a></li>
+                        <% } %>
+                        <script>
+                        (function() {
+                        	var nav = document.getElementById('navigator');
+                        	var tabs = nav.getElementsByTagName('li');
+                        	var tabsLen = tabs.length;
+                        	var _hasAct = false;
+                        	for(var i=0; i<tabsLen; i++) {
+                        		if(tabs[i].className.indexOf('active') != -1) {
+                        			_hasAct = true;
+                        			break;
+                        		}
+                        	}
+                        	if(!_hasAct) {
+                        		tabs[0].className += ' active'
+                        	}
+                       	})();
+                        </script>
+                        <% } %>
+                    </ul>
                 </div>
             </div>
             <div id="body">

@@ -26,7 +26,7 @@ h2 a:hover {
 }
 
 #header {
-    height: 100px;
+    height: 70px;
 }
 
 #header .header-wrap {
@@ -48,9 +48,8 @@ h2 a:hover {
     position: absolute;
 }
 
-#header .navigator {
+.navigator {
     background: #2B2B2B;
-    margin-top: 20px;
     height: 30px;
     border: 1px dotted #6D6D6D;
     border-left: 0;
@@ -59,24 +58,24 @@ h2 a:hover {
     top: 0;
 }
 
-#header .navigator-wrap {
+.navigator .navigator-wrap {
     width: 960px;
     height: 100%;
     margin: 0 auto;
 }
 
-#header .navigator-wrap .active {
+.navigator .navigator-wrap .active {
     background-color: #FF6000;
 }
 
-#header .navigator .item {
+.navigator .item {
     cursor: pointer;
     float: left;
     text-align: center;
     _width: 90px;
 }
 
-#header .navigator .item a {
+.navigator .item a {
     color: #fff;
     height: 30px;
     line-height: 30px;
@@ -84,7 +83,7 @@ h2 a:hover {
     display: block;
 }
 
-#header .navigator .item:hover {
+.navigator .item:hover {
     background-color: #FF6000;
 }
 

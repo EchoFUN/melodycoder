@@ -14,14 +14,12 @@ YYMG.modules.push('prototype');
 YYMG.modules.push('base');
 seajs.use(YYMG.modules, function() {
 	var arg = arguments, argLen = arg.length;
-	document.observe("dom:loaded", function() {
-		for (var i = 0; i < argLen; i++) {
-			var module = arg[i];
-			if (module && module.init && typeof module.init == 'function')
-				module.init();
-		}
+	for (var i = 0; i < argLen; i++) {
+		var module = arg[i];
+		if (module && module.init && typeof module.init == 'function')
+			module.init();
+	}
 
-		// IE6背景半透明修复
-		DD_belatedPNG.fix('.pngfix');
-	});
+	// IE6背景半透明修复
+	DD_belatedPNG.fix('.pngfix');
 });
