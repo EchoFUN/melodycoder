@@ -384,6 +384,7 @@ p.pagination a {
 }
 
 #scrolltop {
+	z-index: 1;
 	position: fixed;
 	bottom: 100px;
 	left: 50%;
