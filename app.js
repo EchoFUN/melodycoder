@@ -38,5 +38,5 @@ app.configure('development', function(){
 route(app);
 
 http.createServer(app).listen(app.get('port'), function(){
-    console.log("Melody codeer is started at " + config.site.SITE_BASE_URL);
+    console.log("Melody coder is started at " + config.site.SITE_BASE_URL);
 });
