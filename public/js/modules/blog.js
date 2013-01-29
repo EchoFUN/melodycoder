@@ -5,8 +5,7 @@
  */
 
 define(function(require, exports, module) {
-	var i = require('../common/interface');
-	dialog = require('../common/components').dialog, tpl = require('../common/tpl');
+	var i = require('../common/interface'), Dialog = require('../common/components').dialog, tpl = require('../common/tpl');
 
 	var commentTPL = new Template(tpl.commentTPL);
 
@@ -44,13 +43,14 @@ define(function(require, exports, module) {
 								else
 									location.reload();
 							} else {
-								new dialog({
-									type : 'inform',
+								new Dialog({
 									content : '评论成功！需呀管理员审核才能显示。'
+								}).addButton('确定', function() {
+									
 								});
 							}
 						} else {
-							new dialog({
+							new Dialog({
 								content : r.status.content
 							});
 						}

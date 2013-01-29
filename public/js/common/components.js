@@ -113,6 +113,10 @@ define(function(require, exports, module) {
 				left : left + 'px'
 			});
 			return this;
+		},
+		
+		close : function() {
+			
 		}
 	});
 	
