@@ -33,7 +33,7 @@ define(function(require, exports, module) {
 
 	exports.init = function() {
 		$('scrolltop').observe('click', function() {
-
+			$(window).scrollTo(0);
 		});
 
 		// IE6不支持fixed属性

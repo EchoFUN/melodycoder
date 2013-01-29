@@ -5,12 +5,10 @@
 
 seajs.config({
 	alias : {
-		'prototype' : YYMG.staticUrl + '/js/libs/prototype.js',
 		'base' : YYMG.staticUrl + '/js/modules/base.js'
 	}
 });
 
-YYMG.modules.push('prototype');
 YYMG.modules.push('base');
 seajs.use(YYMG.modules, function() {
 	var arg = arguments, argLen = arg.length;
