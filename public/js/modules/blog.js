@@ -44,9 +44,10 @@ define(function(require, exports, module) {
 									location.reload();
 							} else {
 								new Dialog({
-									content : '评论成功！需呀管理员审核才能显示。'
+									showClose: false,
+									content : '评论成功！需要管理员审核才能显示。'
 								}).addButton('确定', function() {
-									
+									this.close();
 								});
 							}
 						} else {

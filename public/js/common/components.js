@@ -93,7 +93,10 @@ define(function(require, exports, module) {
 		addButton : function(value, callback) {
 			var button = new Element('input', {type: 'button', class: 'button', value: value});
 			if (Object.isFunction(callback)) {
-				button.observe('click', callback);
+				var self = this;
+				button.observe('click', function() {
+					callback.call(self);
+				});
 			}
 			
 			var footer = this._footerEl;
@@ -116,7 +119,7 @@ define(function(require, exports, module) {
 		},
 		
 		close : function() {
-			
+			this._dialogEl.remove();
 		}
 	});
 	
