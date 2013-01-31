@@ -1,1 +1,65 @@
-define(function(e,t){_registerMap=new Hash({"always-0":function(e){var t=$("navigator"),n=$("scrolltop"),r=$("header");68>e?(t.setStyle({position:"static"}),r.setStyle({height:"70px"}),n.hide()):(t.setStyle({position:"fixed"}),r.setStyle({height:"102px"}),n.show())}}),t.init=function(){$("scrolltop").observe("click",function(){$(window).scrollTo(0)}),Prototype.Browser.IE&&6==parseInt(navigator.userAgent.substring(navigator.userAgent.indexOf("MSIE")+5))?$("scrolltop").remove():Event.observe(window,"scroll",function(){var e=document.viewport,t=e.getScrollOffsets(),n=t[1];_registerMap.each(function(e){-1!=e.key.indexOf("always")?e.value(n):n==e.key&&e.value(n)})}),Event.observe(document,"keydown",function(e){e.keyCode==Event.KEY_ESC})}});
+/**
+ * @fileoverview 基础的页面模块
+ * @author xukai.ken@gmail.com
+ *
+ */
+
+define(function(require, exports, module) {
+
+	_registerMap = new Hash({
+
+		// 滚动事件监听列表
+		'always-0' : function(hook) {
+			var topBannerEl = $('navigator'), scrollTopEl = $('scrolltop'), headerEl = $('header');
+			if (hook < 68) {
+				topBannerEl.setStyle({
+					'position' : 'static'
+				});
+				headerEl.setStyle({
+					'height' : '70px'
+				});
+				scrollTopEl.hide();
+			} else {
+				topBannerEl.setStyle({
+					'position' : 'fixed'
+				});
+				headerEl.setStyle({
+					'height' : '102px'
+				});
+				scrollTopEl.show();
+			}
+		}
+	});
+
+	exports.init = function() {
+		$('scrolltop').observe('click', function() {
+			$(window).scrollTo(0);
+		});
+
+		// IE6不支持fixed属性
+		if (Prototype.Browser.IE && parseInt(navigator.userAgent.substring(navigator.userAgent.indexOf("MSIE") + 5)) == 6) {
+			$('scrolltop').remove();
+		} else {
+
+			// 设置头部吸顶
+			Event.observe(window, 'scroll', function(evt) {
+				var viewPort = document.viewport;
+				var offsets = viewPort.getScrollOffsets();
+				var yOffset = offsets[1];
+				_registerMap.each(function(pair) {
+					if (pair.key.indexOf('always') != -1)
+						pair.value(yOffset);
+					else if (yOffset == pair.key)
+						pair.value(yOffset);
+				});
+			});
+		}
+
+		// 增加对全局键盘事件的监听
+		Event.observe(document, 'keydown', function(evt) {
+			if (evt.keyCode == Event.KEY_ESC) {
+				return;				
+			}
+		});
+	};
+});
