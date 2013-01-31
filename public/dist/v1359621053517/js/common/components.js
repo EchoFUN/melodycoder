@@ -91,7 +91,7 @@ define(function(require, exports, module) {
 		},
 		
 		addButton : function(value, callback) {
-			var button = new Element('input', {type: 'button', class: 'button', value: value});
+			var button = new Element('a', {class: 'button', value: value, href: 'javascript:;'});
 			if (Object.isFunction(callback)) {
 				var self = this;
 				button.observe('click', function() {

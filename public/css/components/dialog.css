@@ -36,14 +36,14 @@
 	line-height: 50px;
 }
 
-.dialog .dialog-footer input {
+.dialog .dialog-footer a {
+	display: inline-block;
 	border: 1px solid #333;
 	padding: 5px 15px;
-	cursor: pointer;
 	margin-left: 10px;
 	outline: none;
 }
 
-.dialog .dialog-footer input:hover {
+.dialog .dialog-footer a:hover {
 	background-color: #ccc;
 }
