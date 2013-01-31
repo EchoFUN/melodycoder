@@ -52,3 +52,7 @@ form, form[class] {
 	display: block;
 	clear: both
 }
+
+pre {
+	line-height: 17px;
+}
