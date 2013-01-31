@@ -39,20 +39,27 @@ define(function(require, exports, module) {
 		// IE6不支持fixed属性
 		if (Prototype.Browser.IE && parseInt(navigator.userAgent.substring(navigator.userAgent.indexOf("MSIE") + 5)) == 6) {
 			$('scrolltop').remove();
-			return;
+		} else {
+
+			// 设置头部吸顶
+			Event.observe(window, 'scroll', function(evt) {
+				var viewPort = document.viewport;
+				var offsets = viewPort.getScrollOffsets();
+				var yOffset = offsets[1];
+				_registerMap.each(function(pair) {
+					if (pair.key.indexOf('always') != -1)
+						pair.value(yOffset);
+					else if (yOffset == pair.key)
+						pair.value(yOffset);
+				});
+			});
 		}
 
-		// 设置头部吸顶
-		Event.observe(window, 'scroll', function(evt) {
-			var viewPort = document.viewport;
-			var offsets = viewPort.getScrollOffsets();
-			var yOffset = offsets[1];
-			_registerMap.each(function(pair) {
-				if (pair.key.indexOf('always') != -1)
-					pair.value(yOffset);
-				else if (yOffset == pair.key)
-					pair.value(yOffset);
-			});
+		// 增加对全局键盘事件的监听
+		Event.observe(document, 'keydown', function(evt) {
+			if (evt.keyCode == Event.KEY_ESC) {
+				return;				
+			}
 		});
 	};
 });
