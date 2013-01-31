@@ -6,7 +6,7 @@
 
 define(function(require, exports, module) {
 
-	_registerMap = new Hash({
+	var _registerMap = new Hash({
 
 		// 滚动事件监听列表
 		'always-0' : function(hook) {
