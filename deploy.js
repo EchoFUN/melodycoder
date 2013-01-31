@@ -106,21 +106,3 @@ configContent = configContent.replace(versionRegix, '/' + currentVersion);
 fs.writeFileSync(configPath, configContent);
 
 console.log('部署成功！');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

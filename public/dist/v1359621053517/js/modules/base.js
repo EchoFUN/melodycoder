@@ -37,7 +37,7 @@ define(function(require, exports, module) {
 		});
 
 		// IE6不支持fixed属性
-		if (Prototype.Browser.IE && parseInt(navigator.userAgent.substring(navigator.userAgent.indexOf("MSIE") + 5)) == 6) {
+		if (YYMG.isIE6) {
 			$('scrolltop').remove();
 		} else {
 
