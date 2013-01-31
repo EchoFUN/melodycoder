@@ -5,7 +5,7 @@
  */
 
 define(function(require, exports, module) {
-	var i = require('../common/interface'), Dialog = require('../common/components').dialog, tpl = require('../common/tpl');
+	var i = require('interface'), Dialog = require('components').dialog, tpl = require('tpl');
 
 	var commentTPL = new Template(tpl.commentTPL);
 

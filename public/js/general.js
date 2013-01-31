@@ -5,7 +5,11 @@
 
 seajs.config({
 	alias : {
-		'base' : YYMG.staticUrl + '/js/modules/base.js'
+		'base' : YYMG.staticUrl + '/js/modules/base.js',
+		
+		'interface' : YYMG.staticUrl + '/js/common/interface.js',
+		'components' : YYMG.staticUrl + '/js/common/components.js',
+		'tpl' : YYMG.staticUrl + '/js/common/tpl.js',
 	}
 });
 

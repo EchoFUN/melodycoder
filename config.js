@@ -8,7 +8,7 @@ exports.config = {
         SITE_BASE_URL: 'http://botobe.net',
         
         // 站点静态网址
-        SITE_STATIC_URL: 'http://botobe.net',
+        SITE_STATIC_URL: 'http://botobe.net/dist/v1359621053517',
         
         // 文章上传接口
         ARTICLE_PUBLISH_URL: '/publish',
@@ -25,7 +25,5 @@ exports.config = {
         DB_NAME: 'yymg'
     },
 
-    SESSION_SECRET: '音韵码工',
-
-    DEBUG_MODE: true
+    SESSION_SECRET: '音韵码工'
 }

@@ -2,34 +2,37 @@
 a{text-decoration:none;outline:0}
 a:hover{text-decoration:none}
 .clear{clear:both}
+h1{font-size:24px}
 h2{font-size:18px}
 .left{float:left}
 .right{float:right}
 li{list-style:none}
 form,form[class]{margin:1.5em 0;padding:10px 20px;border:1px solid #F0F0F0;background:#FAFAFA}
 .clearfix{*zoom:1}
-.clearfix:after{content:"\20";display:block;clear:both}.dialog{font-size:12px;position:absolute;width:400px;border:1px solid #ccc;background-color:#F1F1F1}
+.clearfix:after{content:"\20";display:block;clear:both}
+pre{line-height:17px}.dialog{font-size:12px;position:absolute;width:400px;border:1px solid #ccc;background-color:#F1F1F1}
 .dialog .title{margin-left:15px;font-size:14px;font-weight:700}
 .dialog .dialog-title{color:#FF6000;background-color:#2B2B2B;height:40px;line-height:40px;cursor:move}
 .dialog .dialog-title a{color:#fff;margin-right:15px}
 .dialog .dialog-content{padding:15px}
 .dialog .dialog-footer{text-align:right;padding:0 15px;height:50px;line-height:50px}
 .dialog .dialog-footer input{border:1px solid #333;padding:5px 15px;cursor:pointer;margin-left:10px;outline:0}
-.dialog .dialog-footer input:hover{background-color:#ccc}body{color:#444;background-color:#F1F1F1;font:400 12px "微软雅黑",arial,sans-serif}
+.dialog .dialog-footer input:hover{background-color:#ccc}body{color:#444;background-color:#F1F1F1;font:400 12px '微软雅黑',arial,sans-serif}
 a{color:#FF6000}
 h2,.main h1{padding-bottom:5px;background:url(/images/big-line.gif) 0 bottom no-repeat}
 h2 a{color:#444}
 h2 a:hover{color:#ff6000}
 .required{color:red}
+#header{height:70px}
 #header .header-wrap{padding-top:20px;width:960px;margin:0 auto;position:relative}
 #header #site-logo a{color:#444;font-weight:700}
-#header #site-description{bottom:0;left:120px;*left:150px;position:absolute}
-#header .navigator{background:#2B2B2B;margin-top:20px;height:30px;border:1px dotted #6D6D6D;border-left:0;border-right:0}
-#header .navigator-wrap{width:960px;height:100%;margin:0 auto}
-#header .navigator-wrap .active{background-color:#FF6000}
-#header .navigator .item{cursor:pointer;float:left;text-align:center;_width:90px}
-#header .navigator .item a{color:#fff;height:30px;line-height:30px;padding:0 15px;display:block}
-#header .navigator .item:hover{background-color:#FF6000}
+#header #site-description{bottom:0;left:120px;position:absolute}
+.navigator{padding:1px 0;background:url(/images/navigator-bg.jpg) repeat-x;height:30px;width:100%;top:0}
+.navigator .navigator-wrap{width:960px;height:100%;margin:0 auto}
+.navigator .navigator-wrap .active{background-color:#FF6000}
+.navigator .item{cursor:pointer;float:left;text-align:center;_width:90px}
+.navigator .item a{color:#fff;height:30px;line-height:30px;padding:0 15px;display:block}
+.navigator .item:hover{background-color:#FF6000}
 #body{background:url(/images/bg.png) center repeat-y}
 #body .body-wrap{width:960px;margin:0 auto;padding:20px 0}
 #body .sidebar{width:250px}
@@ -37,7 +40,7 @@ h2 a:hover{color:#ff6000}
 #body .sidebar ul li a{color:#616161;padding-left:5px;display:block}
 #body .sidebar ul li{border-top:1px solid #DDD;color:#969696;margin:0;padding:5px 0}
 #body .sidebar ul{margin:1.5em 0;padding:0}
-#body .main{width:650px;margin-top:7px}
+#body .main{width:650px;margin-top:7px;_overflow:hidden}
 #body .article-list{margin-top:6px}
 #body .main .introduction-1{background:url(/images/about/part-0.png) no-repeat scroll 0 0 transparent;height:538px;width:569px}
 #body .main .introduction-2{background:url(/images/about/part-1.png) no-repeat scroll 0 0 transparent;height:296px;width:569px;margin-top:0}
@@ -86,3 +89,4 @@ p.pagination a{background:url(/images/icons.png) no-repeat;font-weight:700}
 .sina-widget{border:1px solid #ccc}
 .wp_syntax{color:#100;background-color:#F9F9F9;border:1px solid silver;margin:0 0 1.5em;overflow:auto}
 .wp_syntax .code{vertical-align:top;padding:2px 4px}
+#scrolltop{z-index:1;position:fixed;bottom:100px;left:50%;margin-left:480px;border-style:solid;border-width:1px;border-radius:2px;width:22px;height:65px;line-height:12px;text-align:center;background-color:#f3f3f3;border-color:#ccc;display:block;padding-top:20px;_position:absolute}
