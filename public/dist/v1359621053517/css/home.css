@@ -16,7 +16,7 @@ pre{line-height:17px}.dialog{font-size:12px;position:absolute;width:400px;border
 .dialog .dialog-title a{color:#fff;margin-right:15px}
 .dialog .dialog-content{padding:15px}
 .dialog .dialog-footer{text-align:right;padding:0 15px;height:50px;line-height:50px}
-.dialog .dialog-footer a{display:inline-block;border:1px solid #333;padding:5px 15px;margin-left:10px;outline:none;}
+.dialog .dialog-footer a{display:inline-block;border:1px solid #ccc;padding:0 15px;margin-left:10px;outline:none;height:30px;line-height:30px;color:#333;}
 .dialog .dialog-footer a:hover{background-color: #ccc;}
 body{color:#444;background-color:#F1F1F1;font:400 12px '微软雅黑',arial,sans-serif}
 a{color:#FF6000}

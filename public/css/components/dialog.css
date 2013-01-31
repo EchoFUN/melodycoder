@@ -38,10 +38,13 @@
 
 .dialog .dialog-footer a {
 	display: inline-block;
-	border: 1px solid #333;
-	padding: 5px 15px;
+	border: 1px solid #ccc;
+	padding: 0 15px;
 	margin-left: 10px;
 	outline: none;
+	height: 30px;
+	line-height: 30px;
+	color: #333;
 }
 
 .dialog .dialog-footer a:hover {
