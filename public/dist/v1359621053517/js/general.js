@@ -7,9 +7,10 @@ seajs.config({
 	alias : {
 		'base' : YYMG.staticUrl + '/js/modules/base.js',
 		
+		// 常用文件的配置
 		'interface' : YYMG.staticUrl + '/js/common/interface.js',
 		'components' : YYMG.staticUrl + '/js/common/components.js',
-		'tpl' : YYMG.staticUrl + '/js/common/tpl.js',
+		'tpl' : YYMG.staticUrl + '/js/common/tpl.js'
 	}
 });
 
