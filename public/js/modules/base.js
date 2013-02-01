@@ -57,8 +57,12 @@ define(function(require, exports, module) {
 
 		// 增加对全局键盘事件的监听
 		Event.observe(document, 'keydown', function(evt) {
+			
+			// 全局ESC键
 			if (evt.keyCode == Event.KEY_ESC) {
-				return;				
+				$$('.dialog').each(function(dialog) {
+					dialog.remove();
+				});
 			}
 		});
 	};
