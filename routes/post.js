@@ -33,29 +33,33 @@ exports.index = function(req, resp) {
 			proxy.assign('view', 'options', render);
 			proxy.trigger('view', 'index');
 			dbEvt.getPostById(pid, function(post, tags, categories, comments) {
-				post.tags = tags;
-				post.categories = categories;
-				post.comments = comments;
-				var baseInfo = config.site;
-				
-				var ugcCss = [];
 				if (post) {
-					var tpth = '/css/ugc/' + post._id.toString() + '.css';
+					post.tags = tags;
+					post.categories = categories;
+					post.comments = comments;
+					var baseInfo = config.site;
 					
-					if (fs.existsSync(path.resolve('./public' + tpth)))
-						ugcCss.push(tpth);
+					var ugcCss = [];
+					if (post) {
+						var tpth = '/css/ugc/' + post._id.toString() + '.css';
+						
+						if (fs.existsSync(path.resolve('./public' + tpth)))
+							ugcCss.push(tpth);
+					}
+					data = {
+						post : post,
+						menus : menus,
+						links : links,
+						rectPosts : rectPosts,
+						vtype : 4,
+						site : baseInfo,
+						url : req.url,
+						ugcCss : ugcCss
+					};
+					proxy.trigger('options', data);
+				} else {
+					proxy.trigger('options', {});
 				}
-				data = {
-					post : post,
-					menus : menus,
-					links : links,
-					rectPosts : rectPosts,
-					vtype : 4,
-					site : baseInfo,
-					url : req.url,
-					ugcCss : ugcCss
-				};
-				proxy.trigger('options', data);
 			});
 		} else if (archive) {
 			;
