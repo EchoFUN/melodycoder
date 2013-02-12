@@ -70,10 +70,10 @@ exports.getPostById = function(pid, callback) {
 	var eventHooks = ['post', 'tags', 'categories', 'comments'];
 	proxy.assign(eventHooks, callback);
 	Post.findById(pid, function(error, post) {
-		var date = post.date;
-		Post.find({}, '_id title', function() {
+		// var date = post.date;
+		// Post.find({}, '_id title', function() {
 
-		});
+		// });
 
 		// 更具时间获取前后两篇文章
 		// var postTime = post.date;
