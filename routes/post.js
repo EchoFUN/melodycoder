@@ -46,20 +46,18 @@ exports.index = function(req, resp) {
 						if (fs.existsSync(path.resolve('./public' + tpth)))
 							ugcCss.push(tpth);
 					}
-					data = {
-						post : post,
-						menus : menus,
-						links : links,
-						rectPosts : rectPosts,
-						vtype : 4,
-						site : baseInfo,
-						url : req.url,
-						ugcCss : ugcCss
-					};
-					proxy.trigger('options', data);
-				} else {
-					proxy.trigger('options', {});
 				}
+				data = {
+					post : post || {},
+					menus : menus,
+					links : links,
+					rectPosts : rectPosts,
+					vtype : 4,
+					site : baseInfo,
+					url : req.url,
+					ugcCss : ugcCss
+				};
+				proxy.trigger('options', data);
 			});
 		} else if (archive) {
 			;
