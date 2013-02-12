@@ -7,7 +7,11 @@
 		<meta name="Description" content="音韵码工是我自己的一个个人博客" />
 		<meta name="Keywords" content="代码，吉他" />
 		
-        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/home.css" />
+        <!-- <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/home.css" /> -->
+        
+        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/common.css" />
+        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/general.css" />
+        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/components/dialog.css" />
         
         <% if (typeof ugcCss != 'undefined' && ugcCss.length != 0) { %>
     	<% for(var i=0; i<ugcCss.length; i++) { %>
@@ -32,7 +36,7 @@
 			})(window);
         </script>
         <script type="text/javascript">
-		    var _gaq = _gaq || [];
+		    /* var _gaq = _gaq || [];
 		    _gaq.push(['_setAccount', 'UA-38436425-1']);
 		    _gaq.push(['_trackPageview']);
 		
@@ -40,7 +44,7 @@
 		        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 		        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 		        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		    })();
+		    })(); */
 		</script>
     </head>
     <body>
