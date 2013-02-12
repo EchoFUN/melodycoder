@@ -37,7 +37,6 @@ exports.index = function(req, resp) {
 					post.tags = tags;
 					post.categories = categories;
 					post.comments = comments;
-					var baseInfo = config.site;
 					
 					var ugcCss = [];
 					if (post) {
@@ -53,7 +52,7 @@ exports.index = function(req, resp) {
 					links : links,
 					rectPosts : rectPosts,
 					vtype : 4,
-					site : baseInfo,
+					site : config.site,
 					url : req.url,
 					ugcCss : ugcCss
 				};
