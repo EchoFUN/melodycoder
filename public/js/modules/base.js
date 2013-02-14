@@ -5,6 +5,7 @@
  */
 
 define(function(require, exports, module) {
+	var tween = require('components').tween;
 
 	var _registerMap = new Hash({
 
@@ -34,10 +35,24 @@ define(function(require, exports, module) {
 	exports.init = function() {
 		$('scrolltop').observe('click', function() {
 			// $(window).scrollTo(0);
-			
+			if (this._animating)
+				return;
+
+			var self = this;
+			var body = document.body;
 			var _moveTop = function() {
-				
+				self._animating = true;
+				if (top > 70) {
+					top--;
+					body.scrollTop = tween.Quart.easeOut(top, begin, (begin - 80), 500);
+					setTimeout(_moveTop, 10);
+				} else {
+					;
+				}
 			};
+			var offsets = document.viewport.getScrollOffsets();
+			var top = offsets[1];
+			var begin = top;
 			_moveTop();
 		});
 
@@ -62,7 +77,7 @@ define(function(require, exports, module) {
 
 		// 增加对全局键盘事件的监听
 		Event.observe(document, 'keydown', function(evt) {
-			
+
 			// 全局ESC键
 			if (evt.keyCode == Event.KEY_ESC) {
 				$$('.dialog').each(function(dialog) {
