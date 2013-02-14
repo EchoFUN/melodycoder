@@ -4,7 +4,7 @@
  */
 
 define(function(require, exports, module) {
-
+	
 	// 弹框组件
 	var dialog = Class.create({
 		initialize : function(opts) {
@@ -124,5 +124,15 @@ define(function(require, exports, module) {
 	});
 	
 	exports.dialog = dialog;
-
+	
+	// 动画移动算法组件
+	var tween = {
+		Quart : {
+			easeOut : function(t, b, c, d) {
+				return -c * (( t = t / d - 1) * t * t * t - 1) + b;
+			}
+		}
+	}
+	
+	exports.tween = tween;
 });
