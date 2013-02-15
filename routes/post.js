@@ -33,21 +33,19 @@ exports.index = function(req, resp) {
 			proxy.assign('view', 'options', render);
 			proxy.trigger('view', 'index');
 			dbEvt.getPostById(pid, function(post, tags, categories, comments) {
+				var ugcCss = [];
 				if (post) {
 					post.tags = tags;
 					post.categories = categories;
 					post.comments = comments;
-					
-					var ugcCss = [];
-					if (post) {
-						var tpth = '/css/ugc/' + post._id.toString() + '.css';
-						
-						if (fs.existsSync(path.resolve('./public' + tpth)))
-							ugcCss.push(tpth);
-					}
+
+					var tpth = '/css/ugc/' + post._id.toString() + '.css';
+
+					if (fs.existsSync(path.resolve('./public' + tpth)))
+						ugcCss.push(tpth);
 				}
 				data = {
-					post : post || {},
+					post : post,
 					menus : menus,
 					links : links,
 					rectPosts : rectPosts,
@@ -72,7 +70,7 @@ exports.addComment = function(req, resp) {
 			code : 0
 		},
 		data : {
-			time: new Date().getTime()
+			time : new Date().getTime()
 		}
 	};
 	dbEvt.addComment(req.body, function(code, isApproved, content) {

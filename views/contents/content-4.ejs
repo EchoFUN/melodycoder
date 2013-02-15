@@ -1,3 +1,4 @@
+<% if(typeof post != 'undefined') { %>
 <script type="text/javascript">
 	(function(global) {
 		YYMG || (YYMG = {});
@@ -5,6 +6,8 @@
 		YYMG.pid = '<%= post.id %>';
 	})(window);
 </script>
+<% } %>
+
 <div class="main article-view left">
     <% if(typeof post != 'undefined') { %>
     <h1><%= post.title %></h1>
