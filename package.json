@@ -1,9 +1,10 @@
 {
-	"name": "音韵码工",
+	"name": "Melodycolder",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node app"
+		"test": "NODE_ENV=development node-dev app",
+		"start": "NODE_ENV=production node app"
 	},
 	"dependencies": {
 		"express": "3.0.0rc3",
