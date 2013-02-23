@@ -31,10 +31,12 @@
 				// 伟大的博主想关心一下IE6什么的。
 				if (!window.console) window.console = {log : function(){}};
 				
+				<% if (env && env == 'production') { %>
 				window.onerror = function(message, url, line) {
 				 	YYMG.errors.push({message: message, url: url, line: line});
 					return true;
 				};
+				<% } %>
 			})(window);
         </script>
         <% if (env && env == 'production') { %>

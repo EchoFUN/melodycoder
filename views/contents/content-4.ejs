@@ -43,14 +43,14 @@
         <span class="next"><a href="javascript:;">下一页</a></span>
     </p>
     -->
-    <div class="comments">
+    <div class="comments-area" id="comments-area">
     	<% if(post.comments.length) { %>
 	        <h3 id="comments-title">关于“<%= post.title %>”的<%= post.comments.length %>个想法</h3>
 	    	<div class="comment-list" id="comment-list">
 	    		<% for(var i in post.comments) { %>
 	    		<% var comment = post.comments[i]; %>
-	    		<div class="comment <%= ((i % 2) == 1)? 'even' : 'odd' %>" data-rid="<%= comment.id %>">
-	    			<div class="reply-comment right" style="display:block;">
+	    		<div class="comment-item <%= ((i % 2) == 1)? 'even' : 'odd' %>" data-rid="<%= comment.id %>">
+	    			<div class="reply-comment right">
 	    				<a href="javascript:;">回复</a>
 	    			</div>
 	    			<div class="avatar"><img height="38" width="38" src="http://cdn.v2ex.com/static/img/avatar_normal.png" /></div>
@@ -80,7 +80,7 @@
         			<label for="webside">网站：</label><input placeholder="您的网站地址" type="text" name="webside" class="webside" />
         		</p>
         		<p class="item clearfix">
-        			<label for="comment">评论：</label><textarea cols="73" rows="8" name="comment" class="comment"></textarea>
+        			<label for="comment">评论：</label><textarea cols="73" rows="8" name="comment"></textarea>
         		</p>
         		<p class="item clearfix">
         			<label></label><input class="submit" name="submit" type="submit" value="提交评论">
