@@ -89,7 +89,8 @@ exports.index = function(req, resp) {
 			comments : posts.comments,
 			categories : posts.categories,
 			url : req.url,
-			ugcCss : ugcCss
+			ugcCss : ugcCss,
+			env: process.env.NODE_ENV
 		};
 		proxy.trigger('data', data);
 
@@ -113,7 +114,8 @@ exports.about = function(req, resp) {
 			links : links,
 			vtype : vtype,
 			site : baseInfo,
-			url : req.url
+			url : req.url,
+			env: process.env.NODE_ENV
 		};
 		resp.render('index', data);
 	}, params);
@@ -132,6 +134,7 @@ exports.experiment = function(req, resp) {
 			vtype : vtype,
 			site : baseInfo,
 			url : req.url,
+			env: process.env.NODE_ENV,
 			isIE6 : isIE6(req)
 		};
 		resp.render('index', data);

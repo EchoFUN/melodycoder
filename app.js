@@ -33,7 +33,7 @@ app.configure('development', function() {
 });
 
 // 生产环境
-app.configure（'production', function() {
+app.configure('production', function() {
 	app.use(express.compress());
 });
 
