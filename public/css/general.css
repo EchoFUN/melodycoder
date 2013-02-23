@@ -211,7 +211,13 @@ div.post-content p {
 }
 
 .comment-list .even {
+	background: #fff;
+}
 
+.comment .reply-comment a {
+	background: url('/images/icons.png') no-repeat;
+	background-position: 0 -65px;
+	padding-left: 21px;
 }
 
 .comment .avatar {
