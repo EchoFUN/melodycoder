@@ -200,7 +200,7 @@ div.post-content p {
 	font-size: 1.5em;
 }
 
-.comment-list .comment {
+.comment-list .comment-item {
 	margin-top: 5px;
 	padding: 10px 20px;
 	border: 1px solid #E6E6E6;
@@ -211,10 +211,24 @@ div.post-content p {
 }
 
 .comment-list .even {
-
+	background: #fff;
 }
 
-.comment .avatar {
+.comment-item .reply-comment a {
+	background: url('/images/icons.png') no-repeat;
+	background-position: 0 -65px;
+	padding-left: 21px;
+}
+
+.comment-list .reply-comment {
+	display: none;
+}
+
+.comment-list .item-hover .reply-comment {
+	display: block;
+}
+
+.comment-item .avatar {
 	float: left;
 	border: 1px solid #ccc;
 	padding: 2px;
@@ -222,7 +236,7 @@ div.post-content p {
 	height: 38px;
 }
 
-.comment .comment-info {
+.comment-item .comment-info {
 	margin-left: 55px;
 }
 
@@ -238,7 +252,7 @@ div.post-content p {
 	margin-top: 8px;
 }
 
-.comment .comment-content {
+.comment-item .comment-content {
 	margin-top: 10px;
 }
 
@@ -272,6 +286,7 @@ div.post-content p {
 	vertical-align: middle;
 	width: 120px;
 	cursor: pointer;
+	border: 0;
 }
 
 .respond-content .item label {
@@ -349,11 +364,11 @@ p.pagination a {
 	margin-bottom: 1.5em;
 }
 
-.comments {
+.comments-area {
 	margin-top: 30px;
 }
 
-.comments .respond {
+.comments-area .respond {
 	margin-top: 9px;
 }
 

@@ -44,7 +44,7 @@ define(function(require, exports, module) {
 									location.reload();
 							} else {
 								new Dialog({
-									showClose: false,
+									showClose : false,
 									content : '评论成功！需要管理员审核才能显示。'
 								}).addButton('确定', function() {
 									this.close();
@@ -65,6 +65,22 @@ define(function(require, exports, module) {
 				});
 			}
 		});
+
+		// 对单条评论回复
+		if (commentList) {
+			var commentItemsEl = commentList.select('.comment-item');
+			commentItemsEl.each(function(commentItemEl) {
+				commentItemEl.observe('mouseover', function() {
+					var self = Element.extend(this);
+					self.addClassName('item-hover');
+				});
+
+				commentItemEl.observe('mouseleave', function() {
+					var self = Element.extend(this);
+					self.removeClassName('item-hover');
+				});
+			});
+		}
 	};
 
 	exports.listInit = Prototype.emptyFunction;

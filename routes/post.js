@@ -52,7 +52,8 @@ exports.index = function(req, resp) {
 					vtype : 4,
 					site : config.site,
 					url : req.url,
-					ugcCss : ugcCss
+					ugcCss : ugcCss,
+					env : process.env.NODE_ENV
 				};
 				proxy.trigger('options', data);
 			});
