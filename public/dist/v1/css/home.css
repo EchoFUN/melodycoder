@@ -28,13 +28,13 @@ h2 a:hover{color:#ff6000}
 #header .header-wrap{padding-top:20px;width:960px;margin:0 auto;position:relative}
 #header #site-logo a{color:#444;font-weight:700}
 #header #site-description{bottom:0;left:120px;position:absolute}
-.navigator{padding:1px 0;background:url(/images/navigator-bg.jpg) repeat-x;height:30px;width:100%;top:0}
+.navigator{padding:1px 0;background:url(http://fmn.xnpic.com/fmn056/20130301/2355/original_iz1b_1b9d0000f6aa125c.jpg) repeat-x;height:30px;width:100%;top:0}
 .navigator .navigator-wrap{width:960px;height:100%;margin:0 auto}
 .navigator .navigator-wrap .active{background-color:#FF6000}
 .navigator .item{cursor:pointer;float:left;text-align:center;_width:90px}
 .navigator .item a{color:#fff;height:30px;line-height:30px;padding:0 15px;display:block}
 .navigator .item:hover{background-color:#FF6000}
-#body{background:url(/images/bg.png) center repeat-y}
+#body{background:url(http://fmn.rrfmn.com/fmn059/20130301/2350/original_yoMF_02430000f856125b.jpg) center repeat-y}
 #body .body-wrap{width:960px;margin:0 auto;padding:20px 0}
 #body .sidebar{width:250px}
 #body .sidebar h3{background:url(/images/big-line.gif) no-repeat scroll 0 bottom transparent;color:#666;padding-bottom:5px}
