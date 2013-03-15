@@ -23,4 +23,5 @@ module.exports = function(app) {
 	
 	// 获取当前网站的基本信息
 	app.get('/site/status', site.status);
+	app.post('/site/status', site.status);
 }; 

@@ -90,7 +90,7 @@ exports.index = function(req, resp) {
 			categories : posts.categories,
 			url : req.url,
 			ugcCss : ugcCss,
-			env: process.env.NODE_ENV
+			env : process.env.NODE_ENV
 		};
 		proxy.trigger('data', data);
 
@@ -115,7 +115,7 @@ exports.about = function(req, resp) {
 			vtype : vtype,
 			site : baseInfo,
 			url : req.url,
-			env: process.env.NODE_ENV
+			env : process.env.NODE_ENV
 		};
 		resp.render('index', data);
 	}, params);
@@ -134,7 +134,7 @@ exports.experiment = function(req, resp) {
 			vtype : vtype,
 			site : baseInfo,
 			url : req.url,
-			env: process.env.NODE_ENV,
+			env : process.env.NODE_ENV,
 			isIE6 : isIE6(req)
 		};
 		resp.render('index', data);
@@ -143,5 +143,38 @@ exports.experiment = function(req, resp) {
 
 // 获取当前网站的状态信息
 exports.status = function(req, resp) {
-	resp.render('status', {});
+	var isAjax = !!req.query.isAjax;
+	if (isAjax) {
+		var dbEvt = req.dbEvt;
+		var siteStatus = dbEvt.getSiteStatus();		
+		var query = {
+			status : {
+				code : 1,
+				content : ''
+			}
+		};
+		resp.end(JSON.stringify(query));
+	} else {
+		resp.render('status', {});
+	}
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
