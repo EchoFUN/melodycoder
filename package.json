@@ -7,13 +7,14 @@
 		"start": "NODE_ENV=production node app"
 	},
 	"dependencies": {
-		"express": "3.0.0rc3",
+		"express": "*",
 		"ejs": "*",
 		"eventproxy": "*",
 		"mongoose": "*",
 		"jsdom": "*",
 		"stylus": "*",
 		"uglify-js": "*",
-		"clean-css": "*"
+		"clean-css": "*",
+		"async": "*"
 	}
 }
