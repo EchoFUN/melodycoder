@@ -1,5 +1,5 @@
 /*
- * Melodycoder
+ * Melodycoder, an personal webside.
  * http://botobe.net/
  *
  * Copyright (c) 2013 Kai.XU
