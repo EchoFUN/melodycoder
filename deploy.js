@@ -1,6 +1,5 @@
 /**
- * Melodycoder
- * http://botobe.net/
+ * Melodycoder botobe.net
  * 网站上线自动打包部署脚本，包括压缩合并css等等。
  *
  * Copyright (c) 2013 Kai.XU
