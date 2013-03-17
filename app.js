@@ -4,21 +4,16 @@
  *
  * Copyright (c) 2013 Kai.XU
  * Licensed under the MIT license.
- */ 
+ */
 
-var express = require('express'),
-	route = require('./RouterMap'),
-	http = require('http'),
-	path = require('path'),
-	db = require('./model/db'),
-	config = require('./config').config;
+var express = require('express'), route = require('./RouterMap'), http = require('http'), path = require('path'), db = require('./model/db'), config = require('./config').config;
 
 var app = express();
 
 app.configure(function() {
 	app.use(express.cookieParser());
 	app.use(express.session({
-		secret: config.SESSION_SECRET
+		secret : config.SESSION_SECRET
 	}));
 	app.use(db.initialize());
 	app.set('port', process.env.PORT || 3000);
@@ -43,4 +38,4 @@ app.configure('production', function() {
 });
 
 route(app);
-http.createServer(app).listen(app.get('port'));
+http.createServer(app).listen(app.get('port')); 
