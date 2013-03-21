@@ -1,20 +1,26 @@
 {
 	"name": "Melodycolder",
 	"version": "0.0.1",
+	"description": "个人博客系统",
+	"repository": "https://github.com/EchoFUN/melodycoder.git",
+	"author": "XU Kai (xukai.ken@gmail.com)",
+	"license": "MIT",
 	"private": true,
+	
 	"scripts": {
 		"test": "NODE_ENV=development node-dev app",
 		"start": "NODE_ENV=production node app"
 	},
+	
 	"dependencies": {
-		"express": "*",
-		"ejs": "*",
-		"eventproxy": "*",
-		"mongoose": "*",
-		"jsdom": "*",
-		"stylus": "*",
-		"uglify-js": "*",
-		"clean-css": "*",
-		"async": "*"
+		"express": "latest",
+		"ejs": "latest",
+		"eventproxy": "latest",
+		"mongoose": "latest",
+		"jsdom": "latest",
+		"stylus": "latest",
+		"uglify-js": "latest",
+		"clean-css": "latest",
+		"async": "latest"
 	}
 }
