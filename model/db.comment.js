@@ -3,6 +3,8 @@
  * @version 2012.10.04
  */
 
+var async = require('async');
+
 /**
  * @description 获取某个文章的所有评论
  * @param {string} pid 需要获取评论数目的文章的id
