@@ -5,18 +5,21 @@
 var async = require('async'), commentModule = require('./db.comment');
 
 exports.getSiteStatus = function(callback) {
-
     var status = {
         code: 0,
         content: ''
     };
-    var data = {};
 
     async.parallel({
-        commentStatus: function() {
-            
+        comments: function(callback) {
+            commentModule.getRemainedComments(callback)
         }
-    }, function() {
-        callback(status, data);
+    }, function(err, results) {
+        if (!err)
+            status.code = 1; 
+        else 
+            status.content = err.getMessage();
+        
+        callback(status, results, err);
     });
 };

@@ -157,23 +157,3 @@ exports.status = function(req, resp) {
         resp.render('status', {});
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
