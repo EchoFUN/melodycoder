@@ -6,15 +6,16 @@
 	<body>
 		<!-- 数据分析 -->
 		<script type="text/template" id="template">
-			
+
 		</script>
 		<script type="text/javascript" src="http://botobe.net/js/libs/lazyload.js"></script>
 		<script type="text/javascript">
 			LazyLoad.js('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', function() {
 				var tplEl = $('template');
 				$.post('/site/status?isAjax=1', function(data) {
-					
-					
+					var shownArae = document.createElement('pre');
+					shownArae.innerHTML = '状态：' + data.status.content + '</br>' + '数据：' + JSON.stringify(data.data);
+					document.body.appendChild(shownArae);
 				}, 'json');
 			});
 		</script>

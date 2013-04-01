@@ -7,7 +7,7 @@ var async = require('async'), commentModule = require('./db.comment');
 exports.getSiteStatus = function(callback) {
     var status = {
         code: 0,
-        content: ''
+        content: '请求成功'
     };
 
     async.parallel({

@@ -76,23 +76,3 @@ exports.getRemainedComments = function(callback) {
 		callback(error, comments);
 	});
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
