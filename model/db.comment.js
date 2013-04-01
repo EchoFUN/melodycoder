@@ -70,4 +70,20 @@ exports.addComment = function(cmt, callback) {
  */
 exports.getRemainedComments = function(callback) {
 	var Comment = db.models.Comment;
+	
+	
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
