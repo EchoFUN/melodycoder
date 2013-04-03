@@ -3,9 +3,9 @@
  * @version 2012.11.16
  */
 
-var config = require('../config').config, EventProxy = require('eventproxy').EventProxy;
+var config = require('../config').config;
 
-var dh = dh || {}, dbEvt = {}, proxy = new EventProxy;
+var dbEvt;
 
 var _middle = function(req, resp, func) {
 	var isLogin = req.session.isLogin;

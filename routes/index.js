@@ -129,9 +129,6 @@ exports.experiment = function(req, resp) {
 	}, params);
 };
 
-exports.login = function() {
-};
-
 // 获取当前网站的状态信息
 exports.status = function(req, resp) {
 	var isAjax = !!req.query.isAjax;

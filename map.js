@@ -4,7 +4,7 @@ var config = require('./config').config;
 module.exports = function(app) {
 	app.get('/', site.index);
 	app.get('/about-me', site.about);
-	app.get('/site/login', site.login);
+	app.get('/site/login', user.login);
 	app.get('/experiment', site.experiment);
 
 	// post页面

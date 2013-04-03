@@ -15,7 +15,6 @@
 	"dependencies": {
 		"express": "latest",
 		"ejs": "latest",
-		"eventproxy": "latest",
 		"mongoose": "latest",
 		"jsdom": "latest",
 		"stylus": "latest",
