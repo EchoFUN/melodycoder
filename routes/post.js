@@ -18,6 +18,12 @@ var _middle = function(req, resp, func) {
 		},
 		rectPosts : function(callback) {
 			dbEvt.getRectPosts(callback);
+		},
+		archives : function(callback) {
+			dbEvt.getArchives(callback);
+		},
+		widgetTags : function(callback) {
+			dbEvt.getWidgetTags(callback);
 		}
 	};
 

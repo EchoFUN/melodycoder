@@ -34,7 +34,7 @@ var _middle = function(req, resp, func, params) {
 		},
 		widgetTags : function(callback) {
 			dbEvt.getWidgetTags(callback);
-		},
+		}
 	};
 
 	if (params.hasPost) {

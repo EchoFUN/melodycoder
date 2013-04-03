@@ -95,6 +95,10 @@ exports.getRectPosts = function(callback) {
 	Post.find({}, '_id, title').sort({
 		date : -1
 	}).limit(10).exec(function(error, Posts) {
+		for (var i in Posts) {
+			var title = Posts[i].title;
+			Posts[i].shortTitle = (title.substr(0, 24) == title) ? title : title.substr(0, 24) + '...';
+		}
 		callback(error, Posts);
 	});
 };
