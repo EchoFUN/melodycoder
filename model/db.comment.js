@@ -65,8 +65,7 @@ exports.addComment = function(cmt, callback) {
 };
 
 /**
- * 
- * 
+ * 获取当钱网站未被批准的评论的具体信息。
  */
 exports.getRemainedComments = function(callback) {
 	var Comment = db.models.Comment;
