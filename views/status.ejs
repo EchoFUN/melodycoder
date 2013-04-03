@@ -14,7 +14,13 @@
 				var tplEl = $('template');
 				$.post('/site/status?isAjax=1', function(data) {
 					var shownArae = document.createElement('pre');
-					shownArae.innerHTML = '状态：' + data.status.content + '</br>' + '数据：' + JSON.stringify(data.data);
+					
+					var contentHTML = ''
+					var comments = data.data.comments;
+					for(var i=0; i<comments.length; i++) {
+						contentHTML += '<div>' + JSON.stringify(comments[i]) + '</div>';
+					}
+					shownArae.innerHTML = '状态：' + data.status.content + '</br>' + '数据：' + contentHTML;
 					document.body.appendChild(shownArae);
 				}, 'json');
 			});
