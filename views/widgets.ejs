@@ -1,10 +1,11 @@
 <div class="widget sina-widget">
 <script type="text/javascript">
-function showIframe(iframe) {
-	iframe.style.display = 'block';
-}
-</script>
-<iframe onload="showIframe(this)" id="sina_widget_1642680233" style="width:100%; display:none;" frameborder="0" scrolling="no" src="http://v.t.sina.com.cn/widget/widget_blog.php?uid=1642680233&height=500&skin=wd_01&showpic=1"></iframe>
+	function showIframe(iframe){
+		setTimeout(function(){
+			iframe.style.display = 'block';
+		}, 500
+	)}</script>
+<iframe onload="showIframe(this)" id="sina_widget_1642680233" style="width:100%; height:500px; display:none;" frameborder="0" scrolling="no" src="http://v.t.sina.com.cn/widget/widget_blog.php?uid=1642680233&height=500&skin=wd_01&showpic=1"></iframe>
 </div>
 
 <% if(typeof rectPosts != 'undefined' && rectPosts.length != 0) {%>

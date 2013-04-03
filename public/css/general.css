@@ -384,7 +384,8 @@ p.pagination a {
 .sina-widget {
 	width: 250px;
 	height: 500px;
-	background: url(http://www.alixixi.cn/upload/image/dvd/2010-8/2010829142824499.gif) 50% 50% no-repeat #fff;
+	border: 1px solid #ccc;
+	background: url('/images/loading.gif') 50% 50% no-repeat #fff;
 }
 
 .wp_syntax {
