@@ -2,10 +2,7 @@
  * For the database connection
  */
  
-var mongoose = require('mongoose'),
-    config = require('../config').config,
-    EventProxy = require('eventproxy').EventProxy,
-    utils = require('../utils');
+var mongoose = require('mongoose'), config = require('../config').config, utils = require('../utils');
 
 exports.initialize = function() { 
     var db = mongoose.createConnection(config.db.DB_HOST, config.db.DB_NAME);
