@@ -3,42 +3,36 @@
  * @version 2012.10.02
  */
 
-var config = require('../config').config, EventProxy = require('eventproxy').EventProxy, fs = require('fs'), path = require('path');
+var config = require('../config').config, fs = require('fs'), path = require('path'), async = require('async');
 
-var dbEvt = {}, proxy = new EventProxy;
-
+var dbEvt;
 var _middle = function(req, resp, func) {
 	dbEvt = req.dbEvt;
-	var eventHooks = ['menus', 'links', 'rectPosts'];
-	proxy.assign(eventHooks, func);
 
-	dbEvt.getAllMenus(function(menus) {
-		proxy.trigger('menus', menus);
-	});
-	dbEvt.getRectPosts(function(rectPosts) {
-		proxy.trigger('rectPosts', rectPosts);
-	});
-	dbEvt.getLinks(function(links) {
-		proxy.trigger('links', links);
+	var callbackStack = {
+		menus : function(callback) {
+			dbEvt.getAllMenus(callback)
+		},
+		links : function(callback) {
+			dbEvt.getLinks(callback);
+		},
+		rectPosts : function(callback) {
+			dbEvt.getRectPosts(callback);
+		}
+	};
+
+	async.parallel(callbackStack, function(error, result) {
+		func(result);
 	});
 }
 
 exports.index = function(req, resp) {
-	_middle(req, resp, function(menus, links, rectPosts) {
-		var pid = req.query.pid, archive = req.query.archive;
+	_middle(req, resp, function(result) {
+		var pid = req.query.pid;
 		if (pid) {
-			var render = function(view, options) {
-				resp.render(view, options);
-			}
-			proxy.assign('view', 'options', render);
-			proxy.trigger('view', 'index');
-			dbEvt.getPostById(pid, function(post, tags, categories, comments) {
+			dbEvt.getPostById(pid, function(post) {
 				var ugcCss = [];
 				if (post) {
-					post.tags = tags;
-					post.categories = categories;
-					post.comments = comments;
-
 					var tpth = '/css/ugc/' + post._id.toString() + '.css';
 
 					if (fs.existsSync(path.resolve('./public' + tpth)))
@@ -46,21 +40,16 @@ exports.index = function(req, resp) {
 				}
 				data = {
 					post : post,
-					menus : menus,
-					links : links,
-					rectPosts : rectPosts,
+					result : result,
 					vtype : 4,
 					site : config.site,
 					url : req.url,
 					ugcCss : ugcCss,
 					env : process.env.NODE_ENV
 				};
-				proxy.trigger('options', data);
+
+				resp.render('index', data);
 			});
-		} else if (archive) {
-			;
-		} else {
-			resp.redirect(config.site.SITE_BASE_URL);
 		}
 	});
 }

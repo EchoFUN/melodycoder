@@ -27,6 +27,6 @@ exports.getWidgetTags = function(callback) {
 				})
 			}
 		}
-		callback(tags);
+		callback(error, tags);
 	});
 }

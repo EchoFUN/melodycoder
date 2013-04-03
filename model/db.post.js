@@ -4,28 +4,16 @@
  *
  */
 
-var EventProxy = require('eventproxy').EventProxy, config = require('../config').config;
+var config = require('../config').config, async = require('async');
 
 /**
  * @description 获取所有的文章的方法
  * @param {function} callback 获取成功后触发的回调函数
  */
-exports.getPosts = function() { 
+exports.getPosts = function(startPost, callback) {
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category, Comment = db.models.Comment;
-	var proxy = new EventProxy;
 
-	var arg = arguments, startPost = 0, limitPost = config.site.PAGE_COUNT, callback = function() {
-	};
-	if ( typeof arg[0] == 'function') {
-		callback = arg[0];
-	} else {
-		startPost = arg[0];
-		callback = arg[1];
-	}
-
-	var eventHooks = ['posts', 'categories', 'tags', 'comments'];
-	proxy.assign(eventHooks, callback);
-	Post.find().skip(startPost).limit(limitPost).sort({
+	Post.find().skip(startPost).limit(config.site.PAGE_COUNT).sort({
 		date : -1
 	}).exec(function(error, posts) {
 		var pids = [];
@@ -33,29 +21,34 @@ exports.getPosts = function() {
 			var pid = posts[i]._id;
 			pids.push(pid.toString());
 		}
-		Category.find({
-			pid : {
-				'$in' : pids
-			}
-		}, function(error, categories) {
-			proxy.trigger('categories', categories);
-		});
-		Tag.find({
-			pid : {
-				'$in' : pids
-			}
-		}, function(error, tags) {
-			proxy.trigger('tags', tags);
-		});
-		Comment.find({
-			pid : {
-				'$in' : pids
+
+		async.parallel({
+			categories : function(callback) {
+				Category.find({
+					pid : {
+						'$in' : pids
+					}
+				}, callback);
 			},
-			approved : true
-		}, function(error, comments) {
-			proxy.trigger('comments', comments);
+			tags : function(callback) {
+				Tag.find({
+					pid : {
+						'$in' : pids
+					}
+				}, callback)
+			},
+			comments : function(callback) {
+				Comment.find({
+					pid : {
+						'$in' : pids
+					},
+					approved : true
+				}, callback);
+			}
+		}, function(error, result) {
+			result.posts = posts;
+			callback(error, result);
 		});
-		proxy.trigger('posts', posts);
 	});
 };
 
@@ -66,36 +59,30 @@ exports.getPosts = function() {
  */
 exports.getPostById = function(pid, callback) {
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category, Comment = db.models.Comment;
-	var proxy = new EventProxy;
-	var eventHooks = ['post', 'tags', 'categories', 'comments'];
-	proxy.assign(eventHooks, callback);
+
 	Post.findById(pid, function(error, post) {
-		// var date = post.date;
-		// Post.find({}, '_id title', function() {
-
-		// });
-
-		// 更具时间获取前后两篇文章
-		// var postTime = post.date;
-		// console.log(postTime.toString());
-
-		proxy.trigger('post', post);
-	});
-	Tag.find({
-		pid : pid
-	}, function(error, tags) {
-		proxy.trigger('tags', tags);
-	});
-	Category.find({
-		pid : pid
-	}, function(error, categories) {
-		proxy.trigger('categories', categories);
-	});
-	Comment.find({
-		pid : pid,
-		approved : true
-	}, function(error, comments) {
-		proxy.trigger('comments', comments);
+		async.parallel({
+			tags : function(callback) {
+				Tag.find({
+					pid : pid
+				}, callback);
+			},
+			categories : function(callback) {
+				Category.find({
+					pid : pid
+				}, callback);
+			},
+			comments : function(callback) {
+				Comment.find({
+					pid : pid,
+					approved : true
+				}, callback);
+			}
+		}, function(error, result) {
+			for (var i in result)
+			post[i] = result[i];
+			callback(post);
+		});
 	});
 };
 
@@ -108,7 +95,7 @@ exports.getRectPosts = function(callback) {
 	Post.find({}, '_id, title').sort({
 		date : 1
 	}).limit(5).exec(function(error, Posts) {
-		callback(Posts);
+		callback(error, Posts);
 	});
 };
 
@@ -143,7 +130,7 @@ exports.getArchives = function(callback) {
 				});
 			}
 		}
-		callback(Archives);
+		callback(error, Archives);
 	});
 };
 
@@ -154,7 +141,7 @@ exports.getArchives = function(callback) {
 exports.getPostCount = function(callback) {
 	var Post = db.models.Post;
 	Post.count(function(error, postCount) {
-		callback(postCount);
+		callback(error, postCount);
 	});
 };
 

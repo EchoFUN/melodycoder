@@ -21,35 +21,35 @@
     	<% } %>
         <% } %>
         <script type="text/javascript">
-			var YYMG = {};
-			(function(global, undefined) {
-				YYMG.errors = [];
-				YYMG.modules = [];
-				YYMG.baseUrl = '<%= site.SITE_BASE_URL %>';
-				YYMG.staticUrl = '<%= site.SITE_STATIC_URL %>';
-				
-				// 伟大的博主想关心一下IE6什么的。
-				if (!window.console) window.console = {log : function(){}};
-				
-				<% if (env && env == 'production') { %>
-				window.onerror = function(message, url, line) {
-				 	YYMG.errors.push({message: message, url: url, line: line});
-					return true;
-				};
-				<% } %>
-			})(window);
+		var YYMG = {};
+		(function(global, undefined) {
+			YYMG.errors = [];
+			YYMG.modules = [];
+			YYMG.baseUrl = '<%= site.SITE_BASE_URL %>';
+			YYMG.staticUrl = '<%= site.SITE_STATIC_URL %>';
+			
+			// 伟大的博主想关心一下IE6什么的。
+			if (!window.console) window.console = {log : function(){}};
+			
+			<% if (env && env == 'production') { %>
+			window.onerror = function(message, url, line) {
+			 	YYMG.errors.push({message: message, url: url, line: line});
+				return true;
+			};
+			<% } %>
+		})(window);
         </script>
         <% if (env && env == 'production') { %>
         <script type="text/javascript">
-		    var _gaq = _gaq || [];
-		    _gaq.push(['_setAccount', 'UA-38436425-1']);
-		    _gaq.push(['_trackPageview']);
-		
-		    (function() {
-		        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		    })();
+	    var _gaq = _gaq || [];
+	    _gaq.push(['_setAccount', 'UA-38436425-1']);
+	    _gaq.push(['_trackPageview']);
+	
+	    (function() {
+	        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	    })();
 		</script>
 		<% } %>
     </head>
@@ -66,6 +66,7 @@
             <div id="navigator" class="navigator">
                 <div class="navigator-wrap">
                     <ul>
+                    	<% var menus = result.menus; %>
                         <% if (typeof menus != 'undefined') { %>
                         <% for(var i=0; i<menus.length; i++) { %>
                         <li class="<% if (menus[i].url == url ) { %>active<% } %> item nav-item-<%= i %>"><a href="<%= menus[i].url %>"><%= menus[i].title %></a></li>

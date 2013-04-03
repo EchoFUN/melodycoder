@@ -15,13 +15,13 @@ module.exports = function(app) {
 
 	// 管理评论
 	app.get('/admin/comments', admin.comments);
-	
+
 	// 文章发布
 	var publishUrl = config.site.ARTICLE_PUBLISH_URL;
 	app.post(publishUrl, post.publishPost);
 	app.get(publishUrl, post.publishPost);
-	
+
 	// 获取当前网站的基本信息
 	app.get('/site/status', site.status);
 	app.post('/site/status', site.status);
-}; 
+};

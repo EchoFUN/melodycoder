@@ -11,6 +11,6 @@
 exports.getLinks = function(callback) {
     var Link = db.models.Link;
     Link.find(function(error, content) {
-        callback(content);
+        callback(error, content);
     });
 }

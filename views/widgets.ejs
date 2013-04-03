@@ -3,6 +3,7 @@
 <iframe onload="showIframe(this)" id="sina_widget_1642680233" style="width:100%; height:500px; display:none;" frameborder="0" scrolling="no" src="http://v.t.sina.com.cn/widget/widget_blog.php?uid=1642680233&height=500&skin=wd_01&showpic=1"></iframe>
 </div>
 
+<% var rectPosts = result.rectPosts; %>
 <% if(typeof rectPosts != 'undefined' && rectPosts.length != 0) {%>
 <div class="widget">
     <h3>近期文章</h3>
@@ -14,6 +15,7 @@
 </div>    
 <% } %>  
 
+<% var archives = result.archives; %>
 <% if(typeof archives != 'undefined' && archives.length != 0) { %>
 <div class="widget">        
     <h3>文章归档</h3>       
@@ -25,6 +27,7 @@
 </div>
 <% } %>
 
+<% var widgetTags = result.widgetTags; %>
 <% if(typeof widgetTags != 'undefined' && widgetTags.length != 0) { %>
 <div class="widget">
     <h3>标签</h3>
@@ -36,6 +39,7 @@
 </div>
 <% } %>
 
+<% var links = result.links; %>
 <% if(typeof links != 'undefined' && links.length != 0) { %>
 <div class="widget">
     <h3>链接</h3>
