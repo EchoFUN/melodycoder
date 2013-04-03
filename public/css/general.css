@@ -382,9 +382,9 @@ p.pagination a {
 }
 
 .sina-widget {
-	border: 1px solid #ccc;
+	width: 250px;
 	height: 500px;
-	background-color: #fff;
+	background: url(http://www.alixixi.cn/upload/image/dvd/2010-8/2010829142824499.gif) 50% 50% no-repeat #fff;
 }
 
 .wp_syntax {
