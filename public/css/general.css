@@ -383,6 +383,8 @@ p.pagination a {
 
 .sina-widget {
 	border: 1px solid #ccc;
+	height: 500px;
+	background-color: #fff;
 }
 
 .wp_syntax {
