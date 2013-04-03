@@ -29,6 +29,9 @@ var _middle = function(req, resp, func, params) {
 		archives : function(callback) {
 			dbEvt.getArchives(callback);
 		},
+		rectPosts : function(callback) {
+			dbEvt.getRectPosts(callback);
+		},
 		widgetTags : function(callback) {
 			dbEvt.getWidgetTags(callback);
 		},
