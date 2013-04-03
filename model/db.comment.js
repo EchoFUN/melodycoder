@@ -39,7 +39,7 @@ exports.addComment = function(cmt, callback) {
 				var tmpCmt = comments[i];
 				if (tmpCmt.approved) {
 					isApproved = true;
-					break;					
+					break;
 				}
 			}
 		}
@@ -65,13 +65,13 @@ exports.addComment = function(cmt, callback) {
 };
 
 /**
- * 获取当钱网站未被批准的评论的具体信息。 
+ * 获取当钱网站未被批准的评论的具体信息。
  */
 exports.getRemainedComments = function(callback) {
 	var Comment = db.models.Comment;
 	Comment.find({
-		approved: false
+		approved : false
 	}, 'pid content name date email', function(error, comments) {
 		callback(error, comments);
 	});
-};
+}; 
