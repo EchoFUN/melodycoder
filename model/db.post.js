@@ -93,8 +93,8 @@ exports.getPostById = function(pid, callback) {
 exports.getRectPosts = function(callback) {
 	var Post = db.models.Post;
 	Post.find({}, '_id, title').sort({
-		date : 1
-	}).limit(5).exec(function(error, Posts) {
+		date : -1
+	}).limit(10).exec(function(error, Posts) {
 		callback(error, Posts);
 	});
 };
