@@ -16,7 +16,7 @@ seajs.config({
 
 YYMG.modules.push('base');
 seajs.use(YYMG.modules, function() {
-	
+
 	// 针对IE6做特殊处理
 	if (Prototype.Browser.IE && parseInt(navigator.userAgent.substring(navigator.userAgent.indexOf("MSIE") + 5)) == 6)
 		YYMG.isIE6 = true;
@@ -29,4 +29,4 @@ seajs.use(YYMG.modules, function() {
 		if (module && module.init && typeof module.init == 'function')
 			module.init();
 	}
-});
+}); 
