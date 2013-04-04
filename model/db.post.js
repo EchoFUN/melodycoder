@@ -79,9 +79,13 @@ exports.getPostById = function(pid, callback) {
 				}, callback);
 			}
 		}, function(error, result) {
-			for (var i in result)
-			post[i] = result[i];
-			callback(post);
+			if (post) {
+				for (var i in result)
+					post[i] = result[i];
+				callback(post);
+			} else {
+				callback();
+			}
 		});
 	});
 };
