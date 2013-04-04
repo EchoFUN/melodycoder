@@ -83,7 +83,7 @@ exports.getPostById = function(pid, callback) {
 				for (var i in result)
 					post[i] = result[i];
 				callback(post);
-			} else {
+			} else { 
 				callback();
 			}
 		});
