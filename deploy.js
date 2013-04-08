@@ -8,7 +8,7 @@
  */
 
 // 包依赖，基础包
-var fs = require('fs'), async = require('async'), path = require('path');
+var fs = require('fs'), async = require('async'), path = require('path'), util = require('util');
 
 // 进行css和js压缩的包
 var uglifyJS = require('uglify-js'), cleanCSS = require('clean-css');
@@ -89,19 +89,37 @@ try {
 	});
 	
 	// 处理js文件，这块暂先不处理
-	(function(path) {
-		var contentList = fs.readdirSync(path);
-		
-		var argu = arguments;
-		contentList.forEach(function(name) {
-			var oriName = path + '/' + name;
-			if (fs.statSync(oriName).isDirectory()) {
-				argu.callee(oriName);
-			} else {
-				fs.renameSync(oriName, filesPath[8] + '/' + name);
-			}
-		});
-	})(filesPath[5]);
+	/* var jsFiles = [],
+	    relaJsFiles = [];
+	var getJsFiles = function(path, relaPath) {
+	    var contentList = fs.readdirSync(path);
+	    for (var i in contentList) {
+	        var name = path + '/' + contentList[i],
+	            relaName = relaPath + '/' + contentList[i];
+	        var isDir = fs.statSync(name).isDirectory();
+	        if (isDir) {
+	            fs.mkdirSync(targetPath + relaName);
+	            getJsFiles(name, relaName);
+	        } else {
+	            if (name.substr(-2) == 'js') {
+	
+	                // 压缩两份地址，一份是相对的，一份是绝对的
+	                jsFiles.push(name);
+	                relaJsFiles.push(relaName);
+	            }
+	        }
+	    }
+	}
+	fs.mkdirSync(targetPath + '/js');
+	getJsFiles(sourcePath + '/js', '/js');
+	
+	for (var i in jsFiles) {
+	    var absolutePath = jsFiles[i];
+	    var relativePath = relaJsFiles[i];
+	
+	    // var content = uglifyJS.minify(absolutePath);
+	    fs.writeFileSync(targetPath + relativePath, content.code);
+	} */
 	
 	// 修改静态文件的版本号
 	var configPath = path.resolve('./config.js');
