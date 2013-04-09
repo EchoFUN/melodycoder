@@ -148,3 +148,7 @@ exports.status = function(req, resp) {
 		resp.render('status', {});
 	}
 };
+
+exports.notfound = function(req, resp) {
+	resp.render('notfound');
+};
