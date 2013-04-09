@@ -8,7 +8,7 @@ exports.config = {
 		SITE_BASE_URL : 'http://botobe.net',
 
 		// 站点静态网址
-		SITE_STATIC_URL: 'http://melodycoder.duapp.com/dist/v4',
+		SITE_STATIC_URL: 'http://melodycoder.duapp.com/dist/v5',
 		// SITE_STATIC_URL : 'http://botobe.net',
 
 		// 文章上传接口
