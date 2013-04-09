@@ -420,3 +420,9 @@ p.pagination a {
 	padding-top: 20px;
 	_position: absolute;
 }
+
+.msg404 {
+	text-align: center;
+	font-size: 200px;
+	padding: 222px 0;
+}
