@@ -92,8 +92,8 @@
                     </ul>
                 </div>
             </div>
+        	<% if(typeof vtype != 'undefined') { %>
             <div id="body">
-                <% if (vtype != 4) %>
                 <div class="body-wrap">
                     <% if(vtype == 1) { %>
                     <%     include contents/content-1 %>
@@ -109,6 +109,11 @@
                     <div class="clear"></div>
                 </div>
             </div>
+            <% } else { %>
+            <div class="empty-page">
+            	<% include notfound %>
+            </div>
+            <% } %>
             <div id="footer">
                 <div class="footer-wrap">&copy; 音韵码工 2012 <br />Powered by <a target="_blank" href="http://nodejs.org">node.js</a> created by <a href="mailto:xukai.ken@gmail.com">EchoFUN</a></div>
             </div>

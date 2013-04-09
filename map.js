@@ -25,5 +25,6 @@ module.exports = function(app) {
 	app.get('/site/status', site.status);
 	app.post('/site/status', site.status);
 	
+	// 过滤到404页面
 	app.get('*', site.notfound);
 };

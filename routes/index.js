@@ -150,5 +150,18 @@ exports.status = function(req, resp) {
 };
 
 exports.notfound = function(req, resp) {
-	resp.render('notfound');
+	var params = {
+		hasPost : false
+	}
+
+	_middle(req, resp, function(result) {
+		var data = {
+			result : result,
+			// vtype : 3,
+			site : config.site,
+			url : req.url,
+			env : process.env.NODE_ENV
+		};
+		resp.render('index', data);
+	}, params);
 };
