@@ -89,16 +89,14 @@ try {
 	});
 	
 	// 处理js文件，这块暂先不处理
-	/* var jsFiles = [],
-	    relaJsFiles = [];
-	var getJsFiles = function(path, relaPath) {
-	    var contentList = fs.readdirSync(path);
-	    for (var i in contentList) {
-	        var name = path + '/' + contentList[i],
-	            relaName = relaPath + '/' + contentList[i];
+ 	var jsFiles = [], relaJsFiles = [];
+	var getJsFiles = function(absoPath, relaPath) {
+	    var contentList = fs.readdirSync(absoPath);
+	    contentList.forEach(function(content) {
+	        var name = absoPath + '/' + content, relaName = relaPath + '/' + content;
 	        var isDir = fs.statSync(name).isDirectory();
 	        if (isDir) {
-	            fs.mkdirSync(targetPath + relaName);
+	            fs.mkdirSync(disPath + relaName);
 	            getJsFiles(name, relaName);
 	        } else {
 	            if (name.substr(-2) == 'js') {
@@ -108,23 +106,26 @@ try {
 	                relaJsFiles.push(relaName);
 	            }
 	        }
-	    }
+	    });
 	}
-	fs.mkdirSync(targetPath + '/js');
-	getJsFiles(sourcePath + '/js', '/js');
+	getJsFiles(filesPath[5], '/js');
 	
-	for (var i in jsFiles) {
-	    var absolutePath = jsFiles[i];
-	    var relativePath = relaJsFiles[i];
+	jsFiles.forEach(function(jsFile, range) {
+	    var absolutePath = jsFile, relativePath = relaJsFiles[range];
 	
-	    // var content = uglifyJS.minify(absolutePath);
-	    fs.writeFileSync(targetPath + relativePath, content.code);
-	} */
+	    var content = uglifyJS.minify(absolutePath, {
+	    	mangle: false,
+	    	warnings: true
+	    });
+	    
+	    // var content = fs.readFileSync(absolutePath);
+	    fs.writeFileSync(disPath + relativePath, content.code);
+	});
 	
 	// 修改静态文件的版本号
 	var configPath = path.resolve('./config.js');
 	var configContent = fs.readFileSync(configPath).toString();
-	var versionRegix = /\/v\d{1}/;
+	var versionRegix = /\/v\d{1,}/;
 	configContent = configContent.replace(versionRegix, '/v' + newVersion);
 	fs.writeFileSync(configPath, configContent);
 } catch(e) {
