@@ -15,18 +15,6 @@
 </div>    
 <% } %>  
 
-<% var archives = result.archives; %>
-<% if(typeof archives != 'undefined' && archives.length != 0) { %>
-<div class="widget">        
-    <h3>文章归档</h3>       
-    <ul>
-    	<% for(var j=0; j<archives.length; j++) { %>
-    	<li><a href="<%= site.SITE_BASE_URL + '/post?archive=' + archives[j].full.getTime() %>"><%= archives[j].summary %></a></li>
-    	<% } %>
-    </ul>
-</div>
-<% } %>
-
 <% var widgetTags = result.widgetTags; %>
 <% if(typeof widgetTags != 'undefined' && widgetTags.length != 0) { %>
 <div class="widget">
@@ -36,6 +24,18 @@
     	<a class="tag-item" href="javascript:;" style="font-size: <%= widgetTags[j].counter*2 + 10 %>px"><%= widgetTags[j].title %></a>
     	<% } %>
     </div>
+</div>
+<% } %>
+
+<% var archives = result.archives; %>
+<% if(typeof archives != 'undefined' && archives.length != 0) { %>
+<div class="widget">        
+    <h3>文章归档</h3>       
+    <ul>
+    	<% for(var j=0; j<archives.length; j++) { %>
+    	<li><a href="<%= site.SITE_BASE_URL + '/post?archive=' + archives[j].full.getTime() %>"><%= archives[j].summary %></a></li>
+    	<% } %>
+    </ul>
 </div>
 <% } %>
 
