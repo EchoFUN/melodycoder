@@ -7,3 +7,4 @@ public/dev.html
 .pydevprojectpublisher/content
 
 *.log
+.idea/*
