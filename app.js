@@ -10,6 +10,17 @@ var express = require('express'), map = require('./map'), http = require('http')
 
 var app = express();
 
+// 开发环境
+app.configure('development', function() {
+	app.use(express.logger('dev'));
+	app.use(express.errorHandler());
+});
+
+// 生产环境
+app.configure('production', function() {
+	app.use(express.compress());
+});
+
 app.configure(function() {
 	app.use(express.cookieParser());
 	app.use(express.session({
@@ -24,17 +35,6 @@ app.configure(function() {
 	app.use(app.router);
 	app.use(require('stylus').middleware(__dirname + '/public'));
 	app.use(express.static(path.join(__dirname, 'public')));
-});
-
-// 开发环境
-app.configure('development', function() {
-	app.use(express.logger('dev'));
-	app.use(express.errorHandler());
-});
-
-// 生产环境
-app.configure('production', function() {
-	app.use(express.compress());
 });
 
 map(app);
