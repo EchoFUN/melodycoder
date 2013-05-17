@@ -5,7 +5,7 @@ exports.config = {
 		SITE_NAME : '音韵码工',
 
 		// 网站最基本的URL地址
-		SITE_BASE_URL : 'http://dev.botobe.net',
+		SITE_BASE_URL : 'http://www.botobe.net',
 
 		// 站点静态网址
 		SITE_STATIC_URL: 'http://melodycoder.duapp.com/dist/v6',
