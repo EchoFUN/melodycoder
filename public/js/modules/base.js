@@ -4,7 +4,7 @@
  *
  */
 
-define(['libs/jquery', 'music'], function($) {
+define(['libs/jquery', 'music'], function($, music) {
     var init = function() {
         var navigatorEl = $('#navigator'), scrolltopEl = $('#scrolltop'), headerEl = $('#header');
 
@@ -22,8 +22,8 @@ define(['libs/jquery', 'music'], function($) {
                 scrolltopEl.hide();
             }
         });
-
         
+        music.sideBarPlayer();
     };
 
     return {
