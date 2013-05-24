@@ -5,7 +5,6 @@
 
 require.config({
     baseUrl: 'js/modules',
-
     paths: {
         libs: '../libs',
         common: '../common'
