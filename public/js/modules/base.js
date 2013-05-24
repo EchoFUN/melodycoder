@@ -5,7 +5,7 @@
  */
 
 define(function(require, exports, module) {
-	var tween = require('components').tween;
+	var tween = require('common/components').tween;
 
 	var _registerMap = new Hash({
 
