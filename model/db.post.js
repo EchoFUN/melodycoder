@@ -6,6 +6,10 @@
 
 var config = require('../config').config, async = require('async');
 
+var _authentication = function(name, password, callback) {
+    
+};
+
 /**
  * @description 获取所有的文章的方法
  * @param {function} callback 获取成功后触发的回调函数
@@ -157,6 +161,8 @@ exports.getPostCount = function(callback) {
  * @description 添加文章
  */
 exports.addPost = function(pst) {
+    
+    
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
 	var date = (pst.time && pst.time.length != 0) ? new Date(parseInt(pst.time)) : new Date();
 	var p = new Post({

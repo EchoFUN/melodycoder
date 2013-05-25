@@ -1,3 +1,8 @@
 exports.login = function(req, resp) {
-	req.session.isLogin = false;
+    
+    var view = {
+        
+    };
+    
+    resp.render('login', view);
 }
