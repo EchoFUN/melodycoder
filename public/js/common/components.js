@@ -81,16 +81,18 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
     };
     
     Dialog.prototype.addButton = function() {
-        var button = new Element('a', {'class': 'button', 'href': 'javascript:;'}).update(value);
-        if (Object.isFunction(callback)) {
+        var button = document.createElement('a');
+        button.className = 'button';
+        button.href = 'javascript:;';
+        
+        if (typeof callback == 'function') {
             var self = this;
-            button.observe('click', function() {
+            button.bind('click', function() {
                 callback.call(self);
             });
         }
         
-        var footer = this._footerEl;
-        footer.appendChild(button);
+        this._footerEl.append(button);
         return this;
     };
     
