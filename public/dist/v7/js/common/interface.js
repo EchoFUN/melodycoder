@@ -1,0 +1,1 @@
+define(function(require,exports){exports.ADD_COMMENT=YYMG.baseUrl+"/comment/add"});
