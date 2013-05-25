@@ -4,12 +4,14 @@
  *
  */
 
-define(['libs/jquery', 'music'], function($, music) {
+define(['libs/jquery', 'common/components'], function(_, compts) {
+    var Dialog = compts.Dialog;
+    
     var init = function() {
-        var navigatorEl = $('#navigator'), scrolltopEl = $('#scrolltop'), headerEl = $('#header');
+        var navigatorEl = _('#navigator'), scrolltopEl = _('#scrolltop'), headerEl = _('#header');
 
-        $(window).bind('scroll', function(evt) {
-            var self = $(this);
+        _(window).bind('scroll', function(evt) {
+            var self = _(this);
 
             var st = self.scrollTop();
             if (st < 68) {
@@ -23,7 +25,16 @@ define(['libs/jquery', 'music'], function($, music) {
             }
         });
         
-        music.sideBarPlayer();
+        _(window).bind('resize', function() {
+            var dialog = YYMG._tp.dialog;
+            dialog && dialog.resetPos();
+        });
+        
+        _(document).bind('keydown', function(event) {
+            var dialog = YYMG._tp.dialog;
+            if (event.keyCode == 27)
+                dialog && dialog.close();
+        });
     };
 
     return {

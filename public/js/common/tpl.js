@@ -19,5 +19,12 @@ define(function(require, exports, module) {
 			    			<div class="comment-content">#{comment}</div>\
 			    		</div>';
 	   
-	  exports.dialogTPL = ''; 
+	  exports.dialogTPL = '<div class="normal">\
+	                           <div class="dialog-title">\
+	                               <a href="javascript:;" class="title left">{{title}}</a>\
+	                               <a href="javascript:;" class="close right">关闭</a>\
+	                           </div>\
+	                           <div class="dialog-content">{{content}}</div>\
+	                           <div class="dialog-footer" ></div>\
+	                       </div>'; 
 });

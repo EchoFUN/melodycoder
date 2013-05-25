@@ -1,87 +1,59 @@
 /**
- * @fileoverview 日志模块的执行
- * @author xukai.ken@gmail.com
+ * @fileverview 日志操作相关模块内容
+ *
+ * @author <a href="mailto:xukai.ken@gmail.com">XU Kai</a>
+ * @date 2013.05.24
  *
  */
 
-define(function(require, exports, module) {
-	var i = require('interface'), Dialog = require('components').dialog, tpl = require('tpl');
+define(['libs/jquery', 'common/components', 'common/interface'], function(_, compts, i) {
 
-	var commentTPL = new Template(tpl.commentTPL);
+    var Dialog = compts.Dialog;
 
-	exports.init = function() {
+    var init = function() {
 
-		// 回复区域的问题
-		var submitEl = $('respond'), commentList = $('comment-list');
-		submitEl.observe('click', function(evt) {
-			var This = Element.extend(this), target = Element.extend(evt.target);
+        var respondFormEl = document.getElementById('respond-form');
+        var submitEl = _(respondFormEl.submit);
 
-			// 提交单表
-			if (target.className == 'submit') {
-				var authorEl = This.select('.author')[0], mailEl = This.select('.mail')[0], websideEl = This.select('.webside')[0], commentEl = This.select('textarea')[0];
+        submitEl.bind('click', function() {
+            var authorEl = respondFormEl.author, mailEl = respondFormEl.mail, websideEl = respondFormEl.webside, commentEl = respondFormEl.comment;
 
-				new Ajax.Request(i.ADD_COMMENT, {
-					parameters : 'author=' + authorEl.value + '&mail=' + mailEl.value + '&webside=' + websideEl.value + '&comment=' + commentEl.value + '&postId=' + YYMG.pid,
-					onSuccess : function(r) {
-						var r = r.responseText.evalJSON();
-						if (r.status.code == 1) {
-							if (r.data.isApproved) {
-								var date = new Date(r.data.time), m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec'];
-								var view = {
-									pid : YYMG.pid,
-									author : authorEl.value,
-									comment : commentEl.value.escapeHTML(),
-									month : m[date.getMonth()],
-									date : date.getDate(),
-									year : date.getFullYear(),
-									hour : date.getHours(),
-									minute : date.getMinutes()
-								}
-								var commentHTML = commentTPL.evaluate(view);
-								if (commentList)
-									commentList.insert(commentHTML);
-								else
-									location.reload();
-							} else {
-								new Dialog({
-									showClose : false,
-									content : '评论成功！需要管理员审核才能显示。'
-								}).addButton('确定', function() {
-									this.close();
-								});
-							}
-						} else {
-							new Dialog({
-								content : r.status.content
-							});
-						}
-					},
-					onFailure : function() {
-						new dialog({
-							type : 'error',
-							content : ''
-						});
-					}
-				});
-			}
-		});
+            // 校验信息的有效性
+            if (_.trim(authorEl.value).length == 0) {
+                YYMG._tp.dialog = new Dialog({
+                    type : 'error',
+                    content : '姓名不能为空！'
+                });
+                return;
+            }
+            if (_.trim(mailEl.value).length == 0) {
+                YYMG._tp.dialog = new Dialog({
+                    type : 'error',
+                    content : '邮箱地址不能为空！'
+                });
+                return;
+            }
+            if (_.trim(commentEl.value).length == 0) {
+                YYMG._tp.dialog = new Dialog({
+                    type : 'error',
+                    content : '评论内容不能为空！'
+                });
+                return;
+            }
 
-		// 对单条评论回复
-		if (commentList) {
-			var commentItemsEl = commentList.select('.comment-item');
-			commentItemsEl.each(function(commentItemEl) {
-				commentItemEl.observe('mouseover', function() {
-					var self = Element.extend(this);
-					self.addClassName('item-hover');
-				});
+            var params = 'author=' + authorEl.value + '&mail=' + mailEl.value + '&webside=' + websideEl.value + '&comment=' + commentEl.value + '&postId=' + YYMG.pid;
+            _.post(i.ADD_COMMENT, params, function() {
+                
+            }, function() {
+                
+            });
+        });
+        _(respondFormEl).bind('submit', function() {
+            return false;
+        });
+    };
 
-				commentItemEl.observe('mouseleave', function() {
-					var self = Element.extend(this);
-					self.removeClassName('item-hover');
-				});
-			});
-		}
-	};
-
-	exports.listInit = Prototype.emptyFunction;
+    return {
+        init : init
+    };
 });

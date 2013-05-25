@@ -2,7 +2,7 @@
 <script type="text/javascript">
 	(function(global) {
 		YYMG || (YYMG = {});
-		YYMG.modules.push(YYMG.staticUrl + '/js/modules/blog');
+		YYMG.modules.push('blog');
 		YYMG.pid = '<%= post.id %>';
 	})(window);
 </script>
@@ -70,21 +70,23 @@
         <div id="respond" class="respond">
         	<h3 id="reply-title">回复</h3>
         	<div class="respond-content">
-        		<p class="item clearfix">
-        			<label for="author">姓名：</label><input placeholder="昵称" type="text" name="author" class="author" /><span class="required">*</span>
-        		</p>
-        		<p class="item clearfix">
-        			<label for="mail">邮箱：</label><input placeholder="您的邮箱地址" type="text" name="mail" class="mail" /><span class="required">*</span>
-        		</p>
-        		<p class="item clearfix">
-        			<label for="webside">网站：</label><input placeholder="您的网站地址" type="text" name="webside" class="webside" />
-        		</p>
-        		<p class="item clearfix">
-        			<label for="comment">评论：</label><textarea cols="73" rows="8" name="comment"></textarea>
-        		</p>
-        		<p class="item clearfix">
-        			<label></label><input class="submit" name="submit" type="submit" value="提交评论">
-        		</p>
+        		<form id="respond-form" action="/">
+	        		<p class="item clearfix">
+	        			<label for="author">姓名：</label><input placeholder="昵称" type="text" name="author" class="author" /><span class="required">*</span>
+	        		</p>
+	        		<p class="item clearfix">
+	        			<label for="mail">邮箱：</label><input placeholder="您的邮箱地址" type="text" name="mail" class="mail" /><span class="required">*</span>
+	        		</p>
+	        		<p class="item clearfix">
+	        			<label for="webside">网站：</label><input placeholder="您的网站地址" type="text" name="webside" class="webside" />
+	        		</p>
+	        		<p class="item clearfix">
+	        			<label for="comment">评论：</label><textarea cols="63" rows="8" name="comment"></textarea>
+	        		</p>
+	        		<p class="item clearfix">
+	        			<label></label><input class="submit" name="submit" type="submit" value="提交评论">
+	        		</p>
+        		<form>
         	</div>
         </div>
     </div>

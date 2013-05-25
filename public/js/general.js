@@ -4,10 +4,10 @@
  */
 
 require.config({
-    baseUrl: 'js/modules',
-    paths: {
-        libs: '../libs',
-        common: '../common'
+    baseUrl : 'js/modules',
+    paths : {
+        libs : '../libs',
+        common : '../common'
     }
 });
 
@@ -20,4 +20,4 @@ require(YYMG.modules, function() {
         if (module && module.init && typeof module.init == 'function')
             module.init();
     }
-});
+}); 
