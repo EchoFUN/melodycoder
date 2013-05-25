@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>网站状态分析</title>
-	</head>
-	<body>
-		<!-- 数据分析 -->
-		<script type="text/template" id="template">
-
-		</script>
-		<script type="text/javascript" src="http://botobe.net/js/libs/lazyload.js"></script>
-		<script type="text/javascript">
-			LazyLoad.js('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', function() {
-				var tplEl = $('template');
-				$.post('/site/status?isAjax=1', function(data) {
-					var shownArae = document.createElement('pre');
-					
-					var contentHTML = ''
-					var comments = data.data.comments;
-					for(var i=0; i<comments.length; i++) {
-						contentHTML += '<div>' + JSON.stringify(comments[i]) + '</div>';
-					}
-					shownArae.innerHTML = '状态：' + data.status.content + '</br>' + '数据：' + contentHTML;
-					document.body.appendChild(shownArae);
-				}, 'json');
-			});
-		</script>
-	</body>
-</html>
+<% if(status.code == 0) { %>
+请求失败！<br />
+原因为<%= status.content %>
+<% } else { %>
+待审核评论为：
+	<% for(var i=0; i<comments.length; i++) { %>
+		<p><%= comments[i].name %>&nbsp;评论于<%= comments[i].date %>&nbsp;内容为：<%= comments[i].content %></p>	
+	<% } %>
+<% } %>

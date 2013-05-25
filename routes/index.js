@@ -134,19 +134,15 @@ exports.experiment = function(req, resp) {
 
 // 获取当前网站的状态信息
 exports.status = function(req, resp) {
-	var isAjax = !!req.query.isAjax;
-	if (isAjax) {
-		dbEvt = req.dbEvt;
-		dbEvt.getSiteStatus(function(status, data) {
-			var query = {
-				status : status,
-				data : data
-			};
-			resp.end(JSON.stringify(query));
-		});
-	} else {
-		resp.render('status', {});
-	}
+	dbEvt = req.dbEvt;
+	dbEvt.getSiteStatus(function(status, data) {
+	    debugger;
+		var query = {
+			status : status,
+			comments : data.comments
+		};
+		resp.render('status', query);
+	});
 };
 
 exports.notfound = function(req, resp) {
