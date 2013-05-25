@@ -4,7 +4,7 @@
  */
 
 require.config({
-    baseUrl : 'js/modules',
+    baseUrl : YYMG.staticUrl + '/js/modules',
     paths : {
         l : '../libs',
         c : '../common'
