@@ -49,7 +49,7 @@
 	    	<div class="comment-list" id="comment-list">
 	    		<% for(var i in post.comments) { %>
 	    		<% var comment = post.comments[i]; %>
-	    		<div class="comment-item <%= ((i % 2) == 1)? 'even' : 'odd' %>" data-rid="<%= comment.id %>">
+	    		<div class="comment-item <%= ((i % 2) == 1)? 'even' : 'odd' %>" data-reply="{replyId: '<%= comment.id %>', name: '<%= comment.name %>'}">
 	    			<div class="reply-comment right">
 	    				<a href="javascript:;">回复</a>
 	    			</div>

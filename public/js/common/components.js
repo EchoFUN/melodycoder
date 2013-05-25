@@ -3,7 +3,7 @@
  * @author xukai.ken@gmail.com
  */
 
-define(['libs/jquery', 'libs/mustache', 'common/tpl'], function(_, mustache, tpl) {
+define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
 
     var Dialog = function(opts) {
         var dopts = {
@@ -20,14 +20,14 @@ define(['libs/jquery', 'libs/mustache', 'common/tpl'], function(_, mustache, tpl
         this._opts = opts;
         this._ready();
         this._constructFrame();
-        return this;
+        return YYMG._tp.dialog = this;
     };
     
     Dialog.prototype._ready = function() {
         
         // 如果已经存在则删除
-        var dialogs = _('.dialog');
-        dialogs.remove();
+        var dialog = YYMG._tp.dialog;
+        dialog && dialog.close();
         
         this._dialogEl = document.createElement('div');
         this._dialogEl.className = 'dialog';
@@ -110,6 +110,7 @@ define(['libs/jquery', 'libs/mustache', 'common/tpl'], function(_, mustache, tpl
     
     Dialog.prototype.close = function() {
         this._dialogEl.remove();
+        delete YYMG._tp.dialog;
     };
 
     return {

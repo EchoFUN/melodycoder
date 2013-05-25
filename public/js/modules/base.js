@@ -4,7 +4,7 @@
  *
  */
 
-define(['libs/jquery', 'common/components'], function(_, compts) {
+define(['l/jquery', 'c/components'], function(_, compts) {
     var Dialog = compts.Dialog;
     
     var init = function() {

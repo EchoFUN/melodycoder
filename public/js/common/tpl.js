@@ -6,17 +6,17 @@
 define(function(require, exports, module) {
 	
 	// 评论模板
-	exports.commentTPL = '<div class="comment-item" data-rid="#{pid}">\
+	exports.commentTPL = '<div class="comment-item" data-reply="">\
 			    			<div class="reply-comment right">\
 			    				<a href="javascript:;">回复</a>\
 			    			</div>\
 			    			<div class="avatar"><img height="38" width="38" src="http://cdn.v2ex.com/static/img/avatar_normal.png"></div>\
 			    			<div class="comment-info">\
-			    				<div class="name"><a href="#{webside}">#{author}</a>&nbsp;说：</div>\
-	    						<div class="date">#{month}&nbsp;#{date},&nbsp;#{year}&nbsp;at&nbsp;#{hour}:#{minute}</div>\
+			    				<div class="name"><a href="{{webside}}">{{author}}</a>&nbsp;说：</div>\
+	    						<div class="date">{{month}}&nbsp;{{date}},&nbsp;{{year}}&nbsp;at&nbsp;{{hour}}:{{minute}}</div>\
 			    			</div>\
 			    			<div class="clear"></div>\
-			    			<div class="comment-content">#{comment}</div>\
+			    			<div class="comment-content">{{comment}}</div>\
 			    		</div>';
 	   
 	  exports.dialogTPL = '<div class="normal">\
