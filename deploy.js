@@ -68,7 +68,9 @@ try {
 			if (fs.statSync(oriName).isDirectory()) {
 				argu.callee(oriName);
 			} else {
-				cssFiles.push(oriName);
+			    var tpName = oriName.split('.');
+			    if (tpName[tpName.length - 1] == 'css')
+				    cssFiles.push(oriName);
 			}
 		});
 	})(cssFolder);
