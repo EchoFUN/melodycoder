@@ -88,7 +88,7 @@ var getJsFiles = function(path, relaPath) {
 
                 // 压缩两份地址，一份是相对的，一份是绝对的
                 jsFiles.push(name);
-                relaJsFiles.push(relaName);
+                relaJsFiles.push(relaName); 
             }
         }
     }
