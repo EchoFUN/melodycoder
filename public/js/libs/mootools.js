@@ -305,21 +305,21 @@
     };
 
     force('String', String, [
-    'charAt', 'charCodeAt', 'concat', 'indexOf', 'lastIndexOf', 'match', 'quote', 'replace', 'search',
-    'slice', 'split', 'substr', 'substring', 'trim', 'toLowerCase', 'toUpperCase'
+        'charAt', 'charCodeAt', 'concat', 'indexOf', 'lastIndexOf', 'match', 'quote', 'replace', 'search',
+        'slice', 'split', 'substr', 'substring', 'trim', 'toLowerCase', 'toUpperCase'
     ])('Array', Array, [
-    'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'concat', 'join', 'slice',
-    'indexOf', 'lastIndexOf', 'filter', 'forEach', 'every', 'map', 'some', 'reduce', 'reduceRight'
+        'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'concat', 'join', 'slice',
+        'indexOf', 'lastIndexOf', 'filter', 'forEach', 'every', 'map', 'some', 'reduce', 'reduceRight'
     ])('Number', Number, [
-    'toExponential', 'toFixed', 'toLocaleString', 'toPrecision'
+        'toExponential', 'toFixed', 'toLocaleString', 'toPrecision'
     ])('Function', Function, [
-    'apply', 'call', 'bind'
+        'apply', 'call', 'bind'
     ])('RegExp', RegExp, [
-    'exec', 'test'
+        'exec', 'test'
     ])('Object', Object, [
-    'create', 'defineProperty', 'defineProperties', 'keys',
-    'getPrototypeOf', 'getOwnPropertyDescriptor', 'getOwnPropertyNames',
-    'preventExtensions', 'isExtensible', 'seal', 'isSealed', 'freeze', 'isFrozen'
+        'create', 'defineProperty', 'defineProperties', 'keys',
+        'getPrototypeOf', 'getOwnPropertyDescriptor', 'getOwnPropertyNames',
+        'preventExtensions', 'isExtensible', 'seal', 'isSealed', 'freeze', 'isFrozen'
     ])('Date', Date, ['now']);
 
     Object.extend = extend.overloadSetter();
