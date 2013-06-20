@@ -13,7 +13,7 @@ var app = express();
 // 开发环境
 app.configure('development', function() {
 	app.use(express.logger('dev'));
-	app.use(express.errorHandler());
+	app.use(express.errorHandler()); 
 });
 
 // 生产环境
