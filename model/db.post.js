@@ -161,8 +161,6 @@ exports.getPostCount = function(callback) {
  * @description 添加文章
  */
 exports.addPost = function(pst) {
-    
-    
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
 	var date = (pst.time && pst.time.length != 0) ? new Date(parseInt(pst.time)) : new Date();
 	var p = new Post({
@@ -197,3 +195,16 @@ exports.addPost = function(pst) {
 	}
 	return 1;
 }
+
+/**
+ * @description 删除文章 
+ */
+exports.delPost = function(pid, callback) {
+	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category, Comment = db.models.Comment;
+	
+	async.parallel({
+		
+	}, function(error, result) {
+		
+	});
+};

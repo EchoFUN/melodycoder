@@ -32,6 +32,12 @@ var _middle = function (req, resp, func) {
     });
 };
 
+// 检测修改的权限
+var _checkRight = function(req, resp, func) {
+	
+	func(1);
+};
+
 exports.index = function (req, resp) {
     _middle(req, resp, function (result) {
         var pid = req.query.pid;
@@ -92,3 +98,29 @@ exports.publishPost = function (req, resp) {
     ret.status.code = dbEvt.addPost(postData);
     resp.end(JSON.stringify(ret));
 };
+
+exports.delPost = function(req, resp) {
+	_checkRight(req, resp, function(token) {
+		var ret = {
+			status: {
+				code: 0
+			}
+		};
+		
+		if (token) {
+			dbEvt = req.dbEvt;
+			
+			var postId = req.body.pid;
+			dbEvt.delPost(postId, function(error) {
+				if (error)
+					ret.status.content = error.getMessage();
+				else
+					ret.status.code = 1;
+				resp.end(JSON.stringify(ret));
+			});			
+		} else {
+			ret.status.content = '没有登录！';
+		}
+	});
+};
+
