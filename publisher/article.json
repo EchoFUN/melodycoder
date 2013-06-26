@@ -1,8 +1,8 @@
 {
-	"title": "顾左右，而言他",
+	"title": "Chrome自定义Userscript脚本",
 	"author" : "EchoFUN",
 	"path": "./content/1.html",
-	"tags": "生活,2013,随笔",
-	"category": "生活",
+	"tags": "Chrome,2013,扩展,Userscript",
+	"category": "Chrome",
 	"time": ""
 }
