@@ -7,7 +7,7 @@
 var config = require('../config').config, async = require('async');
 
 var _authentication = function(name, password, callback) {
-    
+
 };
 
 /**
@@ -85,9 +85,9 @@ exports.getPostById = function(pid, callback) {
 		}, function(error, result) {
 			if (post) {
 				for (var i in result)
-					post[i] = result[i];
+				post[i] = result[i];
 				callback(post);
-			} else { 
+			} else {
 				callback();
 			}
 		});
@@ -194,17 +194,29 @@ exports.addPost = function(pst) {
 		return 0;
 	}
 	return 1;
-}
+};
 
 /**
- * @description 删除文章 
+ * @description 删除文章
  */
 exports.delPost = function(pid, callback) {
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category, Comment = db.models.Comment;
-	
-	async.parallel({
+
+	var _delPost = function() {
 		
-	}, function(error, result) {
+		
+	}, _delTags = function() {
+
+	
+	}, _delComments = function() {
+
+
+	}, _delCategory = function() {
+
+
+	};
+	
+	async.parallel([_delPost, _delTags, _delComments, _delCategory], function(error, result) {
 		
 	});
 };
