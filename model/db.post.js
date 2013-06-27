@@ -160,40 +160,50 @@ exports.getPostCount = function(callback) {
 /**
  * @description 添加文章
  */
-exports.addPost = function(pst) {
+exports.addPost = function(pst, callback) {
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category;
+
+	// 文章储存
 	var date = (pst.time && pst.time.length != 0) ? new Date(parseInt(pst.time)) : new Date();
-	var p = new Post({
+
+	new Post({
 		date : date,
 		author : pst.author,
 		title : pst.title,
 		content : pst.content
-	});
-
-	try {
-		var saveHook = function(error, postHook) {
-			if (error)
-				throw error;
-
-			var pid = postHook.id;
-			var tags = pst.tags.split(',');
-			tags.forEach(function(tag, index) {
+	}).save(function(error, hook) {
+		if (error)
+			callback(0, error.toString());
+		
+		var processes = [];
+		
+		// 所有标签的储存
+		var tags = pst.tags.split(',');
+		tags.forEach(function(tag, index) {
+			processes.push(function(callback) {
 				new Tag({
 					pid : pid,
 					title : tag
-				}).save();
+				}).save(callback);
 			});
-			var c = new Category({
+		});
+		
+		processes.push(function(callback) {
+			var pid = hook.id;
+			
+			new Category({
 				pid : pid,
 				title : pst.category
-			});
-			c.save();
-		};
-		p.save(saveHook);
-	} catch (e) {
-		return 0;
-	}
-	return 1;
+			}).save(callback);
+		});
+		
+		async.parallel(processes, function(error) {
+			if (error)
+				callback(0, error.toString());
+			else
+				callback(1);
+		});
+	});
 };
 
 /**

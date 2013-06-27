@@ -86,19 +86,28 @@ exports.addComment = function (req, resp) {
 };
 
 exports.publishPost = function (req, resp) {
-    dbEvt = req.dbEvt;
-    var ret = {
-        status: {
-            code: 0
-        }
-    };
-    try {
-        var postData = JSON.parse(req.body.r);
-    } catch (e) {
-        throw Error('Error parsing the request.');
-    }
-    ret.status.code = dbEvt.addPost(postData);
-    resp.end(JSON.stringify(ret));
+	_checkRight(req, resp, function(token) {
+	    dbEvt = req.dbEvt;
+	    var ret = {
+	        status: {
+	            code: 0
+	        }
+	    };
+	    
+	    if (token) {
+	        var postData = JSON.parse(req.body.r);
+	    	
+	    	dbEvt.addPost(postData, function(code, content) {
+	    		if (code)
+		   			ret.status.code = code;
+	    		else
+	    			ret.status.content = content;
+	    	});
+	    } else {
+	    	ret.status.content = '用户没有权限！';
+	    }
+	    resp.end(JSON.stringify(ret));
+    });
 };
 
 exports.delPost = function(req, resp) {
