@@ -202,21 +202,25 @@ exports.addPost = function(pst) {
 exports.delPost = function(pid, callback) {
 	var Post = db.models.Post, Tag = db.models.Tag, Category = db.models.Category, Comment = db.models.Comment;
 
-	var _delPost = function() {
-		
-		
-	}, _delTags = function() {
-
-	
-	}, _delComments = function() {
-
-
-	}, _delCategory = function() {
-
-
+	var _delPost = function(callback) {
+		Post.remove({
+			'_id' : pid
+		}, callback);
+	}, _delTags = function(callback) {
+		Tag.remove({
+			'pid' : pid
+		}, callback);
+	}, _delComments = function(callback) {
+		Comment.remove({
+			'pid' : pid
+		}, callback);
+	}, _delCategory = function(callback) {
+		Category.remove({
+			'pid' : pid
+		}, callback);
 	};
-	
-	async.parallel([_delPost, _delTags, _delComments, _delCategory], function(error, result) {
-		
+
+	async.parallel([_delPost, _delTags, _delComments, _delCategory], function(error) {
+		callback(error);
 	});
 };

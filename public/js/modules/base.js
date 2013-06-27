@@ -17,11 +17,11 @@ define(['l/jquery', 'c/components'], function(_, compts) {
             if (st < 68) {
                 navigatorEl.css('position', 'static');
                 headerEl.css('height', '70px');
-                scrolltopEl.show();
+                scrolltopEl.hide();
             } else {
                 navigatorEl.css('position', 'fixed');
                 headerEl.css('height', '102px');
-                scrolltopEl.hide();
+                scrolltopEl.show();
             }
         });
         
@@ -34,6 +34,10 @@ define(['l/jquery', 'c/components'], function(_, compts) {
             var dialog = YYMG._tp.dialog;
             if (event.keyCode == 27)
                 dialog && dialog.close();
+        });
+        
+        scrolltopEl.bind('click', function() {
+        	_(document).scrollTop(0);
         });
     };
 

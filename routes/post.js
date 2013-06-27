@@ -110,7 +110,7 @@ exports.delPost = function(req, resp) {
 		if (token) {
 			dbEvt = req.dbEvt;
 			
-			var postId = req.body.pid;
+			var postId = req.body.pid || req.query.pid;
 			dbEvt.delPost(postId, function(error) {
 				if (error)
 					ret.status.content = error.getMessage();
