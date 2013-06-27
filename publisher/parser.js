@@ -5,7 +5,7 @@
  *
  */
 
-var Logger = require('./logger'), fs = require('fs'), jsdom = require('jsdom');
+var Logger = require('./logger'), fs = require('fs');
 
 var Parser = function(type) {
 	this.type = type

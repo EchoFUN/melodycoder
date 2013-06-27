@@ -26,6 +26,9 @@ exports.initialize = function() {
     var commentSchema = mongoose.Schema({pid: String, name: String, email: String, webisde: String, content: String, date: Date, approved: false});
     db.model('Comment', commentSchema);
     
+    var userSchema = mongoose.Schema({name: String, password: String});
+    db.model('User', userSchema);
+    
     var self = this;
     return function initialize(req, resp, next) {
         req.dbEvt = self;
