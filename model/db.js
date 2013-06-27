@@ -36,7 +36,7 @@ exports.initialize = function() {
     }
 }
 
-var dbSite = require('./db.site'), dbMenu = require('./db.menu'), dbPost = require('./db.post'), dbLink = require('./db.link'), dbComment = require('./db.comment'), dbTag = require('./db.tag');
+var dbSite = require('./db.site'), dbUser = require('./db.user'), dbMenu = require('./db.menu'), dbPost = require('./db.post'), dbLink = require('./db.link'), dbComment = require('./db.comment'), dbTag = require('./db.tag');
 for(var i in dbMenu)
     exports[i] = dbMenu[i];
 for(var i in dbPost)
@@ -49,3 +49,5 @@ for(var i in dbTag)
 	exports[i] = dbTag[i];
 for(var i in dbSite)
     exports[i] = dbSite[i];
+for(var i in dbUser)
+    exports[i] = dbUser[i];

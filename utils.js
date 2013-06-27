@@ -21,7 +21,8 @@ exports.extend = function(target, options) {
 		}
 	}
 	return target;
-}
+};
+
 /**
  * @description 根据浏览器的版本做判断
  * @param {string} ua
@@ -39,4 +40,13 @@ exports.browser = function(ua) {
 		browser : match[1] || "",
 		version : match[2] || "0"
 	};
-}
+};
+
+/**
+ * @description 获取字符串的md5数值
+ * @param {string} str
+ */
+var crypto = require('crypto');
+exports.getMD5 = function(str) {
+	return crypto.createHash('md5').update(str).digest('hex');
+};

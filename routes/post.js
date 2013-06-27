@@ -34,8 +34,10 @@ var _middle = function (req, resp, func) {
 
 // 检测修改的权限
 var _checkRight = function(req, resp, func) {
-	
-	func(1);
+	if (req.session.user)
+		func(1);
+	else
+		func(0);
 };
 
 exports.index = function (req, resp) {
@@ -116,11 +118,11 @@ exports.delPost = function(req, resp) {
 					ret.status.content = error.getMessage();
 				else
 					ret.status.code = 1;
-				resp.end(JSON.stringify(ret));
 			});			
 		} else {
 			ret.status.content = '没有登录！';
 		}
+		resp.end(JSON.stringify(ret));
 	});
 };
 

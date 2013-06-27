@@ -1,6 +1,10 @@
-<form>
-	<input type="text" name="name" />
-	<input type="password" name="password" />
-	
-	<input type="submit" name="submit" value="提交">
-</form>
+<% if(!isLogin) {%>
+	<form method="post" action="/site/login">
+		<input type="text" name="name" />
+		<input type="password" name="password" />
+		
+		<input type="submit" name="submit" value="提交">
+	</form>
+<% } else { %>
+	<span>用户已登录！</span>
+<% } %>

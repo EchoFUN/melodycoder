@@ -5,6 +5,8 @@ module.exports = function(app) {
 	app.get('/', site.index);
 	app.get('/about-me', site.about);
 	app.get('/site/login', user.login);
+	app.post('/site/login', user.login);
+	
 	app.get('/experiment', site.experiment);
 
 	// post页面
