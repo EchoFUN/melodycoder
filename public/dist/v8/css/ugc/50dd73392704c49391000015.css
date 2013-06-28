@@ -1,0 +1,6 @@
+#demo{overflow:hidden;width:100%}
+#indemo{float:left;width:800%}
+#demo1{float:left}
+#demo2{float:left}
+#indemo ul{overflow:hidden;padding-top:12px}
+#indemo li{display:inline;float:left;margin-right:9px}

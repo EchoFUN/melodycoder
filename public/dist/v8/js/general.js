@@ -1,0 +1,1 @@
+require.config({baseUrl:YYMG.staticUrl+"/js/modules",paths:{l:"../libs",c:"../common"}}),YYMG.modules.push("base"),require(YYMG.modules,function(){for(var arg=arguments,argLen=arg.length,i=0;argLen>i;i++){var module=arg[i];module&&module.init&&"function"==typeof module.init&&module.init()}});
