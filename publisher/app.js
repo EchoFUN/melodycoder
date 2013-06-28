@@ -64,13 +64,15 @@ pFn.publish = function(articles, callback) {
 
 		// 发送文章到服务器
 		var options = {
-			hostname : config.site.SITE_BASE_URL,
-			port : 80,
+			hostname : '127.0.0.1',
+			port : 3000,
 			path : config.site.ARTICLE_PUBLISH_URL,
 			method : 'POST',
 			headers : {
 				'Content-Type' : 'application/x-www-form-urlencoded',
-				'Content-Length' : reqData.length
+				'Content-Length' : reqData.length,
+				
+				'Cookie': 'connect.sid=s%3AoXtnURTxIo8ck-X5evTJHgh9.iiCiwnRzxsluJCt9OMIHTYMVch2%2B8CXU1mUUS%2BdQQY'
 			}
 		}
 
