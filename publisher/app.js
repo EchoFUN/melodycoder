@@ -72,7 +72,7 @@ pFn.publish = function(articles, callback) {
 				'Content-Type' : 'application/x-www-form-urlencoded',
 				'Content-Length' : reqData.length,
 				
-				'Cookie': 'connect.sid=s%3AzUOAKImS7LyMygBFRmN8xzVE.YGVfBDa5KjSZ%2FiLbDKUTKgQ9UexF2WcBw7thdFCkPgA'
+				'Cookie': 'connect.sid=s%3AzsXGa3tei0xpkt_SKFpPa-4B.XgODjFzn2uWalE3ENJwJhc6nEaEGUrqb%2BAsWfbLhODk; __utma=209434753.1298129426.1372405898.1372405898.1372405898.1; __utmb=209434753.13.10.1372405898; __utmc=209434753; __utmz=209434753.1372405898.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)'
 			}
 		}
 

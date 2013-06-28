@@ -6,14 +6,14 @@
 	这一切都可以通过添加Userscript脚本的方式来实现！！<br>
 	还在等什么！？是不是突然发现无比的神奇呢？是不是觉得自己已经摆脱了屌丝的命运，俨然化身成互联网的神了呢？<br>
 	哈哈，自己DIY，一切就是那么简单！<br>
-	<img src="http://note.youdao.com/yws/res/33/A355A08F0F1E4CC0878BE71D721E1660">
+	<img src="http://ww4.sinaimg.cn/large/6bf9eebbjw1e63wmwnjheg2028028weg.gif">
 </p>
 <p>
 	首先要创建一个以.user.js为后缀名的js脚本文件，例如创建了一个名为home.user.js的文件。<br>
 	安装脚本的方式也是非常的简单，在浏览器的地址栏中输入“chrome://extensions/”，你就可以看到当前你的Chrome中所包含的扩展包。将我们的home.user.js文件拖拽入其中。<br>
-	<img src="http://note.youdao.com/yws/res/46/E9A34D091E834ADEA5205754CE3B5F3D" width="650" height="423"><br>
+	<img src="http://ww3.sinaimg.cn/large/6bf9eebbjw1e63wmwrlw9j20sc0ifq42.jpg" width="650" height="423"><br>
 	会出现<br>
-	<img src="http://note.youdao.com/yws/res/52/7AE78500B6184AB09DCD28C7340C4D1B"><br>
+	<img src="http://ww2.sinaimg.cn/large/6bf9eebbjw1e63wmwko9rj20as01ta9z.jpg"><br>
 	的提示，说明插件已经安装完成。<br>
 	这是最新的Chrome为开发者内建了这种简单的扩展机制，非常的方便。
 </p>
@@ -24,7 +24,7 @@
 <p>
 	从用途上来讲，Userscript代码的结构可以分为两大部分，第一部分是Userscript的注释。用来告诉浏览器，你的这段脚本的作者，名称，日期，作用范围，版本等等一些基本的信息。第二部分则是开发者自己编写的功能代码。<br>
 	让我们用一个最简单的删除Gmail顶部的牛皮癣小广告的作为例子。<br>
-	<img src="http://note.youdao.com/yws/res/73/7080B156E5624AC9B01B577AC715857C" width="650" height="38">
+	<img src="http://ww1.sinaimg.cn/large/6bf9eebbjw1e63wsfmohhj20l201874c.jpg" width="650" height="38">
 </p>
 <p>
 	头部的注释的一个简单范例如下所示：</p>
@@ -87,7 +87,7 @@ removeAdd<span style="color: #009900;">(</span><span style="color: #009900;">)</
 <p>
 	OK，到此为止，插件差不多完成了。用上述的步骤，重新安装Userscript，是不是发现打开Gmail的时候，广告不见了呢？<br>
 	如果需要调试我们的插件，可以打开控制台 ——&gt; source ——&gt; content script来进行调试。<br>
-	<img src="http://note.youdao.com/yws/res/129/63F53B82C78C4DE9A7C4E7783C231302" height="204" width="481">
+	<img src="http://ww4.sinaimg.cn/large/6bf9eebbjw1e63wmwyx14j20ep069jrn.jpg" height="204" width="481">
 </p>
 <p>
 	当然，这里还需要注意一个问题，就是这段代码究竟是在页面加载到何时的情况下运行的呢？<br>
