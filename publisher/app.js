@@ -64,7 +64,7 @@ pFn.publish = function(articles, callback) {
 
 		// 发送文章到服务器
 		var options = {
-			hostname : '127.0.0.1',
+			hostname : 'botobe.net',
 			port : 3000,
 			path : config.site.ARTICLE_PUBLISH_URL,
 			method : 'POST',
@@ -72,7 +72,7 @@ pFn.publish = function(articles, callback) {
 				'Content-Type' : 'application/x-www-form-urlencoded',
 				'Content-Length' : reqData.length,
 				
-				'Cookie': 'connect.sid=s%3AoXtnURTxIo8ck-X5evTJHgh9.iiCiwnRzxsluJCt9OMIHTYMVch2%2B8CXU1mUUS%2BdQQY'
+				'Cookie': 'connect.sid=s%3AzUOAKImS7LyMygBFRmN8xzVE.YGVfBDa5KjSZ%2FiLbDKUTKgQ9UexF2WcBw7thdFCkPgA'
 			}
 		}
 

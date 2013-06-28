@@ -2,34 +2,34 @@
 	随着现代浏览器的不断升级，浏览器给我们带来的已经不仅是浏览网页的体验。而是提供了各种的接口，来满足用户多样化的需求。从这种角度看，浏览器已经渐渐的在脱离它本来的初衷，而是渐渐的朝着Web平台的方向在发展。
 </p>
 <p>
-	本文我们来介绍的是Chrome自己提供的Userscript脚本的机制，用户可以在浏览器中加入自己写的脚本达到各种的需求。删除页面上牛皮癣似的广告啦，添加一些自定义的数据啦，当然还有个貌似最重要的在某神奇的车票网站上刷票啦！<br />
-	这一切都可以通过添加Userscript脚本的方式来实现！！<br />
-	还在等什么！？是不是突然发现无比的神奇呢？是不是觉得自己已经摆脱了屌丝的命运，俨然化身成互联网的神了呢？<br />
-	哈哈，自己DIY，一切就是那么简单！<br />
+	本文我们来介绍的是Chrome自己提供的Userscript脚本的机制，用户可以在浏览器中加入自己写的脚本达到各种的需求。删除页面上牛皮癣似的广告啦，添加一些自定义的数据啦，当然还有个貌似最重要的在某神奇的车票网站上刷票啦！<br>
+	这一切都可以通过添加Userscript脚本的方式来实现！！<br>
+	还在等什么！？是不是突然发现无比的神奇呢？是不是觉得自己已经摆脱了屌丝的命运，俨然化身成互联网的神了呢？<br>
+	哈哈，自己DIY，一切就是那么简单！<br>
 	<img src="http://note.youdao.com/yws/res/33/A355A08F0F1E4CC0878BE71D721E1660">
 </p>
 <p>
-	首先要创建一个以.user.js为后缀名的js脚本文件，例如创建了一个名为home.user.js的文件。<br />
-	安装脚本的方式也是非常的简单，在浏览器的地址栏中输入“chrome://extensions/”，你就可以看到当前你的Chrome中所包含的扩展包。将我们的home.user.js文件拖拽入其中。<br />
-	<img src="http://note.youdao.com/yws/res/46/E9A34D091E834ADEA5205754CE3B5F3D" style="line-height:1.5;width:800px;height:520px;"><br />
-	会出现<br />
-	<img src="http://note.youdao.com/yws/res/52/7AE78500B6184AB09DCD28C7340C4D1B"><br />
-	的提示，说明插件已经安装完成。<br />
+	首先要创建一个以.user.js为后缀名的js脚本文件，例如创建了一个名为home.user.js的文件。<br>
+	安装脚本的方式也是非常的简单，在浏览器的地址栏中输入“chrome://extensions/”，你就可以看到当前你的Chrome中所包含的扩展包。将我们的home.user.js文件拖拽入其中。<br>
+	<img src="http://note.youdao.com/yws/res/46/E9A34D091E834ADEA5205754CE3B5F3D" width="650" height="423"><br>
+	会出现<br>
+	<img src="http://note.youdao.com/yws/res/52/7AE78500B6184AB09DCD28C7340C4D1B"><br>
+	的提示，说明插件已经安装完成。<br>
 	这是最新的Chrome为开发者内建了这种简单的扩展机制，非常的方便。
 </p>
 <p>
-	这只是添加了这么一个Userscript空格的脚本，基本上没什么作用。我们也无法看到任何的效果。<br />
+	这只是添加了这么一个Userscript空格的脚本，基本上没什么作用。我们也无法看到任何的效果。<br>
 	下边我们来往home.user.js中添加代码。
 </p>
 <p>
-	从用途上来讲，Userscript代码的结构可以分为两大部分，第一部分是Userscript的注释。用来告诉浏览器，你的这段脚本的作者，名称，日期，作用范围，版本等等一些基本的信息。第二部分则是开发者自己编写的功能代码。<br />
-	让我们用一个最简单的删除Gmail顶部的牛皮癣小广告的作为例子。<br />
-	<img src="http://note.youdao.com/yws/res/73/7080B156E5624AC9B01B577AC715857C">
+	从用途上来讲，Userscript代码的结构可以分为两大部分，第一部分是Userscript的注释。用来告诉浏览器，你的这段脚本的作者，名称，日期，作用范围，版本等等一些基本的信息。第二部分则是开发者自己编写的功能代码。<br>
+	让我们用一个最简单的删除Gmail顶部的牛皮癣小广告的作为例子。<br>
+	<img src="http://note.youdao.com/yws/res/73/7080B156E5624AC9B01B577AC715857C" width="650" height="38">
 </p>
 <p>
-	头部的注释的一个简单范例如下所示：<br />
-	<div class="wp_syntax">
-		<div class="code">
+	头部的注释的一个简单范例如下所示：</p>
+<div class="wp_syntax">
+<div class="code">
 <pre class="text" style="font-family:monospace;">// ==UserScript==
 // @name           Just for testing Chrome APP
 // @description    Yes
@@ -38,7 +38,77 @@
 // @namespace      http://botobe.net/
 // @include        https://mail.google.com/*
 // ==/UserScript==</pre>
-		 </div>
-	</div>
-	让我们一条条的做个解释。
+</div>
+</div>
+<p>	让我们一条条的做个解释。
 </p>
+<p>
+	首先外层的
+</p>
+<div class="wp_syntax">
+<div class="code">
+<pre class="text" style="font-family:monospace;">// ==UserScript==
+//
+// ==/UserScript==</pre>
+</div>
+</div>
+<p>
+	固定格式，浏览器会读取这段注释中的基本信息。<br>
+	@name，@description，@version，@author用来记录名称，描述和当前软件的版本号以及开发者的名称。<br>
+	@namespace是浏览器在识别查件的时候，当插件名一样时用以区分不同插件的命名空间。<br>
+	在头部注释中，比较重要的，是@include和@exclude，前者用来表示当前的脚本所能作用的域，后者表示在前者包括的内容中再剔除后者表示的域。<br>
+	例如：
+</p>
+<div class="wp_syntax">
+<div class="code">
+<pre class="text" style="font-family:monospace;">// @include    *
+// @exclude    http://127.0.0.1:3000/*</pre>
+</div>
+</div>
+<p>
+	则表示，该脚本能作用的地址为除了127.0.0.1:3000域名下的所有地址。
+</p>
+<p>
+	脚本内容中能够使用包括当前页面提供的，以及Chrome原生支持的所有API，文档可以参考<a target="_blank" href="https://developer.chrome.com/extensions/api_index.html">这里</a>。<br>
+	好了，现在我们可以编写删除Gmail中广告部分的代码了，如下所示：
+</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">var</span> removeAdd <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+    <span style="color: #003366; font-weight: bold;">var</span> mqEl <span style="color: #339933;">=</span> document.<span style="color: #660066;">getElementsByClassName</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'mq'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+    <span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">(</span>mqEl <span style="color: #339933;">&amp;&amp;</span> mqEl.<span style="color: #660066;">length</span> <span style="color: #339933;">!=</span> <span style="color: #CC0000;">0</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+        mqEl <span style="color: #339933;">=</span> mqEl<span style="color: #009900;">[</span><span style="color: #CC0000;">0</span><span style="color: #009900;">]</span><span style="color: #339933;">;</span>
+        mqEl.<span style="color: #660066;">remove</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+    <span style="color: #009900;">}</span> 
+    setTimeout<span style="color: #009900;">(</span>removeAdd<span style="color: #339933;">,</span> <span style="color: #CC0000;">500</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">}</span><span style="color: #339933;">;</span>
+&nbsp;
+removeAdd<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>
+	OK，到此为止，插件差不多完成了。用上述的步骤，重新安装Userscript，是不是发现打开Gmail的时候，广告不见了呢？<br>
+	如果需要调试我们的插件，可以打开控制台 ——&gt; source ——&gt; content script来进行调试。<br>
+	<img src="http://note.youdao.com/yws/res/129/63F53B82C78C4DE9A7C4E7783C231302" height="204" width="481">
+</p>
+<p>
+	当然，这里还需要注意一个问题，就是这段代码究竟是在页面加载到何时的情况下运行的呢？<br>
+	可以写个简单的测试脚本：
+</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;">document.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'DOMContentLoaded'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+ console.<span style="color: #660066;">log</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'Document load event fired!'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+ <span style="color: #009900;">}</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+&nbsp;
+ window.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'load'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
+ console.<span style="color: #660066;">log</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'Window onload event fired!'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+ <span style="color: #009900;">}</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>
+	再将home.user.js脚本中打印一串“User script loaded!”。在不断地刷新页面，可以得出结论，userscript应该是放在window.onload中执行的，位于domready时间之后，因此可以放心的编写安全的代码了。
+</p>
+<p>
+	Enjoy yourself !
+</p>
+<p>
+	2013.06.28<br>
+	一切安好。<br>
+	Merci !</p>
