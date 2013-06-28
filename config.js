@@ -14,7 +14,7 @@ exports.config = {
 
 		// 文章上传接口
 		ARTICLE_PUBLISH_URL : '/publish',
-
+ 
 		// 每页显示的文章数目
 		PAGE_COUNT : 10
 	},
