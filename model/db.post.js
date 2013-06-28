@@ -182,7 +182,7 @@ exports.addPost = function(pst, callback) {
 		tags.forEach(function(tag, index) {
 			processes.push(function(callback) {
 				new Tag({
-					pid : pid,
+					pid : hook.id,
 					title : tag
 				}).save(callback);
 			});
@@ -199,7 +199,7 @@ exports.addPost = function(pst, callback) {
 		
 		async.parallel(processes, function(error) {
 			if (error)
-				callback(0, error.toString());
+				callback(0, error.message);
 			else
 				callback(1);
 		});
