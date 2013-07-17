@@ -36,13 +36,6 @@ li {
 	list-style: none;
 }
 
-form, form[class] {
-	margin: 1.5em 0;
-	padding: 10px 20px;
-	border: 1px solid #F0F0F0;
-	background: #FAFAFA;
-}
-
 .clearfix {
 	*zoom: 1
 }
