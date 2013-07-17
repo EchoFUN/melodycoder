@@ -37,6 +37,9 @@
 			 	YYMG.errors.push({message: message, url: url, line: line});
 				return true;
 			};
+			YYMG.debugMode = false;
+			<% } else {%>
+			YYMG.debugMode = true;
 			<% } %>
 		})(window);
         </script>

@@ -1656,8 +1656,10 @@ var requirejs, require, define;
                     context.completeLoad(data.id);
                     
                     // Added by XU Kai(xukai.ken@gmail.com) 删除已经加载完成的script标签
-                    var node = data.node;
-                    node.parentNode.removeChild(node);
+                    if (!YYMG.debugMode) {
+                       var node = data.node;
+                       node.parentNode.removeChild(node);
+                    }
                 }
             },
 
