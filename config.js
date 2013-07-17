@@ -20,7 +20,7 @@ exports.config = {
 	},
 
 	db : {
-
+ 
 		DB_HOST : '127.0.0.1',
 
 		// 数据库名称
