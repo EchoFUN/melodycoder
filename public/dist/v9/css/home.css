@@ -7,7 +7,6 @@ h2{font-size:18px}
 .left{float:left}
 .right{float:right}
 li{list-style:none}
-form,form[class]{margin:1.5em 0;padding:10px 20px;border:1px solid #F0F0F0;background:#FAFAFA}
 .clearfix{*zoom:1}
 .clearfix:after{content:"\20";display:block;clear:both}
 pre{line-height:17px}.dialog{font-size:12px;position:absolute;width:400px;*border:1px solid #ccc;border:1px solid #ccc\9;background-color:#F1F1F1;-moz-box-shadow:20px 20px 36px 15px #999;-webkit-box-shadow:20px 20px 36px 15px #ccc;box-shadow:20px 20px 36px 15px #999}
