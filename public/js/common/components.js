@@ -53,9 +53,10 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
         
         // 设置关闭按钮
         var close = this._closeEl = dialogEl.find('.close');                
+        var self = this;
         if (opts.showClose) {
             close.bind('click', function() {
-                dialogEl.remove();
+                self.close();
             });
         } else {
             close.remove();
@@ -66,7 +67,7 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
         if (ah) {
             if (typeof ah == 'number') {
                 window.setTimeout(function() {
-                    dialogEl.remove();
+                    self.close();
                 }, ah * 1000);
             }
         }
@@ -111,8 +112,8 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
     };
     
     Dialog.prototype.close = function() {
-        this._dialogEl.remove();
-        delete YYMG._tp.dialog;
+        _(this._dialogEl).remove();
+        YYMG._tp.dialog = null;
     };
 
     return {
