@@ -43,7 +43,7 @@ var _checkRight = function(req, resp, func) {
 exports.index = function (req, resp) {
     _middle(req, resp, function (result) {
         var pid = req.query.pid;
-        if (pid) {
+        // if (pid) {
             dbEvt.getPostById(pid, function (post) {
                 var ugcCss = [];
                 if (post) {
@@ -64,7 +64,7 @@ exports.index = function (req, resp) {
 
                 resp.render('index', data);
             });
-        }
+        // }
     });
 };
 
