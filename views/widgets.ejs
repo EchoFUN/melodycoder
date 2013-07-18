@@ -33,7 +33,8 @@
     <h3>文章归档</h3>       
     <ul>
     	<% for(var j=0; j<archives.length; j++) { %>
-    	<li><a href="<%= site.SITE_BASE_URL + '/post?archive=' + archives[j].full.getTime() %>"><%= archives[j].summary %></a></li>
+    	<!-- <li><a href="<%= site.SITE_BASE_URL + '/post?archive=' + archives[j].full.getTime() %>"><%= archives[j].summary %></a></li> -->
+    	<li><a href="javascript:;" class="underConstruct"><%= archives[j].summary %></a></li>
     	<% } %>
     </ul>
 </div>

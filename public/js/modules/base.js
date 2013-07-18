@@ -39,6 +39,14 @@ define(['l/jquery', 'c/components'], function(_, compts) {
         scrolltopEl.bind('click', function() {
         	_(document).scrollTop(0);
         });
+        
+        _(document).delegate('.underConstruct', 'click', function() {
+           new Dialog({
+              content: '哎呀，被你发现啦，程序猿正在抓狂中！',
+              showClose : false,
+              autoHide: 2,
+           });
+        });
     };
 
     return {
