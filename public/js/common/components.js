@@ -66,7 +66,7 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
         var ah = opts.autoHide;
         if (ah) {
             if (typeof ah == 'number') {
-                window.setTimeout(function() {
+                this.autoHide = window.setTimeout(function() {
                     self.close();
                 }, ah * 1000);
             }
@@ -113,6 +113,7 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
     
     Dialog.prototype.close = function() {
         _(this._dialogEl).remove();
+        this.autoHide && clearTimeout(this.autoHide);
         YYMG._tp.dialog = null;
     };
 

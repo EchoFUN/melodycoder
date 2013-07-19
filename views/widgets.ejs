@@ -9,7 +9,7 @@
     <h3>近期文章</h3>
     <ul>
     	<% for(var j=0; j<rectPosts.length; j++) { %>
-        <li><a href="<%= site.SITE_BASE_URL + '/post?pid=' + rectPosts[j]._id %>" title="<%= rectPosts[j].title %>"><%= rectPosts[j].shortTitle %></a></li>
+        <li><a target="_blank" href="<%= site.SITE_BASE_URL + '/post?pid=' + rectPosts[j]._id %>" title="<%= rectPosts[j].title %>"><%= rectPosts[j].shortTitle %></a></li>
     	<% } %>
     </ul>
 </div>    
@@ -21,7 +21,7 @@
     <h3>标签</h3>
     <div class="tag-cloud">
     	<% for(var j=0; j<widgetTags.length; j++) { %>
-    	<a class="tag-item" href="javascript:;" style="font-size: <%= widgetTags[j].counter*2 + 10 %>px"><%= widgetTags[j].title %></a>
+    	<a class="tag-item underConstruct" href="javascript:;" style="font-size: <%= widgetTags[j].counter*2 + 10 %>px"><%= widgetTags[j].title %></a>
     	<% } %>
     </div>
 </div>
@@ -53,7 +53,7 @@
 <% } %>
 
 <div class="widget">
-	<embed src="http://www.xiami.com/widget/3598682_5409,_250_346_FF8719_494949_1/multiPlayer.swf" type="application/x-shockwave-flash" width="250" height="346" wmode="opaque"></embed>
+	<embed src="http://www.xiami.com/widget/3598682_5409,_250_346_FF8719_494949_0/multiPlayer.swf" type="application/x-shockwave-flash" width="250" height="346" wmode="opaque"></embed>
 	<!-- 
 		<script type="text/javascript" src="<%= site.SITE_STATIC_URL %>/js/modules/audio/audio.js"></script>
 		<audio src="<%= site.SITE_BASE_URL %>/res/music/neveralone.mp3" id="sidebar-audio" />
