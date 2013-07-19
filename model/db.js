@@ -11,7 +11,7 @@ exports.initialize = function() {
     var menuSchema = mongoose.Schema({title: String, url: String, weight: Number});
     db.model('Menu', menuSchema);
 
-    var postSchema = mongoose.Schema({date: Date, author: String, title: String, content: String});
+    var postSchema = mongoose.Schema({date: Date, author: String, title: String, content: String, webside: String});
     db.model('Post', postSchema);
 
     var linkSchema = mongoose.Schema({title: String, url: String});

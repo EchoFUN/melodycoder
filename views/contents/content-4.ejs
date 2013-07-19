@@ -49,7 +49,7 @@
 	    			</div>
 	    			<div class="avatar"><img height="38" width="38" src="http://cdn.v2ex.com/static/img/avatar_normal.png" /></div>
 	    			<div class="comment-info">
-	    				<div class="name"><a href="<%= comment.webside %>"><%= comment.name %></a>&nbsp;说：</div>
+	    				<div class="name"><a href="<%= (comment.webside)?comment.webside:"javascript:;" %>"><%= comment.name %></a>&nbsp;说：</div>
 	    				<% var date = comment.date, m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec']; %>
 	    				<% if (typeof date != 'undefined') { %>
 	    				<div class="date"><%= m[date.getMonth()] %>&nbsp;<%= date.getDate() %>,&nbsp;<%= date.getFullYear() %>&nbsp;at&nbsp;<%= date.getHours() %>:<%= date.getMinutes() %></div>
