@@ -10,7 +10,7 @@ exports.config = {
 
 		// 站点静态网址
 		// SITE_STATIC_URL: 'http://melodycoder.duapp.com/dist/2',
-		SITE_STATIC_URL : 'http://melodycoder.duapp.com/dist/v10',
+		SITE_STATIC_URL : 'http://melodycoder.duapp.com/dist/v11',
 		// SITE_STATIC_URL : 'http://127.0.0.1:3000',
 
 		// 文章上传接口
