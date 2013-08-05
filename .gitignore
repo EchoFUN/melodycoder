@@ -7,4 +7,5 @@ public/dev.html
 .pydevprojectpublisher/content
 
 *.log
-.idea/*
+.idea/*config.js
+config.js
