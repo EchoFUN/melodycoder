@@ -42,7 +42,7 @@ h2 a:hover {
 }
 
 #header #site-description {
-	bottom: 0;
+	bottom: 3px;
 	left: 120px;
 	position: absolute;
 }
