@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  */
 
-var express = require('express'), map = require('./map'), http = require('http'), path = require('path'), db = require('./model/db'), config = require('./config').config;
+var express = require('express'), map = require('./map'), http = require('http'), path = require('path'), db = require('./model/db'), config = require('./config').config, cluster = require('cluster'), os = require('os');
 
 var app = express();
 
@@ -38,4 +38,16 @@ app.configure(function() {
 });
 
 map(app);
-http.createServer(app).listen(app.get('port')); 
+
+var numCPUs = os.cpus().length;
+if (cluster.isMaster) {
+  for (var i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', function(worker, code, signal) {
+    console.log('worker ' + worker.process.pid + ' died');
+  });
+} else {
+   http.createServer(app).listen(app.get('port')); 
+}
