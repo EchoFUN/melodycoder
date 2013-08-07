@@ -6,12 +6,12 @@ exports.config = {
 
 		// 网站最基本的URL地址
 		SITE_BASE_URL : 'http://botobe.net',
-		// SITE_BASE_URL : 'http://127.0.0.1:3000',
+		// SITE_BASE_URL : 'http://10.232.2.28:3000',
 
 		// 站点静态网址
 		// SITE_STATIC_URL: 'http://melodycoder.duapp.com/dist/2',
-		SITE_STATIC_URL : 'http://melodycoder.duapp.com/dist/v11',
-		// SITE_STATIC_URL : 'http://127.0.0.1:3000',
+		SITE_STATIC_URL : 'http://melodycoder.duapp.com/dist/v12',
+		// SITE_STATIC_URL : 'http://10.232.2.28:3000',
 
 		// 文章上传接口
 		ARTICLE_PUBLISH_URL : '/publish',
