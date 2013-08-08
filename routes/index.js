@@ -143,6 +143,7 @@ exports.status = function(req, resp) {
     dbEvt.getSiteStatus(function(status, data) {
       query.status = status;
       query.comments = data.comments;
+      query.site = config.site;
       resp.render('status', query);
     });
   } else {
