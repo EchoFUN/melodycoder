@@ -44,7 +44,7 @@ try {
       versions.push(versionNumber);
     }
   });
-  var newVersion = eval('Math.max(' + (versions).join(',') + ')') + 1;
+  var newVersion = Math.max.apply(this, versions) + 1;
   var disPath = filesPath[1] + '/v' + newVersion;
   filesPath.add(disPath).add(disPath + '/css').add(disPath + '/js').add(disPath + '/css/ugc');
   filesPath.forEach(function(filePath) {
