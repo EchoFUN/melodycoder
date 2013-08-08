@@ -136,14 +136,14 @@ exports.experiment = function(req, resp) {
 exports.status = function(req, resp) {
   dbEvt = req.dbEvt;
   var query = {
-    hasRight : false
+    hasRight : false,
+    site : config.site
   };
-  if (req.session.user) { 
+  if (req.session.user) {
     query.hasRight = true;
     dbEvt.getSiteStatus(function(status, data) {
       query.status = status;
       query.comments = data.comments;
-      query.site = config.site;
       resp.render('status', query);
     });
   } else {

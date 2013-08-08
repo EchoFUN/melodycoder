@@ -28,7 +28,7 @@ app.configure(function() {
   app.use(express.session({
     secret : config.SESSION_SECRET,
     store : new RedisStore(),
-    key : 'express.sid'
+    key : 'yymg.sid'
   }));
   app.use(db.initialize());
   app.set('port', process.env.PORT || 3000);
