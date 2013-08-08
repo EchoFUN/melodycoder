@@ -6,35 +6,39 @@
  * Licensed under the MIT license.
  */
 
-var express = require('express'), map = require('./map'), http = require('http'), path = require('path'), db = require('./model/db'), config = require('./config').config, cluster = require('cluster'), os = require('os');
+var express = require('express'), map = require('./map'), http = require('http'), path = require('path'), db = require('./model/db'), config = require('./config').config, cluster = require('cluster'), os = require('os'), RedisStore = require('connect-redis')(express);
 
 var app = express();
 
 // 开发环境
 app.configure('development', function() {
-	app.use(express.logger('dev'));
-	app.use(express.errorHandler()); 
+  app.use(express.logger('dev'));
+  app.use(express.errorHandler());
 });
 
 // 生产环境
 app.configure('production', function() {
-	app.use(express.compress());
+  app.use(express.compress());
 });
 
 app.configure(function() {
-	app.use(express.cookieParser());
-	app.use(express.session({
-		secret : config.SESSION_SECRET
-	}));
-	app.use(db.initialize());
-	app.set('port', process.env.PORT || 3000);
-	app.set('views', __dirname + '/views');
-	app.set('view engine', 'ejs');
-	app.use(express.bodyParser());
-	app.use(express.methodOverride());
-	app.use(app.router);
-	app.use(require('stylus').middleware(__dirname + '/public'));
-	app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.cookieParser());
+
+  // 采用redis储存session
+  app.use(express.session({
+    secret : config.SESSION_SECRET,
+    store : new RedisStore(),
+    key : 'express.sid'
+  }));
+  app.use(db.initialize());
+  app.set('port', process.env.PORT || 3000);
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'ejs');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(require('stylus').middleware(__dirname + '/public'));
+  app.use(express.static(path.join(__dirname, 'public')));
 });
 
 map(app);
@@ -49,5 +53,5 @@ if (cluster.isMaster) {
     console.log('worker ' + worker.process.pid + ' died');
   });
 } else {
-   http.createServer(app).listen(app.get('port')); 
+  http.createServer(app).listen(app.get('port'));
 }
