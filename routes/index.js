@@ -135,13 +135,19 @@ exports.experiment = function(req, resp) {
 // 获取当前网站的状态信息
 exports.status = function(req, resp) {
   dbEvt = req.dbEvt;
-  dbEvt.getSiteStatus(function(status, data) {
-    var query = {
-      status : status,
-      comments : data.comments
-    };
+  var query = {
+    hasRight : false
+  };
+  if (req.session.user) { 
+    query.hasRight = true;
+    dbEvt.getSiteStatus(function(status, data) {
+      query.status = status;
+      query.comments = data.comments;
+      resp.render('status', query);
+    });
+  } else {
     resp.render('status', query);
-  });
+  }
 };
 
 exports.notfound = function(req, resp) {
@@ -159,4 +165,4 @@ exports.notfound = function(req, resp) {
     };
     resp.render('index', data);
   }, params);
-}; 
+};

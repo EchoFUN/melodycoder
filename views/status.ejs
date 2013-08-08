@@ -1,9 +1,21 @@
-<% if(status.code == 0) { %>
-请求失败！<br />
-原因为<%= status.content %>
+<% if (hasRight) {%>
+  <% if(status.code == 0) { %>
+  请求失败！<br />
+  原因为<%= status.content %>
+  <% } else { %>
+  待审核评论为：
+    <ul>
+  	<% for(var i=0; i<comments.length; i++) { %>
+      <li>  	   
+  		  <div><%= comments[i].name %>&nbsp;评论于<%= comments[i].date %>&nbsp;内容为：<%= comments[i].content %>&nbsp;文章id：<%= comments[i].pid %></div>
+  		  <div>
+  		    <a cid="<%= comments[i]._id %>" href="javacript:;">批准</a>
+  		    <a cid="<%= comments[i]._id %>" href="javacript:;">驳回</a>
+  		  </div>	
+  	  </li>    
+  	<% } %>
+  	</ul>
+  <% } %>
 <% } else { %>
-待审核评论为：
-	<% for(var i=0; i<comments.length; i++) { %>
-		<p><%= comments[i].name %>&nbsp;评论于<%= comments[i].date %>&nbsp;内容为：<%= comments[i].content %>&nbsp;文章id：<%= comments[i].pid %></p>	
-	<% } %>
+对不起，您没有权限访问此页面，请登录。
 <% } %>
