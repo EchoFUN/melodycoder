@@ -121,5 +121,5 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
 
     return {
         Dialog: Dialog
-    }
+    };
 });

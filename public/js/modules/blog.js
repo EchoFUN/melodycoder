@@ -30,17 +30,17 @@ define(['l/jquery', 'c/components', 'c/interface', 'c/tpl', 'l/mustache'], funct
                 return false;
             };
 
-            if (_.trim(authorEl.value).length == 0) {
+            if (_.trim(authorEl.value).length === 0) {
                 verifyMessage = '姓名不能为空！';
                 if (check())
                     return;
             }
-            if (_.trim(mailEl.value).length == 0) {
+            if (_.trim(mailEl.value).length === 0) {
                 verifyMessage = '邮箱地址不能为空！';
                 if (check())
                     return;
             }
-            if (_.trim(commentEl.value).length == 0) {
+            if (_.trim(commentEl.value).length === 0) {
                 verifyMessage = '评论不能为空！';
                 if (check())
                     return;
@@ -51,7 +51,6 @@ define(['l/jquery', 'c/components', 'c/interface', 'c/tpl', 'l/mustache'], funct
             }, 'json').done(function(r) {
                 if (r.status.code == 1) {
                     if (r.data.isApproved) {
-                        debugger;
                 
                         // 插入数据
                         var date = new Date(r.data.time), m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec'];
@@ -64,7 +63,7 @@ define(['l/jquery', 'c/components', 'c/interface', 'c/tpl', 'l/mustache'], funct
                             year : date.getFullYear(),
                             hour : date.getHours(),
                             minute : date.getMinutes()
-                        }
+                        };
                         var targetHTML = mustache.render(tpl.commentTPL, view);
                         _(document.getElementById('comment-list')).append(targetHTML);
                     } else {
