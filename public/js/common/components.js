@@ -14,20 +14,22 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
             frameTPL : tpl.dialogTPL,
             content : '',
             showClose : true
-        }
+        };
 
         opts = _.extend(dopts, opts);
         this._opts = opts;
         this._ready();
         this._constructFrame();
-        return YYMG._tp.dialog = this;
+        YYMG._tp.dialog = this;
+        return this;
     };
     
     Dialog.prototype._ready = function() {
         
         // 如果已经存在则删除
         var dialog = YYMG._tp.dialog;
-        dialog && dialog.close();
+        if (dialog)
+          dialog.close();
         
         this._dialogEl = document.createElement('div');
         this._dialogEl.className = 'dialog';
@@ -84,7 +86,7 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
     Dialog.prototype.addButton = function() {
         var button = document.createElement('a');
         button.className = 'button';
-        button.href = 'javascript:;';
+        button.href = 'javascript:void(0);';
         
         if (typeof callback == 'function') {
             var self = this;

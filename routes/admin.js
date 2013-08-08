@@ -8,21 +8,21 @@ var config = require('../config').config;
 var dbEvt;
 
 var _middle = function(req, resp, func) {
-	var isLogin = req.session.isLogin;
-	if (isLogin) {
-		resp.redirect(config.site.SITE_BASE_URL);
-	}
-	func();
-}
+  var isLogin = req.session.isLogin;
+  if (isLogin) {
+    resp.redirect(config.site.SITE_BASE_URL);
+  }
+  func();
+};
 
 exports.comments = function(req, resp) {
-	_middle(req, resp, function() {
-		var baseInfo = config.site;
-		var vtype = 5;
-		var data = {
-			vtype : vtype,
-			site : baseInfo
-		};
-		resp.render('index', data);
-	});
-}
+  _middle(req, resp, function() {
+    var baseInfo = config.site;
+    var vtype = 5;
+    var data = {
+      vtype : vtype,
+      site : baseInfo
+    };
+    resp.render('index', data);
+  });
+};

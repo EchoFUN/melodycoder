@@ -9,8 +9,8 @@
  * @param {function} callback 获取成功后触发的回调函数
  */
 exports.getLinks = function(callback) {
-    var Link = db.models.Link;
-    Link.find(function(error, content) {
-        callback(error, content);
-    });
-}
+  var Link = db.models.Link;
+  Link.find(function(error, content) {
+    callback(error, content);
+  });
+};

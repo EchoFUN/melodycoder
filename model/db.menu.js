@@ -9,10 +9,10 @@
  * @param {function} callback 获取成功后触发的回调函数
  */
 exports.getAllMenus = function(callback) {
-	var Menu = db.models.Menu;
-	Menu.find().sort({
-		weight : 1
-	}).exec(function(error, content) {
-		callback(error, content);
-	});
-}
+  var Menu = db.models.Menu;
+  Menu.find().sort({
+    weight : 1
+  }).exec(function(error, content) {
+    callback(error, content);
+  });
+}; 

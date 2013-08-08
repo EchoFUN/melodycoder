@@ -29,4 +29,4 @@ exports.config = {
 	},
 
 	SESSION_SECRET : '音韵码工'
-}
+};

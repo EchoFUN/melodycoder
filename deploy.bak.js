@@ -58,7 +58,7 @@ var getCssFiles = function(path) {
             if (name.substr(-3) == 'css') cssFiles.push(name);
         }
     }
-}
+};
 fs.mkdirSync(targetPath + '/css');
 getCssFiles(sourcePath + '/css');
 
@@ -92,7 +92,7 @@ var getJsFiles = function(path, relaPath) {
             }
         }
     }
-}
+};
 fs.mkdirSync(targetPath + '/js');
 getJsFiles(sourcePath + '/js', '/js');
 
