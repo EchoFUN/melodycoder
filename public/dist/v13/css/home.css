@@ -25,7 +25,7 @@ h2 a:hover{color:#ff6000}
 #header{height:70px}
 #header .header-wrap{padding-top:20px;width:960px;margin:0 auto;position:relative}
 #header #site-logo a{color:#444;font-weight:700}
-#header #site-description{bottom:0;left:120px;position:absolute}
+#header #site-description{bottom:3px;left:120px;position:absolute}
 .navigator{padding:1px 0;background:url(/images/navigator-bg.jpg) repeat-x;height:30px;width:100%;top:0}
 .navigator .navigator-wrap{width:960px;height:100%;margin:0 auto}
 .navigator .navigator-wrap .active{background-color:#FF6000}
