@@ -43,6 +43,9 @@ var _middle = function(req, resp, func, params) {
     };
   }
   async.parallel(callbackStack, function(error, result) {
+    
+    //判断当前用户是否登录
+    config.site.user = req.session.user;
     func(result);
   });
 };
