@@ -130,11 +130,12 @@ exports.delPost = function(req, resp) {
           ret.status.content = error.message;
         else
           ret.status.code = 1;
+        resp.end(JSON.stringify(ret));
       });
     } else {
       ret.status.content = '没有登录！';
+      resp.end(JSON.stringify(ret));
     }
-    resp.end(JSON.stringify(ret));
   });
 };
 

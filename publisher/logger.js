@@ -34,8 +34,9 @@ var Logger = {
 		this._check();
 	},
 
-	error : function() {
+	error : function(content) {
 		this._check();
+		console.log(content);
 	},
 
 	success : function() {

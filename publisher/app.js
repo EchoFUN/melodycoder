@@ -72,7 +72,7 @@ pFn.publish = function(articles, callback) {
         'Content-Type' : 'application/x-www-form-urlencoded',
         'Content-Length' : reqData.length,
 
-        'Cookie' : 'connect.sid=s%3AzsXGa3tei0xpkt_SKFpPa-4B.XgODjFzn2uWalE3ENJwJhc6nEaEGUrqb%2BAsWfbLhODk; __utma=209434753.1298129426.1372405898.1372405898.1372405898.1; __utmb=209434753.13.10.1372405898; __utmc=209434753; __utmz=209434753.1372405898.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)'
+        'Cookie' : 'yymg.sid=s%3ARDf5FXYK4t_Opkegrab9kH3e.t8oE5OBxkvCyz%2F%2FV%2FLDAnZ9Psrk3cyWad4FW%2BghAblg; __utma=209434753.1336927959.1375944377.1376012896.1376019378.5; __utmb=209434753.5.10.1376019378; __utmc=209434753; __utmz=209434753.1375944377.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)'
       }
     };
 
@@ -87,6 +87,8 @@ pFn.publish = function(articles, callback) {
             Logger.error(chunk.status.content);
           }
         });
+      } else {
+        conso
       }
     });
     req.on('error', function(e) {
