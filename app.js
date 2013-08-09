@@ -20,7 +20,7 @@ app.configure('development', function() {
 app.configure('production', function() {
   app.use(express.compress());
   app.use(function(req, resp, next) {
-    res.setHeader('X-Powered-By', 'He he !');
+    resp.setHeader('X-Powered-By', 'He he !');
     next();
   });
 });
