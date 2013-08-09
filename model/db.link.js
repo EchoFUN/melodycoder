@@ -10,7 +10,9 @@
  */
 exports.getLinks = function(callback) {
   var Link = db.models.Link;
-  Link.find(function(error, content) {
+  Link.find().sort({
+    title: 1
+  }).exec(function(error, content) {
     callback(error, content);
   });
 };
