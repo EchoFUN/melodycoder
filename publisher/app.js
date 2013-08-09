@@ -87,8 +87,6 @@ pFn.publish = function(articles, callback) {
             Logger.error(chunk.status.content);
           }
         });
-      } else {
-        conso
       }
     });
     req.on('error', function(e) {
