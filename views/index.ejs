@@ -43,7 +43,7 @@
 			<% } %>
 		})(window);
         </script>
-        <% if ((env && env == 'production') && site.user) { %>
+        <% if ((env && env == 'production') && (typeof site.user == 'undefined')) { %>
         <script type="text/javascript">
 	    var _gaq = _gaq || [];
 	    _gaq.push(['_setAccount', 'UA-38436425-1']);
