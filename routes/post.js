@@ -28,7 +28,7 @@ var _middle = function(req, resp, func) {
   };
 
   async.parallel(callbackStack, function(error, result) {
-    
+
     //判断当前用户是否登录
     config.site.user = req.session.user;
     func(result);
@@ -130,6 +130,7 @@ exports.delPost = function(req, resp) {
           ret.status.content = error.message;
         else
           ret.status.code = 1;
+          
         resp.end(JSON.stringify(ret));
       });
     } else {
@@ -139,3 +140,27 @@ exports.delPost = function(req, resp) {
   });
 };
 
+exports.approveComment = function(req, resp) {
+  _checkRight(req, resp, function(token) {
+    var ret = {
+      status : {
+        code : 0
+      }
+    }
+
+    if (token) {
+      var commentId = req.body.cid;
+      dbEvt.approveComment(commentId, function(error) {
+        if (error)
+          ret.status.content = error.message;
+        else
+          ret.status.code = 1;
+          
+        resp.end(JSON.stringify(ret));
+      });
+    } else {
+      ret.status.content = '没有登录！';
+      resp.end(JSON.stringify(ret));
+    }
+  });
+}

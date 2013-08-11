@@ -90,7 +90,13 @@ exports.getRemainedComments = function(callback) {
   var Comment = db.models.Comment;
   Comment.find({
     approved : false
-  }, 'pid content name date email', function(error, comments) {
-    callback(error, comments);
-  });
+  }, 'pid content name date email', callback);
+};
+
+/**
+ * 批准评论 
+ */
+exports.approveComment = function(commentId, callback) {
+  var Comment = db.models.Comment;
+  Comment.update({'_id': commentId}, {'approved': true}, callback);
 };

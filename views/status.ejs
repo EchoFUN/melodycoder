@@ -20,14 +20,15 @@
     
     function approve(target) {
       var cid = target.getAttribute('cid');
-      ajax({url:'/comments/approve', data:'cid='+cid, success:function(){
-                
+      ajax({url:'/comment/approve', data:'cid='+cid, success:function(ret){
+        var ret = JSON.parse(ret);
+        if (ret.status.code == 1) {
+          var liNode = target.parentNode.parentNode;
+          liNode.parentNode.removeChild(liNode);
+        } else {
+          alert(ret.status.content);
+        }
       }});
-    }
-    
-    function reject(target) {
-      var cid = target.getAttribute('cid');
-      ajax();
     }
     </script>
   </head>
@@ -44,7 +45,6 @@
           <div><%= comments[i].name %>&nbsp;评论于<%= comments[i].date %>&nbsp;内容为：<%= comments[i].content %>&nbsp;文章id：<%= comments[i].pid %></div>
           <div>
             <a cid="<%= comments[i]._id %>" href="#nogo" onclick="approve(this)">批准</a>
-            <a cid="<%= comments[i]._id %>" href="#nogo" onclick="reject(this)">驳回</a>
           </div>  
         </li>    
       <% } %>

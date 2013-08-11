@@ -1,4 +1,4 @@
-var site = require('./routes/index'), user = require('./routes/user'), post = require('./routes/post'), admin = require('./routes/admin');
+var site = require('./routes/index'), user = require('./routes/user'), post = require('./routes/post');
 var config = require('./config').config;
 
 module.exports = function(app) {
@@ -14,9 +14,7 @@ module.exports = function(app) {
 
 	// ajax 交互请求
 	app.post('/comment/add', post.addComment);
-
-	// 管理评论
-	app.get('/admin/comments', admin.comments);
+	app.post('/comment/approve', post.approveComment);
 
 	// 文章发布
 	var publishUrl = config.site.ARTICLE_PUBLISH_URL;
