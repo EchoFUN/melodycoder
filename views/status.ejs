@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title><%= site.SITE_NAME %></title>
-         <script type="text/javascript">
-        function approve(target) {
-          
+  <head>
+    <title><%= site.SITE_NAME %></title>
+    <script type="text/javascript">
+    function ajax(setting){
+      xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4){  
+          if(xhr.status == 200){
+            setting.success(xhr.responseText);
+          }
         }
-        function reject(target) {
-        
-        }
-        </script>
-    </head>
-    <body>
-      <% if (hasRight) {%>
+      }
+      
+      xhr.open('POST',setting.url,true);
+      xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+      xhr.send(setting.data);
+    }
+    
+    function approve(target) {
+      var cid = target.getAttribute('cid');
+      ajax({url:'/comments/approve', data:'cid='+cid, success:function(){
+                
+      }});
+    }
+    
+    function reject(target) {
+      var cid = target.getAttribute('cid');
+      ajax();
+    }
+    </script>
+  </head>
+  <body>
+    <% if (hasRight) {%>
     <% if(status.code == 0) { %>
     请求失败！<br />
     原因为<%= status.content %>
@@ -23,8 +43,8 @@
         <li>       
           <div><%= comments[i].name %>&nbsp;评论于<%= comments[i].date %>&nbsp;内容为：<%= comments[i].content %>&nbsp;文章id：<%= comments[i].pid %></div>
           <div>
-            <a cid="<%= comments[i]._id %>" href="javacript:;" onclick="approve(this)">批准</a>
-            <a cid="<%= comments[i]._id %>" href="javacript:;" onclick="reject(this)">驳回</a>
+            <a cid="<%= comments[i]._id %>" href="#nogo" onclick="approve(this)">批准</a>
+            <a cid="<%= comments[i]._id %>" href="#nogo" onclick="reject(this)">驳回</a>
           </div>  
         </li>    
       <% } %>
@@ -33,5 +53,5 @@
   <% } else { %>
   对不起，您没有权限访问此页面，请登录。
   <% } %>
-    </body>
+  </body>
 </html>
