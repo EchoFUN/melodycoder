@@ -6,5 +6,20 @@
 		<input type="submit" name="submit" value="提交">
 	</form>
 <% } else { %>
-	<span>用户已登录！</span>
+	<span>用户已登录！<span id="timer"></span>秒内将跳转到状态页！</span>
+	<script type="text/javascript">
+	var timerEl = document.getElementById('timer'), timer = 3;
+	function jump() {
+	  if (timer > 0) {
+	    timerEl.innerHTML = timer;
+	    setTimeout(jump, 1000);
+	    timer--;
+	  } else {
+       setTimeout(function() {
+         location.href = '/site/status'
+       }, 1000);	  
+	  }
+	}
+	jump();
+	</script>
 <% } %>
