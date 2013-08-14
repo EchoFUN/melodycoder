@@ -80,6 +80,9 @@ exports.addComment = function(req, resp) {
       time : new Date().getTime()
     }
   };
+  
+  console.log(req.body.comment);
+  
   dbEvt.addComment(req.body, function(code, isApproved, content) {
     ret.status.code = code;
     ret.status.content = content || '';
@@ -130,7 +133,7 @@ exports.delPost = function(req, resp) {
           ret.status.content = error.message;
         else
           ret.status.code = 1;
-          
+
         resp.end(JSON.stringify(ret));
       });
     } else {
@@ -146,7 +149,7 @@ exports.approveComment = function(req, resp) {
       status : {
         code : 0
       }
-    }
+    };
 
     if (token) {
       var commentId = req.body.cid;
@@ -155,7 +158,7 @@ exports.approveComment = function(req, resp) {
           ret.status.content = error.message;
         else
           ret.status.code = 1;
-          
+
         resp.end(JSON.stringify(ret));
       });
     } else {
@@ -163,4 +166,4 @@ exports.approveComment = function(req, resp) {
       resp.end(JSON.stringify(ret));
     }
   });
-}
+};

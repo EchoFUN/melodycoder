@@ -4,7 +4,11 @@
  */
 
 define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
-
+    
+    /**
+     * 
+     * @param {Object} opts
+     */
     var Dialog = function(opts) {
         var dopts = {
             top : undefined,
@@ -118,6 +122,8 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
         this.autoHide && clearTimeout(this.autoHide);
         YYMG._tp.dialog = null;
     };
+    
+    
 
     return {
         Dialog: Dialog
