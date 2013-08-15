@@ -81,7 +81,10 @@ exports.addComment = function(req, resp) {
     }
   };
   
-  console.log(req.body.comment);
+  var regularAt = /@[a-zA-Z0-9u4e00-u9fa5]+/g;
+  var comment = req.body.comment;
+  comment.replace(regularAt, '<a href="javascript:;">$&</a>');
+  req.body.comment = comment;
   
   dbEvt.addComment(req.body, function(code, isApproved, content) {
     ret.status.code = code;
