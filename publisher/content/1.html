@@ -16,17 +16,17 @@
 写个简单的观察者类模拟观察者：
 <pre lang="javascript">
 var Observer = (function() {
-   var Observer = function(data) {
-      this.data = data;
+   var Observer = function(element) {
+      this.element = element;
       this.callbacks = [];
    };
 
    var op = Observer.prototype;
 
-   op.update = function(data) {
+   op.update = function(text) {
       var callbacks = this.callbacks;
       for (var i = 0; i < callbacks.length; i++) {
-         callbacks[i](data);
+         callbacks[i](this.element);
       }
    };
 
@@ -47,10 +47,14 @@ var Observer = (function() {
 3. 发布框的状态会发生改变,右上角的数字会变为140
 <img src="">
 
+通过代码的方式，可以如下表示出来
+var publisher = new Observer();
 
 
-
-
+这时候你肯定会想，这么做有什么好处呢。代码的复杂度上升了，若是直接在调用了发送新鲜事的接口的回调中八十来行的代码把上诉的1,2,3立即给解决了岂不是更爽？
+各路看官应该都会有自己的看法，我的看法如下：
+1. 模块之间最大程度的得到了解耦
+2. 便于开发人员后续的维护
 
 现在流行的web框架backbone.js，是使用观察者模式的一个很经典的例子，将模型（Module）和视图（View）的修改进行绑定。
 当改变了模型，一个或者多个相应的视图也会跟着进行改变。
