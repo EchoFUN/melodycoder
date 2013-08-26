@@ -116,7 +116,7 @@ try {
     var absolutePath = jsFile, relativePath = relaJsFiles[range];
 
     var content = uglifyJS.minify(absolutePath, {
-      mangle : false,
+      mangle : true,
       warnings : true
     });
 
