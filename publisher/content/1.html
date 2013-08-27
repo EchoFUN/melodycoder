@@ -49,7 +49,18 @@ var Observer = (function() {
 
 通过代码的方式，可以如下表示出来
 var publisher = new Observer();
+publisher.registObserver(function() {
+   // 请求一次新鲜事，并且更新界面
+   // ...
+})
+publisher.registObserver(function() {
+   // 改变发布框的状态（更新可发布文字）
+   // ...
+})
 
+publisher.registObserver(function() {
+   // 
+})
 
 这时候你肯定会想，这么做有什么好处呢。代码的复杂度上升了，若是直接在调用了发送新鲜事的接口的回调中八十来行的代码把上诉的1,2,3立即给解决了岂不是更爽？
 各路看官应该都会有自己的看法，我的看法如下：
