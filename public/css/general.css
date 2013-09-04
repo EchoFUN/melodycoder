@@ -200,6 +200,10 @@ div.post-content pre {
   border-radius: 3px;
 }
 
+div.post-content ol {
+  padding-left:30px;
+}
+
 .highlight .k {
   font-weight: bold;
 }
