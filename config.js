@@ -5,12 +5,12 @@ exports.config = {
 		SITE_NAME : '音韵码工',
 
 		// 网站最基本的URL地址
-		// SITE_BASE_URL : 'http://botobe.net',
-		SITE_BASE_URL : 'http://127.0.0.1:3000',
+		SITE_BASE_URL : 'http://botobe.net',
+		// SITE_BASE_URL : 'http://127.0.0.1:3000',
 
 		// 站点静态网址
-		// SITE_STATIC_URL : 'http://melodycoder.duapp.com/dist/v13',
-		SITE_STATIC_URL : 'http://127.0.0.1:3000',
+		SITE_STATIC_URL : 'http://melodycoder.duapp.com/dist/v14',
+		// SITE_STATIC_URL : 'http://127.0.0.1:3000',
 
 		// 文章上传接口
 		ARTICLE_PUBLISH_URL : '/publish',
