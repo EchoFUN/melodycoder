@@ -186,8 +186,30 @@ div.post-content {
 }
 
 div.post-content p {
-	margin: 0 0 1.2em;
-	padding: 0;
+  padding: 0;
+  margin: 15px 0;
+}
+
+div.post-content pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  font-size: 12px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+.highlight .k {
+  font-weight: bold;
+}
+
+.highlight .s1 {
+  color: #d14;
+}
+
+.highlight .c1 {
+  color: #999988;
 }
 
 .article-view p.post-content {
@@ -388,18 +410,13 @@ p.pagination a {
 	background: url('/images/loading.gif') 50% 50% no-repeat #fff;
 }
 
-.wp_syntax {
+/*.wp_syntax {
 	color: #100;
 	background-color: #F9F9F9;
 	border: 1px solid silver;
 	margin: 0 0 1.5em 0;
 	overflow: auto;
-}
-
-.wp_syntax .code {
-	vertical-align: top;
-	padding: 2px 4px;
-}
+}*/
 
 #scrolltop {
 	z-index: 1;

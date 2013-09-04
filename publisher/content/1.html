@@ -1,94 +1,92 @@
-观察者模式，是Gof4在经典书籍《设计模式--可复用面向对象软件的基础》提出的一种设计模式。
-何为观察者模式呢？
+                <p>观察者模式，是Gof4在经典书籍《设计模式--可复用面向对象软件的基础》提出的一种设计模式。<br>
+何为观察者模式呢？</p>
 
-让我们举个栗子就一目了然了。
+<p>让我们举个<br><a href="https://github-camo.global.ssl.fastly.net/0f38a40d7abe2483ba914f1a29a4ca44be584ff7/687474703a2f2f7777342e73696e61696d672e636e2f6c617267652f36626639656562626a7731653861646f72303863706a3230366e3036393734622e6a7067" target="_blank"><img src="https://github-camo.global.ssl.fastly.net/0f38a40d7abe2483ba914f1a29a4ca44be584ff7/687474703a2f2f7777342e73696e61696d672e636e2f6c617267652f36626639656562626a7731653861646f72303863706a3230366e3036393734622e6a7067" alt="栗子" style="max-width:100%;"></a><br>
+就一目了然了。</p>
 
-大家应该都有去过银行取款的经历，刚进银行，会有热情的客服MM迎上来让你取号。
-取号的过程，就可以理解为加入了某个观察团，对被观察者（柜台）进行观察。
-试想，如果没有这个过程，我们会怎么做呢？没错，就是不断的去柜台进行询问和催促：轮到我了没？柜台的GGMM每天要接待上百个业务，被你不断的骚扰说不定会有拿出砍刀的冲动。
-被观察者的状态会不断发生变化，变化的时候会通过广播的方式来告知大家。
-这样就构成了一个简单的观察者模式。
+<p>大家应该都有去过银行取款的经历，刚进银行，会有热情的客服MM迎上来让你取号。<br>
+取号的过程，就可以理解为加入了某个观察团，对被观察者（柜台）进行观察。<br>
+试想，如果没有这个过程，我们会怎么做呢？没错，就是不断的去柜台进行询问和催促：轮到我了没？柜台的GGMM每天要接待上百个业务，被你不断的骚扰说不定会有拿出砍刀的冲动。<br>
+被观察者的状态会不断发生变化，变化的时候会通过广播的方式来告知大家。<br>
+这样就构成了一个简单的观察者模式。</p>
 
-也许你已经有了大概的了解，在此种模式中，一个目标物件管理所有相依于它的观察者物件，并且在它本身的状态改变时主动发出通知。
-而不是需要观察者不断的去询问被观察者是否要有相应的动作。
+<p>也许你已经有了大概的了解，在此种模式中，一个目标物件管理所有相依于它的观察者物件，并且在它本身的状态改变时主动发出通知。<br>
+而不是需要观察者不断的去询问被观察者是否要有相应的动作。</p>
 
-再来举个新浪微博的例子：
-写个简单的观察者类模拟观察者：
-<pre lang="javascript"> 
-var Observer = (function() {
-   var Observer = function(element) {
-      this.element = element;
-      this.callbacks = [];
-   };
+<p>再来举个新浪微博的例子：<br>
+写个简单的观察者类模拟观察者：</p>
 
-   var op = Observer.prototype;
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">Observer</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">global</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">Observer</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">evtHandler</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="p">};</span>
 
-   op.update = function(text) {
-      var callbacks = this.callbacks;
-      for (var i = 0; i < callbacks.length; i++) {
-         callbacks[i](this.element);
-      }
-   };
+  <span class="kd">var</span> <span class="nx">op</span> <span class="o">=</span> <span class="nx">Observer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
 
-   op.registObserver = function(callback) {
-      this.callbacks.push(callback);
-   };
+  <span class="nx">op</span><span class="p">.</span><span class="nx">trigger</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span> <span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">evtHandler</span><span class="p">[</span><span class="nx">evt</span><span class="p">])</span> <span class="p">{</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
 
-   return Observer;
-})();
-</pre>
+    <span class="kd">var</span> <span class="nx">callbacks</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">evtHandler</span><span class="p">[</span><span class="nx">evt</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">callbacks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">callbacks</span><span class="p">[</span><span class="nx">i</span><span class="p">](</span><span class="nx">params</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
 
-<img src="">
-我们可以把输入框作为个被观察者，当我们发布了一条普通的状态，整个页面上会产生哪些变化呢？
-1. 右侧的微博条数应该会加一（在微博改版后好像就不会加一了，老版是会加一的）
-<img src="">
-2. 会产生一条新鲜事
-<img src="">
-3. 发布框的状态会发生改变,右上角的数字会变为140
-<img src="">
+  <span class="nx">op</span><span class="p">.</span><span class="nx">registObserver</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">evtHandler</span><span class="p">[</span><span class="nx">evt</span><span class="p">])</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">evtHandler</span><span class="p">[</span><span class="nx">evt</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">evtHandler</span><span class="p">[</span><span class="nx">evt</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
+  <span class="p">};</span>
 
-通过代码的方式，可以如下表示出来
-var publisher = new Observer();
-publisher.registObserver(function() {
-   // 请求一次新鲜事，并且更新界面
-   // ...
-})
-publisher.registObserver(function() {
-   // 改变发布框的状态（更新可发布文字）
-   // ...
-})
+  <span class="k">return</span> <span class="nx">Observer</span><span class="p">;</span>
+<span class="p">})(</span><span class="k">this</span><span class="p">);</span>
+</pre></div>
 
-publisher.registObserver(function() {
-   // 
-})
+<p>我们可以把输入框作为个被观察者，当我们发布了一条普通的状态，整个页面上会产生哪些变化呢？<br>
+1. 右侧的微博条数应该会加一（在微博改版后好像就不会加一了，老版是会加一的）<br><a href="https://github-camo.global.ssl.fastly.net/a4f6803cdfaa15167a31677256b366012c8c3835/687474703a2f2f7777332e73696e61696d672e636e2f6c617267652f36626639656562626a77316538616473703463366a6a3230366e3033383734372e6a7067" target="_blank"><img src="https://github-camo.global.ssl.fastly.net/a4f6803cdfaa15167a31677256b366012c8c3835/687474703a2f2f7777332e73696e61696d672e636e2f6c617267652f36626639656562626a77316538616473703463366a6a3230366e3033383734372e6a7067" alt="加1" style="max-width:100%;"></a><br>
+2. 会产生一条新鲜事<br><a href="https://github-camo.global.ssl.fastly.net/966841486a11af1acbf417d383852b05c427d020/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f36626639656562626a77316538616475696264656f6a3230676130326d7765682e6a7067" target="_blank"><img src="https://github-camo.global.ssl.fastly.net/966841486a11af1acbf417d383852b05c427d020/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f36626639656562626a77316538616475696264656f6a3230676130326d7765682e6a7067" alt="新鲜事" style="max-width:100%;"></a><br>
+3. 发布框的状态会发生改变,右上角的数字会变为140<br><a href="https://github-camo.global.ssl.fastly.net/e5624f96d419db6621f4445e9bd320d1330ccd12/687474703a2f2f7777342e73696e61696d672e636e2f6c617267652f36626639656562626a7731653861647774747733666a323067733034686d79302e6a7067" target="_blank"><img src="https://github-camo.global.ssl.fastly.net/e5624f96d419db6621f4445e9bd320d1330ccd12/687474703a2f2f7777342e73696e61696d672e636e2f6c617267652f36626639656562626a7731653861647774747733666a323067733034686d79302e6a7067" alt="无良小广告" style="max-width:100%;"></a></p>
 
-这时候你肯定会想，这么做有什么好处呢。代码的复杂度上升了，若是直接在调用了发送新鲜事的接口的回调中几十来行的代码把上诉的1,2,3立即给解决了岂不是更爽？
-各路看官应该都会有自己的看法，我的看法如下两点：
+<p>通过代码的方式，可以如下表示出来</p>
 
-1. 模块之间最大程度的得到了解耦
-随着前端的代码结构的越来越复杂，很多团队在开发时候都采用了模块化的方式。使用观察者模式，使代码达到解耦的优势也自然体现出来。
-2. 便于开发人员后续的维护
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Observer</span><span class="p">();</span>
+
+<span class="nx">handler</span><span class="p">.</span><span class="nx">registObserver</span><span class="p">(</span><span class="s1">'publishUGC'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// 请求一次新鲜事，并且更新界面</span>
+   <span class="c1">// ...</span>
+<span class="p">})</span>
+<span class="nx">handler</span><span class="p">.</span><span class="nx">registObserver</span><span class="p">(</span><span class="s1">'publishUGC'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// 改变发布框的状态（更新可发布文字）</span>
+   <span class="c1">// ...</span>
+<span class="p">})</span>
+
+<span class="nx">handler</span><span class="p">.</span><span class="nx">registObserver</span><span class="p">(</span><span class="s1">'publishUGC'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// </span>
+<span class="p">})</span>
+</pre></div>
+
+<p>这时候你肯定会想，这么做有什么好处呢。代码的复杂度上升了，若是直接在调用了发送新鲜事的接口的回调中几十来行的代码把上诉的1,2,3立即给解决了岂不是更爽？<br>
+各路看官应该都会有自己的看法，我的看法如下两点：</p>
+
+<ol>
+<li>模块之间最大程度的得到了解耦
+随着前端的代码结构的越来越复杂，很多团队在开发时候都采用了模块化的方式。使用观察者模式，使代码达到解耦的优势也自然体现出来。</li>
+<li>便于开发人员后续的维护
 面向对象编程有个很经典的观点，增加原有系统的功能最好的方式是扩展他，而不是去修改他。
-观察者模式做到了能把系统用扩展的方式来增加功能，而不需要在代码中一遍遍的修改，改到最后变得一团糟，最后变得难以维护坑爹骂娘的吐槽着前任程序员（有木有淡淡躺枪的感觉？）。
-3. （欢迎补充或者拍砖）
+观察者模式做到了能把系统用扩展的方式来增加功能，而不需要在代码中一遍遍的修改，改到最后变得一团糟，最后变得难以维护坑爹骂娘的吐槽着极品的前任（有木有淡淡躺枪的感觉？）。</li>
+<li>（欢迎补充或者拍砖）</li>
+</ol><p>现在流行的web框架backbone.js，是使用观察者模式的一个很经典的例子，将模型（Module）和视图（View）的修改进行绑定。<br>
+改变了模型，绑定在这个模型上的一个或者多个相应的视图也会跟着进行改变。</p>
 
-现在流行的web框架backbone.js，是使用观察者模式的一个很经典的例子，将模型（Module）和视图（View）的修改进行绑定。
-改变了模型，绑定在这个模型上的一个或者多个相应的视图也会跟着进行改变。
+<p>写的有点乱。<br>
+最后的吐槽：<br>
+原来的Wordpress网站botobe.com被停掉了，可4我一直在用他的代码排版格式化插件啊！知晓第一时间内为毛有种菊花一紧的赶脚？！<br>
+看来我连格式化代码的功能都要投向Github的的怀抱了。<br><a href="https://github-camo.global.ssl.fastly.net/b0d31bc42655a4139c7abe5306fce738eae75308/687474703a2f2f7777342e73696e61696d672e636e2f6c617267652f36626639656562626a7731653861647a726a747871673230327330327333796d2e676966" target="_blank"><img src="https://github-camo.global.ssl.fastly.net/b0d31bc42655a4139c7abe5306fce738eae75308/687474703a2f2f7777342e73696e61696d672e636e2f6c617267652f36626639656562626a7731653861647a726a747871673230327330327333796d2e676966" alt="无敌的呵呵" style="max-width:100%;"></a><br><a href="https://github.com/EchoFUN/melodycoder/issues/2">本文Github链接</a></p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<p>2013.09.04<br>
+一切安好。<br>
+Merci !</p>
