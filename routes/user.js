@@ -5,16 +5,16 @@
 
 var dbEvt;
 
-var _renderLoginPage = function(resp, isLogin) {
+var _renderLoginPage = function(resp, isLogined) {
   var view = {
-    isLogin : isLogin
+    isLogined : isLogined
   };
 
   resp.render('login', view);
 };
 
 exports.login = function(req, resp) {
-  var isLogin = false;
+  var isLogined = false;
 
   if (req.body.name && req.body.password) {
     dbEvt = req.dbEvt;
@@ -28,14 +28,14 @@ exports.login = function(req, resp) {
           time : new Date()
         };
 
-        isLogin = true;
+        isLogined = true;
       }
-      _renderLoginPage(resp, isLogin);
+      _renderLoginPage(resp, isLogined);
     });
   } else {
     if (req.session.user)
-      isLogin = true;
+      isLogined = true;
 
-    _renderLoginPage(resp, isLogin);
+    _renderLoginPage(resp, isLogined);
   }
 };

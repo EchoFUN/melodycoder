@@ -20,6 +20,8 @@ exports.checkUser = function(name, password, callback) {
     if (user.length !== 0) {
       user = user[0];
       callback(1, user._id.toString());
+    } else {
+      callback();
     }
   });
 };
