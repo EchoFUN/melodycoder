@@ -47,14 +47,24 @@ app.configure(function() {
 
 map(app);
 
-var numCPUs = os.cpus().length;
-if (cluster.isMaster) {
-  for (var i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
+var _userCluster = function(calblack) {
+  var numCPUs = os.cpus().length;
+  if (cluster.isMaster) {
+    for (var i = 0; i < numCPUs; i++) {
+      cluster.fork();
+    }
 
-  cluster.on('exit', function(worker, code, signal) {
-    console.log('worker ' + worker.process.pid + ' died');
+    cluster.on('exit', function(worker, code, signal) {
+      console.log('worker ' + worker.process.pid + ' died');
+    });
+  } else {
+    callback();
+  }
+};
+
+if (process.env.NODE_ENV == 'production') {
+  _userCluster(function() {
+    http.createServer(app).listen(app.get('port'));
   });
 } else {
   http.createServer(app).listen(app.get('port'));
