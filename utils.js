@@ -10,17 +10,17 @@
  * @param {object} options 需要拷贝的目标对象
  */
 exports.extend = function(target, options) {
-  for (var i in options) {
-    var copy = options[i];
-    if ( copy instanceof Array) {
-      target[i] = this.extend(target[i], copy);
-    } else if ( copy instanceof Object) {
-      target[i] = this.extend(target[i], copy);
-    } else {
-      target[i] = copy;
-    }
-  }
-  return target;
+   for (var i in options) {
+      var copy = options[i];
+      if ( copy instanceof Array) {
+         target[i] = this.extend(target[i], copy);
+      } else if ( copy instanceof Object) {
+         target[i] = this.extend(target[i], copy);
+      } else {
+         target[i] = copy;
+      }
+   }
+   return target;
 };
 
 /**
@@ -28,18 +28,18 @@ exports.extend = function(target, options) {
  * @param {string} ua
  */
 exports.browser = function(ua) {
-  var reg = {
-    webkit : /(webkit)[ \/]([\w.]+)/,
-    opera : /(opera)(?:.*version)?[ \/]([\w.]+)/,
-    msie : /(msie) ([\w.]+)/,
-    mozilla : /(mozilla)(?:.*? rv:([\w.]+))?/
-  };
-  ua = ua.toLowerCase();
-  var match = reg.webkit.exec(ua) || reg.opera.exec(ua) || reg.msie.exec(ua) || ua.indexOf("compatible") < 0 && reg.mozilla.exec(ua) || [];
-  return {
-    browser : match[1] || "",
-    version : match[2] || "0"
-  };
+   var reg = {
+      webkit : /(webkit)[ \/]([\w.]+)/,
+      opera : /(opera)(?:.*version)?[ \/]([\w.]+)/,
+      msie : /(msie) ([\w.]+)/,
+      mozilla : /(mozilla)(?:.*? rv:([\w.]+))?/
+   };
+   ua = ua.toLowerCase();
+   var match = reg.webkit.exec(ua) || reg.opera.exec(ua) || reg.msie.exec(ua) || ua.indexOf("compatible") < 0 && reg.mozilla.exec(ua) || [];
+   return {
+      browser : match[1] || "",
+      version : match[2] || "0"
+   };
 };
 
 /**
@@ -48,5 +48,46 @@ exports.browser = function(ua) {
  */
 var crypto = require('crypto');
 exports.getMD5 = function(str) {
-  return crypto.createHash('md5').update(str).digest('hex');
+   return crypto.createHash('md5').update(str).digest('hex');
 };
+
+/**
+ * 转义字符串中的特殊HTML符号
+ * @param {String} str 要替换的字符串
+ * @return {String}
+ */
+exports.encodeSpecialHtmlChar = function(str) {
+   if (str) {
+      var codingchar = ['"', '&', '<', '>'];
+      var sepchar = ['&quot;', '&amp;', '&lt;', '&gt;'];
+      var len = sepchar.length;
+
+      for (var i = 0; i < len; i++) {
+         str = str.replace(new RegExp(codingchar[i], "g"), sepchar[i]);
+      }
+      return str;
+   } else {
+      return "";
+   }
+};
+
+/**
+ * 反转义字符串中的特殊HTML符号
+ * @param {String} str 要替换的字符串
+ * @return {String}
+ */
+exports.decodeSpecialHtmlChar = function(str) {
+   if (str) {
+      var codingchar = ['&quot;', '&amp;', '&lt;', '&gt;'];
+      var sepchar = ['"', '&', '<', '>'];
+      var len = sepchar.length;
+
+      for (var i = 0; i < len; i++) {
+         str = str.replace(new RegExp(codingchar[i], "g"), sepchar[i]);
+      }
+      return str;
+   } else {
+      return "";
+   }
+};
+

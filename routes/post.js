@@ -3,7 +3,7 @@
  * @version 2012.10.02
  */
 
-var config = require('../config').config, fs = require('fs'), path = require('path'), async = require('async');
+var config = require('../config').config, fs = require('fs'), path = require('path'), async = require('async'), utils = require('../utils');
 
 var dbEvt;
 var _middle = function(req, resp, func) {
@@ -81,10 +81,16 @@ exports.addComment = function(req, resp) {
     }
   };
   
-  var regularAt = /@[a-zA-Z0-9u4e00-u9fa5]+/g;
-  var comment = req.body.comment;
-  comment.replace(regularAt, '<a href="javascript:;">$&</a>');
+  // 字符串做“@”的过滤
+  var comment = req.body.comment, regularAt = /@[a-zA-Z0-9u4e00-u9fa5]+/g;
+  comment = utils.encodeSpecialHtmlChar(comment);
+  comment = comment.replace(regularAt, '<a href="javascript:;">$&</a>');
   req.body.comment = comment;
+  
+  // XSS过滤
+  req.body.mail = utils.encodeSpecialHtmlChar(req.body.mail);
+  req.body.author = utils.encodeSpecialHtmlChar(req.body.author);
+  req.body.webside = utils.encodeSpecialHtmlChar(req.body.webside);
   
   dbEvt.addComment(req.body, function(code, isApproved, content) {
     ret.status.code = code;
