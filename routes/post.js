@@ -98,7 +98,7 @@ exports.addComment = function(req, resp) {
     
     ret.data = {
       isApproved : isApproved || false,
-      content : comment,
+      content : req.body.comment,
       author : req.body.author
     };
     resp.end(JSON.stringify(ret));
