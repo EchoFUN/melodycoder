@@ -80,22 +80,27 @@ exports.addComment = function(req, resp) {
       time : new Date().getTime()
     }
   };
-  
+
+  // XSS字符串过滤
+  for (var i in req.body) {
+    req.body[i] = utils.encodeSpecialHtmlChar(req.body[i]);
+  }
+
   // 字符串做“@”的过滤
-  var comment = req.body.comment, regularAt = /@[a-zA-Z0-9u4e00-u9fa5]+/g;
-  comment = utils.encodeSpecialHtmlChar(comment);
-  comment = comment.replace(regularAt, '<a href="javascript:;">$&</a>');
-  req.body.comment = comment;
-  
-  // XSS过滤
-  req.body.mail = utils.encodeSpecialHtmlChar(req.body.mail);
-  req.body.author = utils.encodeSpecialHtmlChar(req.body.author);
-  req.body.webside = utils.encodeSpecialHtmlChar(req.body.webside);
-  
+  var regularAt = /@[a-zA-Z0-9u4e00-u9fa5]+/g;
+  req.body.comment = req.body.comment.replace(regularAt, '<a href="javascript:;">$&</a>');
+
   dbEvt.addComment(req.body, function(code, isApproved, content) {
-    ret.status.code = code;
-    ret.status.content = content || '';
-    ret.data.isApproved = isApproved || false;
+    ret.status = {
+      code : code,
+      content : content || ''
+    };
+    
+    ret.data = {
+      isApproved : isApproved || false,
+      content : comment,
+      author : req.body.author
+    };
     resp.end(JSON.stringify(ret));
   });
 };

@@ -56,8 +56,8 @@ define(['l/jquery', 'c/components', 'c/interface', 'c/tpl', 'l/mustache'], funct
                         var date = new Date(r.data.time), m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Spt', 'Oct', 'Nov', 'Dec'];
                         var view = {
                             pid : YYMG.pid,
-                            author : authorEl.value,
-                            comment : commentEl.value,
+                            author : r.data.author,
+                            comment : r.data.content,
                             month : m[date.getMonth()],
                             date : date.getDate(),
                             year : date.getFullYear(),
