@@ -47,7 +47,7 @@ app.configure(function() {
 
 map(app);
 
-var _userCluster = function(calblack) {
+var _userCluster = function(callback) {
   var numCPUs = os.cpus().length;
   if (cluster.isMaster) {
     for (var i = 0; i < numCPUs; i++) {
