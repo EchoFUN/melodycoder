@@ -95,7 +95,7 @@ exports.addComment = function(req, resp) {
       code : code,
       content : content || ''
     };
-    
+
     ret.data = {
       isApproved : isApproved || false,
       content : req.body.comment,
@@ -106,6 +106,8 @@ exports.addComment = function(req, resp) {
 };
 
 exports.publishPost = function(req, resp) {
+  var pid = req.body.pid;
+
   _checkRight(req, resp, function(token) {
     dbEvt = req.dbEvt;
     var ret = {
@@ -117,13 +119,21 @@ exports.publishPost = function(req, resp) {
     if (token) {
       var postData = JSON.parse(req.body.r);
 
-      dbEvt.addPost(postData, function(code, content) {
-        if (code)
+      var _updated = function(code, content) {
+        if (code) {
           ret.status.code = code;
-        else
+        } else {
           ret.status.content = content;
+        }
         resp.end(JSON.stringify(ret));
-      });
+      };
+      
+      // 有pid参数则表示对某篇文章的更新
+      if (pid) {
+        dbEvt.updatePost(pid, postData, _updated);
+      } else {
+        dbEvt.addPost(postData, _updated);
+      }
     } else {
       ret.status.content = '用户没有权限！';
       resp.end(JSON.stringify(ret));

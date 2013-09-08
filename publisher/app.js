@@ -52,27 +52,37 @@ pFn.init = function() {
       return;
     }
   }
+  
+  var self = this;
   this.publish(articles, function() {
-    Logger.log('Publish the article successfully !');
+    if (self.getParams != '') {
+      Logger.log('Update the article successfully !');
+    } else {
+      Logger.log('Publish the article successfully !');
+    }
   });
 };
 
 // 拼装命令行后边的参数列表
 pFn.getParams = function() {
-  var flag = false;
-  
+  var flag = false, index;
+
   var arguments = process.argv.splice(2);
-  arguments.forEach(function(item) {
-    if (item === '--update') {
+  for (var i = 0; i < arguments.length; i++) {
+    if (arguments[i].trim() === '--pid') {
+      index = i;
       flag = true;
+      break;
     }
-  });
-  
-  if (flag) {
-    return '&isupdate=' + flag;
-  } else {
-    return '';
   }
+  
+  var paramsStr;
+  if (flag) {
+    paramsStr = '&pid=' + arguments[index + 1];
+  } else {
+    paramsStr = '--';
+  }
+  return paramsStr;
 };
 
 // 发布文章
@@ -95,10 +105,8 @@ pFn.publish = function(articles, callback) {
         'Cookie' : 'yymg.sid=s%3AkSrezO1HD7KlrDCLXXAZr7ol.Q8InmOCLZK%2Bo4I18lcZzM9oAYzwMFYl4N%2BTMjtglwaA'
       }
     };
-
+    
     Logger.log('Request the interface form server side .');
-
-    return;
     var req = http.request(options, function(resp) {
       if (resp.statusCode == 200) {
         resp.on('data', function(chunk) {

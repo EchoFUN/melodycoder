@@ -172,8 +172,9 @@ exports.addPost = function(pst, callback) {
     title : pst.title,
     content : pst.content
   }).save(function(error, hook) {
-    if (error)
+    if (error) {
       callback(0, error.toString());
+    }
 
     var processes = [];
 
@@ -198,11 +199,30 @@ exports.addPost = function(pst, callback) {
     });
 
     async.parallel(processes, function(error) {
-      if (error)
+      if (error) {
         callback(0, error.message);
-      else
+      } else {
         callback(1);
+      }
     });
+  });
+};
+
+/**
+ * @description 更新文章内容
+ */
+exports.updatePost = function(pid, pst, callback) {
+  var Post = db.models.Post;
+  Post.update({
+    '_id' : pid
+  }, {
+    'content' : pst.content
+  }, function(error, post) {
+    if (error) {
+      callback(0, error);
+    } else {
+      callback(1);
+    }
   });
 };
 
