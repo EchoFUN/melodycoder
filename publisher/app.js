@@ -5,9 +5,9 @@
  *
  */
 
-var fs = require('fs'), http = require('http'), log = require('./logger'), config = require('../config').config;
-parser = require('./parser');
+var fs = require('fs'), http = require('http'), log = require('./logger'), config = require('../config').config, parser = require('./parser');
 
+var Parser = parser.Parser;
 var Logger = log.Logger;
 
 var Publisher = function(opts) {
@@ -41,15 +41,15 @@ pFn.init = function() {
       var content = fs.readFileSync('./' + article.title);
       Logger.log('Read the content from article ' + article.title + ' .');
 
-      var Parser;
-      if (this.opts.parser)
-        Parser = this.opts.parser;
-      var hook = Parser.parse(content);
-      if (hook)
-        for (var i in hook)
-        article[i] = hook[i];
+      var hook = this.opts.parser.parse(content);
+      if (hook) {
+        for (var i in hook) {
+          article[i] = hook[i];
+        }
+      }
     } catch (e) {
-      Logger.log('Error getting the content for the file .');
+      Logger.log(e.message);
+      return;
     }
   }
   this.publish(articles, function() {
@@ -57,14 +57,34 @@ pFn.init = function() {
   });
 };
 
+// 拼装命令行后边的参数列表
+pFn.getParams = function() {
+  var flag = false;
+  
+  var arguments = process.argv.splice(2);
+  arguments.forEach(function(item) {
+    if (item === '--update') {
+      flag = true;
+    }
+  });
+  
+  if (flag) {
+    return '&isupdate=' + flag;
+  } else {
+    return '';
+  }
+};
+
 // 发布文章
 pFn.publish = function(articles, callback) {
+  var self = this;
+
   var send = function(article, index) {
-    var reqData = 'r=' + encodeURIComponent(JSON.stringify(article));
+    var reqData = 'r=' + encodeURIComponent(JSON.stringify(article)) + self.getParams();
 
     // 发送文章到服务器
     var options = {
-      hostname : 'botobe.net',
+      hostname : '127.0.0.1',
       port : 3000,
       path : config.site.ARTICLE_PUBLISH_URL,
       method : 'POST',
@@ -72,11 +92,13 @@ pFn.publish = function(articles, callback) {
         'Content-Type' : 'application/x-www-form-urlencoded',
         'Content-Length' : reqData.length,
 
-        'Cookie' : 'yymg.sid=s%3ARDf5FXYK4t_Opkegrab9kH3e.t8oE5OBxkvCyz%2F%2FV%2FLDAnZ9Psrk3cyWad4FW%2BghAblg; __utma=209434753.1336927959.1375944377.1376012896.1376019378.5; __utmb=209434753.5.10.1376019378; __utmc=209434753; __utmz=209434753.1375944377.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)'
+        'Cookie' : 'yymg.sid=s%3AkSrezO1HD7KlrDCLXXAZr7ol.Q8InmOCLZK%2Bo4I18lcZzM9oAYzwMFYl4N%2BTMjtglwaA'
       }
     };
 
     Logger.log('Request the interface form server side .');
+
+    return;
     var req = http.request(options, function(resp) {
       if (resp.statusCode == 200) {
         resp.on('data', function(chunk) {
@@ -100,7 +122,6 @@ pFn.publish = function(articles, callback) {
   articles.forEach(send);
 };
 
-var Parser = parser.Parser;
 new Publisher({
   parser : new Parser('BASIC')
 });
