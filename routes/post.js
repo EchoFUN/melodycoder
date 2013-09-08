@@ -122,11 +122,12 @@ exports.publishPost = function(req, resp) {
           ret.status.code = code;
         else
           ret.status.content = content;
+        resp.end(JSON.stringify(ret));
       });
     } else {
       ret.status.content = '用户没有权限！';
+      resp.end(JSON.stringify(ret));
     }
-    resp.end(JSON.stringify(ret));
   });
 };
 
