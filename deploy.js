@@ -116,8 +116,8 @@ try {
     var absolutePath = jsFile, relativePath = relaJsFiles[range];
 
     var content = uglifyJS.minify(absolutePath, {
-      mangle : true,
-      warnings : true
+      mangle : true
+      // warnings : true
     });
 
     // var content = fs.readFileSync(absolutePath);

@@ -6,7 +6,7 @@ h1{font-size:24px}
 h2{font-size:18px}
 .left{float:left}
 .right{float:right}
-li{list-style:none}
+ul li{list-style:none}
 .clearfix{*zoom:1}
 .clearfix:after{content:"\20";display:block;clear:both}
 pre{line-height:17px}.dialog{font-size:12px;position:absolute;width:400px;*border:1px solid #ccc;border:1px solid #ccc\9;background-color:#F1F1F1;-moz-box-shadow:20px 20px 36px 15px #999;-webkit-box-shadow:20px 20px 36px 15px #ccc;box-shadow:20px 20px 36px 15px #999}
@@ -51,7 +51,12 @@ p.post-meta span.author{background-position:-1px -21px}
 p.post-meta span.cat{background-position:-3px -41px;margin-left:9px}
 p.post-meta span.comments{background-position:-2px -61px;margin-left:9px}
 div.post-content{margin:1em 0}
-div.post-content p{margin:0 0 1.2em;padding:0}
+div.post-content p{padding:0;margin:15px 0}
+div.post-content pre{background-color:#f8f8f8;border:1px solid #ddd;font-size:12px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}
+div.post-content ol{padding-left:30px}
+.highlight .k{font-weight:700}
+.highlight .s1{color:#d14}
+.highlight .c1{color:#998}
 .article-view p.post-content{}
 #reply-title,#comments-title{color:#969696;font-weight:400;font-size:1.5em}
 .comment-list .comment-item{margin-top:5px;padding:10px 20px;border:1px solid #E6E6E6}
@@ -89,7 +94,5 @@ p.pagination a{background:url(/images/icons.png) no-repeat;font-weight:700}
 .tag-cloud{padding:5px 0;line-height:24px}
 .tag-cloud .tag-item{margin-right:10px}
 .sina-widget{width:250px;height:500px;border:1px solid #ccc;background:url(/images/loading.gif) 50% 50% no-repeat #fff}
-.wp_syntax{color:#100;background-color:#F9F9F9;border:1px solid silver;margin:0 0 1.5em;overflow:auto}
-.wp_syntax .code{vertical-align:top;padding:2px 4px}
 #scrolltop{z-index:1;position:fixed;bottom:100px;left:50%;margin-left:480px;border-style:solid;border-width:1px;border-radius:2px;width:22px;height:65px;line-height:12px;text-align:center;background-color:#f3f3f3;border-color:#ccc;display:block;padding-top:20px;_position:absolute}
 .msg404{text-align:center;font-size:200px;padding:222px 0}
