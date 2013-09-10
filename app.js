@@ -17,7 +17,7 @@ app.configure('development', function() {
 });
 
 // 生产环境
-app.configure('production', function() {
+app.configure('production', function() { 
   app.use(express.compress());
   app.use(function(req, resp, next) {
     resp.setHeader('X-Powered-By', 'He he !');
