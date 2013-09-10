@@ -40,7 +40,7 @@ app.configure(function() {
   app.set('view engine', 'ejs');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  // app.use(express.favicon('public/images/favicon.ico'));
+  app.use(express.favicon('public/images/favicon.ico'));
   app.use(express.responseTime());
   app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/public'));
