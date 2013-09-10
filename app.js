@@ -20,7 +20,7 @@ app.configure('development', function() {
 app.configure('production', function() { 
   app.use(express.compress());
   app.use(function(req, resp, next) {
-    resp.setHeader('X-Powered-By', 'He he !');
+    resp.removeHeader('X-Powered-By');
     next();
   });
 });
@@ -40,6 +40,8 @@ app.configure(function() {
   app.set('view engine', 'ejs');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.favicon('public/images/favicon.ico'));
+  app.use(express.responseTime());
   app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public')));
