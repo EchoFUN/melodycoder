@@ -55,7 +55,7 @@ pFn.init = function() {
   
   var self = this;
   this.publish(articles, function() {
-    if (self.getParams != '') {
+    if (self.getParams !== '') {
       Logger.log('Update the article successfully !');
     } else {
       Logger.log('Publish the article successfully !');
@@ -67,9 +67,9 @@ pFn.init = function() {
 pFn.getParams = function() {
   var flag = false, index;
 
-  var arguments = process.argv.splice(2);
-  for (var i = 0; i < arguments.length; i++) {
-    if (arguments[i].trim() === '--pid') {
+  var args = process.argv.splice(2);
+  for (var i = 0; i < args.length; i++) {
+    if (args[i].trim() === '--pid') {
       index = i;
       flag = true;
       break;
@@ -78,7 +78,7 @@ pFn.getParams = function() {
   
   var paramsStr;
   if (flag) {
-    paramsStr = '&pid=' + arguments[index + 1];
+    paramsStr = '&pid=' + args[index + 1];
   } else {
     paramsStr = '--';
   }
