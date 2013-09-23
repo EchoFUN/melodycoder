@@ -8,8 +8,8 @@
   "private": true,
 
   "scripts": {
-    "test": "NODE_ENV=development node-dev app",
-    "start": "NODE_ENV=production node app"
+    "test": "NODE_ENV=development node-dev app.js",
+    "start": "NODE_ENV=production forever start -l /var/log/node/forever.log -o /var/log/node/out.log -e /var/log/node/err.log -a app.js"
   },
 
   "dependencies": {
