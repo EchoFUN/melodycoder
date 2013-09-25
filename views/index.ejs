@@ -1,62 +1,87 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title><%= site.SITE_NAME %></title>
+  <head>
+    <% // 增加SEO优化 start --------------------- %>
+    <% 
+      var siteTitle = site.SITE_NAME;
+      var keywords, description; 
+      if(typeof post != 'undefined') {
+  		  var tags = [], categories = [];
+  		  for (var i in post.tags) {
+  		    tags.push(post.tags[i].title);
+  		  }
+  		  for (var j in post.categories) {
+  		    categories.push(post.categories[j].title);
+  		  }
+  		  keywords = tags.concat(categories);
+        description = post.title;
+        siteTitle = post.title;
+		  } else {
+		    keywords = ['个人博客', '吉他', '音乐', '技术', '技术宅男', '阳光', '前端', '开发', 'node.js', 'javascript', 'css', 'html']; 
+		    description = 'EchoFUN的个人博客”';
+		  }
+		  keywords.push(site.SITE_NAME);
+	  %>
+    <title><%= siteTitle %></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="chrome=1">
-		<meta name="Description" content="音韵码工是我自己的一个个人博客" />
-		<meta name="Keywords" content="代码，吉他" />
+		<meta name="Description" content="<%= description + ',' + site.SITE_NAME %>" />
+		<meta name="Keywords" content="<%= keywords.join(',') %>" />
+		<% // 增加SEO优化 end --------------------- %>
 		
+		<% // 针对不同开发环境载入不同css start --------------------- %>
 		<% if (env && env == 'production') { %>
-        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/home.css" />
-        <% } else { %>
-        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/common.css" />
-        <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/components/dialog.css" />
-       	<link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/general.css" />
-        <% } %>
-        
-        <% if (typeof ugcCss != 'undefined' && ugcCss.length != 0) { %>
+      <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/home.css" />
+    <% } else { %>
+      <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/common.css" />
+      <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/components/dialog.css" />
+     	<link rel="stylesheet" href="<%= site.SITE_STATIC_URL %>/css/general.css" />
+    <% } %>
+      
+    <% if (typeof ugcCss != 'undefined' && ugcCss.length != 0) { %>
     	<% for(var i=0; i<ugcCss.length; i++) { %>
         <link rel="stylesheet" href="<%= site.SITE_STATIC_URL %><%= ugcCss[i] %>" />
     	<% } %>
-        <% } %>
-        <script type="text/javascript">
-		var YYMG = {};
-		(function(global, undefined) {
-			YYMG.errors = [];
-			YYMG.modules = [];
-			YYMG._tp = {}
-			YYMG.baseUrl = '<%= site.SITE_BASE_URL %>';
-			YYMG.staticUrl = '<%= site.SITE_STATIC_URL %>';
-			
-			// 伟大的博主想关心一下IE6什么的。
-			if (!window.console) window.console = {log : function(){}};
-			
-			<% if (env && env == 'production') { %>
-			window.onerror = function(message, url, line) {
-			 	YYMG.errors.push({message: message, url: url, line: line});
-				return true;
-			};
-			YYMG.debugMode = false;
-			<% } else {%>
-			YYMG.debugMode = true;
-			<% } %>
-		})(window);
-        </script>
-        <% if ((env && env == 'production') && (typeof site.user == 'undefined')) { %>
-        <script type="text/javascript">
-	    var _gaq = _gaq || [];
-	    _gaq.push(['_setAccount', 'UA-38436425-1']);
-	    _gaq.push(['_trackPageview']);
-	
-	    (function() {
-	        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	    })();
-		</script>
-		<% } %>
-    </head>
+    <% } %>
+    <% // 针对不同开发环境载入不同css end --------------------- %>
+    
+    <script type="text/javascript">
+      <% // 全局js初始化 start --------------------- %>
+		  var YYMG = {};
+		  (function(global, undefined) {
+  			YYMG.errors = [];
+  			YYMG.modules = [];
+  			YYMG._tp = {}
+  			YYMG.baseUrl = '<%= site.SITE_BASE_URL %>';
+  			YYMG.staticUrl = '<%= site.SITE_STATIC_URL %>';
+  			
+  			// 伟大的博主想关心一下IE6什么的。
+  			if (!window.console) window.console = {log : function(){}};
+  			
+  			<% if (env && env == 'production') { %>
+  			window.onerror = function(message, url, line) {
+  			 	YYMG.errors.push({message: message, url: url, line: line});
+  				return true;
+  			};
+  			YYMG.debugMode = false;
+  			<% } else {%>
+  			YYMG.debugMode = true;
+  			<% } %>
+		  })(window);
+		  <% // 全局js初始化 end --------------------- %>
+		  
+      <% if ((env && env == 'production') && (typeof site.user == 'undefined')) { %>
+  	    var _gaq = _gaq || [];
+  	    _gaq.push(['_setAccount', 'UA-38436425-1']);
+  	    _gaq.push(['_trackPageview']);
+  	    (function() {
+  	      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  	      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  	      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  	    })();
+  		<% } %>
+    </script>
+  </head>
     <body>
         <div id="pagewrap">
             <div id="header">
