@@ -41,7 +41,7 @@ define(['l/jquery', 'c/components', 'c/interface', 'c/tpl', 'l/mustache', 'c/uti
         if (check())
           return;
       }
-      
+
       if (email.length === 0) {
         verifyMessage = '邮箱地址不能为空！';
         if (check())
@@ -52,7 +52,7 @@ define(['l/jquery', 'c/components', 'c/interface', 'c/tpl', 'l/mustache', 'c/uti
         if (check())
           return;
       }
-      
+
       if (comment.length === 0) {
         verifyMessage = '评论不能为空！';
         if (check())
@@ -106,7 +106,7 @@ define(['l/jquery', 'c/components', 'c/interface', 'c/tpl', 'l/mustache', 'c/uti
       var cmtData = cmtItemEl.attr('data-reply');
 
       try {
-        cmtData = eval('(' + cmtData + ')');
+        cmtData = _.parseJSON(cmtData);
       } catch (e) {
         new Dialog({
           type : 'error',

@@ -4,20 +4,21 @@
  */
 
 require.config({
-    baseUrl : YYMG.staticUrl + '/js/modules',
-    paths : {
-        l : '../libs',
-        c : '../common'
-    }
+  baseUrl : YYMG.staticUrl + '/js/modules',
+  paths : {
+    l : '../libs',
+    c : '../common'
+  }
 });
 
 YYMG.modules.push('base');
 require(YYMG.modules, function() {
 
-    var arg = arguments, argLen = arg.length;
-    for (var i = 0; i < argLen; i++) {
-        var module = arg[i];
-        if (module && module.init && typeof module.init == 'function')
-            module.init();
+  var arg = arguments, argLen = arg.length;
+  for (var i = 0; i < argLen; i++) {
+    var module = arg[i];
+    if (module && module.init && typeof module.init == 'function') {
+      module.init();
     }
-}); 
+  }
+});

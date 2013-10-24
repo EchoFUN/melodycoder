@@ -90,7 +90,7 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
   Dialog.prototype.addButton = function() {
     var button = document.createElement('a');
     button.className = 'button';
-    button.href = 'javascript:void(0);';
+    button.href = '#nogo';
 
     if ( typeof callback == 'function') {
       var self = this;
@@ -109,7 +109,7 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
     var _diaW = dialogEl.css('width'), _diaH = dialogEl.css('height');
 
     var vp = _(window);
-    var left = this._opts.left || (vp.width() - parseInt(_diaW)) / 2, top = this._opts.top || vp.scrollTop() + (vp.height() - parseInt(_diaH)) / 2;
+    var left = this._opts.left || (vp.width() - parseInt(_diaW, 10)) / 2, top = this._opts.top || vp.scrollTop() + (vp.height() - parseInt(_diaH, 10)) / 2;
     dialogEl.css({
       top : top + 'px',
       left : left + 'px'
@@ -119,7 +119,9 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
 
   Dialog.prototype.close = function() {
     _(this._dialogEl).remove();
-    this.autoHide && clearTimeout(this.autoHide);
+    if (this.autoHide) {
+      clearTimeout(this.autoHide);
+    }
     YYMG._tp.dialog = null;
   };
 

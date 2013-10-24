@@ -4,7 +4,7 @@
  */
 
 define(function(require, exports, module) {
-	
-	exports.ADD_COMMENT = YYMG.baseUrl + '/comment/add';	
-	
-});
+
+  exports.ADD_COMMENT = YYMG.baseUrl + '/comment/add';
+
+}); 
