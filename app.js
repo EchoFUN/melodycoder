@@ -9,7 +9,7 @@
 var express = require('express'), map = require('./map'), http = require('http'), path = require('path'), db = require('./model/db'), config = require('./config').config, cluster = require('cluster'), os = require('os'), RedisStore = require('connect-redis')(express);
 
 var app = express();
-
+ 
 // 开发环境
 app.configure('development', function() {
   app.use(express.logger('dev'));
