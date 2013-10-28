@@ -1,92 +1,123 @@
-<p>什么是生产环境，给人造成的字面上的解释是满是隆隆机器的工厂？或者是妇产医院的婴儿房？在Web开发中，开发环境是指已经运行在正式环境中的代码，与其相对的则是在开发环境中的代码，balabalabala...（扯O中...）</p>
+<p>断点续传其实不是什么新鲜的功能了。<br>
+简单的做个扫盲，其基本原理就是，在文件的下载断开以后。客户端继续向服务器端请求的时候，http请求的头文件中会多了一个参数“Range”，来标示当前下载的文件所断开的位置。<br>
+用如下命令可以做个测试<br>
+wget -c -d –limit-rate=2048k -O target “<a href="http://127.0.0.1:8000%E2%80%B3%EF%BC%88ps">http://127.0.0.1:8000″（ps</a>. c表示让wget进行断点续传，如果不加c发送请求的头文件中是不会，d标示打印调试信息）<br><img src="http://ww4.sinaimg.cn/mw1024/6bf9eebbjw1ea0zp8pcbxj20hr0dygo5.jpg" alt="截图" style="max-width:100%;"><br>
+接下来的下载，就是从这个断开的位置开始，服务器继续向客户端传输文件剩余的内容了。</p>
 
-<p>希望上边的一段话不会让你认为本文是懒婆娘的裹脚布的开端。<br>
-相比于开发环境，生产环境有几个特点：</p>
+<p>主要的是关注两个地方，一个就是返回头文件的设置，和文件内容的读取。<br>
+新建一个叫Transfer的类，把请求的两个参数当成构造函数传进去。</p>
 
-<h6>a). 对性能的需求</h6>
-
-<p>开发环境中，对网站的uv（user view）为1，没什么好说的了，怎么方便，怎么能提升开发效率。抄起你的十八般武艺，怎么使得顺手怎么招呼。<br>
-总之一句话，开发效率为先。<br>
-对比与线上环境，uv是个不确定的数值，说不定今天放了几张小黄图会引来无数狼友的围观。说不定某天也会门庭冷清。<br>
-对于性能的支持上，首先从硬件拼起，本文以本站音韵码工（下文中以"本站"来代替）为例。作者本是北漂的屌丝小码农一枚，没有太多预算，所以本站用的是一台512M，双核的BurstNet小破VPS。用脚趾丫都能理解的到，自然是服务器的数量越多，配置越高，网站的性能会越好。<br>
-在硬件恒定的情况下，线上环境，当然要把它调整到最佳状态。可以使用node.js的clurster模块，充分的利用多核CPU的特性。<br>
-我进行过简单的测试，cluster能使本站的qps能提升了50%，还是非常给力的，下边的继续优化的瓶颈应该就是I/O的操作了。<br>
-详见官本站的启动脚本<a href="https://github.com/EchoFUN/melodycoder/blob/master/app.js#L55">app.js第55行</a><br>
-正常情况下，你很happy的加入了cluster后，你可能会发现session经常会偶发性的失效了。<br>
-因为使用了cluster，查看名为node的进程后你会发现已经不止一个进程了，而express.js提供的默认session是无法在多进程之间共享的。<br>
-其实在默认的情况下，当你使用了production的方式启动了express.js，命令行里都会有警告的日志，提示默认的session存在内存泄露的风险，官方不建议使用。<br>
-我们需要找个中间的媒介存放session数据，这个时候就connect-redis模块在天空一阵巨响后闪亮登场了。<br>
-首先要安装了redis，再安装了connect-redis依赖后，用<a href="https://github.com/EchoFUN/melodycoder/blob/master/app.js#L32">app.js第32</a>的方式，就可以顺利调用Redis存放session数据了。</p>
-
-<p>对于生产环境和开发环境，express.js也就是本站使用的node.js框架，提供了一个很便捷的配置方式：</p>
-
-<div class="highlight highlight-javascript"><pre><span class="nx">app</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s1">'development'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">logger</span><span class="p">(</span><span class="s1">'dev'</span><span class="p">));</span>
-  <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">errorHandler</span><span class="p">());</span>
-<span class="p">});</span>
-
-<span class="nx">app</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s1">'production'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">compress</span><span class="p">());</span>
-  <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">resp</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">resp</span><span class="p">.</span><span class="nx">removeHeader</span><span class="p">(</span><span class="s1">'X-Powered-By'</span><span class="p">);</span>
-    <span class="nx">next</span><span class="p">();</span>
-  <span class="p">});</span>
-<span class="p">});</span>
+<div class="highlight highlight-javascript"><pre><span class="kd">function</span> <span class="nx">Transfer</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">resp</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">req</span> <span class="o">=</span> <span class="nx">req</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">resp</span> <span class="o">=</span> <span class="nx">resp</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
-<p>configure方法的第一个参数是环境名，只要你愿意，除了production，其他的环境你可以叫他小黄，小白，旺财，小强...<br>
-线上环境相比于开发环境，多了压缩，去除log，取消打印错误堆栈的特征，用这个方法很容易实现。<br>
-对于性能的配置上，最重要的一点是网站静态资源的管理，也可以非常大幅度的提升网站的整体请求速度。<br>
-一个糟糕的做法，是把静态资源直接挂载在网站的主域下，尤其像BurstNet这种主机在国外的VPS，访问速度本来就不怎么给力。<br>
-比如有个叫general.js的文件，我直接放在了botobe.net/general.js下。<br>
-这种做法同时也是占用了node.js的处理资源，把更多的任务交给node.js进程（也就是网站所在的VPS）去处理。<br>
-通常的做法，是把静态资源给分离出来。比如本站的静态时挂载在百度的App Engine服务器上的。静态的位置是可配置的。<br>
-可参考本站的配置文件<a href="https://github.com/EchoFUN/melodycoder/blob/master/config.js#L7">config.js第7~13行</a></p>
+<p>计算文件开始的位置和设置头文件的信息如下</p>
 
-<p>还有些基本的前端的优化，比如css放在头部，js放在尾部，以及spirit，减少文件请求等等。这里就不做累赘的重复。</p>
+<div class="highlight highlight-javascript"><pre><span class="cm">/**</span>
+<span class="cm"> * @description 计算上次的断点信息</span>
+<span class="cm"> * @param {string} Range 请求http头文件中的断点信息，如果没有则为undefined，格式（range: bytes=232323-）</span>
+<span class="cm"> * @return {integer} startPos 开始的下载点</span>
+<span class="cm"> */</span>
+<span class="nx">Transfer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_calStartPosition</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Range</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">startPos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span> <span class="k">typeof</span> <span class="nx">Range</span> <span class="o">!=</span> <span class="s1">'undefined'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">startPosMatch</span> <span class="o">=</span> <span class="sr">/^bytes=([0-9]+)-$/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">Range</span><span class="p">);</span>
+        <span class="nx">startPos</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">startPosMatch</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">startPos</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cm">/**</span>
+<span class="cm"> * @description 配置头文件</span>
+<span class="cm"> * @param {object} Config 头文件配置信息（包含了下载的起始位置和文件的大小）</span>
+<span class="cm"> */</span>
+<span class="nx">Transfer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_configHeader</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Config</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">startPos</span> <span class="o">=</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">startPos</span><span class="p">,</span> 
+        <span class="nx">fileSize</span> <span class="o">=</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">fileSize</span><span class="p">,</span>
+        <span class="nx">resp</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">resp</span><span class="p">;</span>
+    <span class="c1">// 如果startPos为0，表示文件从0开始下载的，否则则表示是断点下载的。</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">startPos</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">resp</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Accept-Range'</span><span class="p">,</span> <span class="s1">'bytes'</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">resp</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Content-Range'</span><span class="p">,</span> <span class="s1">'bytes '</span> <span class="o">+</span> <span class="nx">startPos</span> <span class="o">+</span> <span class="s1">'-'</span> <span class="o">+</span> <span class="p">(</span><span class="nx">fileSize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'/'</span> <span class="o">+</span> <span class="nx">fileSize</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">resp</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">206</span><span class="p">,</span> <span class="s1">'Partial Content'</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">'Content-Type'</span> <span class="o">:</span> <span class="s1">'application/octet-stream'</span><span class="p">,</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
 
-<h6>b). 对稳定性的需求</h6>
+<p>在nodejs中每一次http请求的头文件，已经被他封装在了http.ServerRequest的headers对象中，用node inspector的方式进行调试，就可以很清楚的看到了http.ServerRequest和http.ServerResponse对象的结构：<br><img src="http://ww2.sinaimg.cn/mw1024/6bf9eebbjw1ea0ztnpu7zj208u0avjs4.jpg" alt="截图" style="max-width:100%;"><br>
+剩下来要做的，就是从断开的位置继续读取文件，并将其返回给客户端，可以用nodejs提供的ReadStream来实现：</p>
 
-<p>如果线上网站的网站三天两头的挂掉，这也不是我们愿意看到的。<br>
-上线前也不会有QA进行严格的测试验证，遇到问题宕掉也是正常情况。但是作为一个个人网站，问题的关键在于，服务宕掉后，能迅速的定位出问题出在了哪里。<br>
-起初我是直接来翻看nginx的error和access几十兆的文本日志。<br>
-这个方法很管用，不过却很繁琐，因为访问你网站的在绝大部分情况下，不会是某个“人”。而是一些搜索引擎的爬虫，以及一些机器的自动请求，他们会测试网站的各种对外暴露的请求是否OK，“404的请求”， “文章不存在在的请求”，“以及错误文章url的请求”等。<br>
-在这种情况下，于是我最终使用了<a href="https://github.com/nodejitsu/forever%5D%E6%9D%A5%E8%BF%90%E8%A1%8Cnode%E3%80%82">forever.js</a>来运行node。<br>
-至此，妈妈再也没有担心过我的网站会宕机了。同时能根据指定的日志文件，更加有效和快捷的定位问题。</p>
+<div class="highlight highlight-javascript"><pre><span class="cm">/**</span>
+<span class="cm"> * @description 初始化配置信息</span>
+<span class="cm"> * @param {string} filePath</span>
+<span class="cm"> * @param {function} down 下载开始的回调函数</span>
+<span class="cm"> */</span>
+<span class="nx">Transfer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_init</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="nx">down</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+            <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
 
-<h6>c). 对于安全性的需求</h6>
+        <span class="nx">config</span><span class="p">.</span><span class="nx">fileSize</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">size</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">range</span><span class="p">;</span>
+        <span class="nx">config</span><span class="p">.</span><span class="nx">startPos</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_calStartPosition</span><span class="p">(</span><span class="nx">range</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="nx">config</span><span class="p">;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">_configHeader</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+        <span class="nx">down</span><span class="p">();</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+<span class="cm">/**</span>
+<span class="cm"> * @description 生成大文件文档流，并发送</span>
+<span class="cm"> * @param {string} filePath 文件地址</span>
+<span class="cm"> */</span>
+<span class="nx">Transfer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">Download</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filePath</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="nx">path</span><span class="p">.</span><span class="nx">exists</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">exist</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">exist</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">_init</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">config</span>
+                    <span class="nx">resp</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">resp</span><span class="p">;</span>
+                <span class="nx">fReadStream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="nx">encoding</span> <span class="o">:</span> <span class="s1">'binary'</span><span class="p">,</span>
+                    <span class="nx">bufferSize</span> <span class="o">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
+                    <span class="nx">start</span> <span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">startPos</span><span class="p">,</span>
+                    <span class="nx">end</span> <span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">fileSize</span>
+                <span class="p">});</span>
+                <span class="nx">fReadStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">chunk</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">resp</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">chunk</span><span class="p">,</span> <span class="s1">'binary'</span><span class="p">);</span>
+                <span class="p">});</span>
+                <span class="nx">fReadStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">resp</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+                <span class="p">});</span>
+            <span class="p">});</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'文件不存在！'</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
 
-<p>这是个很大的话题，最常见的需要考虑的一个是XSS，一个是数据库安全。<br>
-这个也不是一句两句能说的清楚了，从本站点的角度来讲，对mongodb的操作，一定要在启动参数中加上bind_ip选项。<br>
-对于XSS的操作，如果是一个团队开发的话，则一定要协定 好，XSS的问题要在前端（包括前端模板的拼装）处理或者是后台处理。<br>
-这是每个网站开发都会遇到的问题，这里就不作详细介绍。</p>
+<p>最终的可以用如下代码进行测试</p>
 
-<h6>d). 整体流程的优化</h6>
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">)</span>
+<span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">)</span>
+<span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">resp</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">transfer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Transfer</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">filePath</span> <span class="o">=</span> <span class="s1">'/Users/xukai/Downloads/love.rmvb'</span><span class="p">;</span>
+    <span class="nx">transfer</span><span class="p">.</span><span class="nx">Download</span><span class="p">(</span><span class="nx">filePath</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="s1">'8000'</span><span class="p">);</span>
+</pre></div>
 
-<p>这点对于一个项目的开发来说还是比较重要的。<br>
-项目从开发到上线，必然会经历一个从测试环境到正式环境的过程。是不可能直接把开发环境中的代码投放到生产环境中的，尤其是前端的代码，否则会的话，严重的情况下回导致你...................................................被鄙视！<br>
-在这个环境转换的过程里，如何做到平滑的过渡，是个很值得思考的问题。<br>
-本站则是使用了一个node.js的脚本<a href="https://github.com/EchoFUN/melodycoder/blob/master/deploy.js">deploy.js</a>来解决这个问题。<br>
-几年的从业经验看来，大部分网站解决线上环境到测试环境前端代码的优化的过程，都是采用的一个脚本自己来完成或是调用ant以及grunt之类的自动化处理的工具来完成包括变量的替换，代码的错误检测，压缩以及优化，自动化测试等等工作。<br>
-当然也有其他的方式，这个就取决于整个团队的技术实力是否足够强大，或者是否拥有足够多的时间。<br>
-比如人人网就是引入了一个名为<a href="https://github.com/ObjectJS/opm">OPM</a>的工具（PS. 当然是在人人网鼎盛时期，诸神俱在的时候），支付宝据说使用的一个叫<a href="https://github.com/spmjs/spm2">SPM</a>自动工具来完成。<br>
-具体的工作原理，我就不在这里班门弄斧了，这些工具也都已经开元并且托管在了Github上，大家可以自行翻阅文档。</p>
+<p>转载请注明出处<br><a href="http://botobe.net">botobe.net</a><br><a href="https://github.com/EchoFUN/melodycoder/issues/5">本文Github地址</a></p>
 
-<h6>e). 后台的管理</h6>
-
-<p>相信大部分混迹于互联网的geek们都应该见过workdpress的后台，那可真叫一个赞！<br>
-相比于本站，那就是金光灿灿的水晶鞋和底部有一个洞的小塑料拖似得。<br><img src="http://ww4.sinaimg.cn/large/6bf9eebbjw1ea0q5alzc8j208c0b43zd.jpg" alt="拖鞋" style="max-width:100%;"><br>
-我是不会告诉你，这个就是笔者混迹于各个豪华CBD之间的常配装备之一的。<br>
-水晶的光芒，刺穿的小破鞋如同海盗船上满是漏洞的破帆似得。</p>
-
-<p>本站自己写了一个专门用于发布文章的<a href="https://github.com/EchoFUN/melodycoder/tree/master/publisher">发布器</a>进行发布文章。<br>
-并且写了个只有寥寥几行html的简易后台操作相应的评论等等。</p>
-
-<p>记在最后：<br>
-从谷歌里搜索了一圈，发现介绍node.js部署的文章不是很多，于是尝试着自己撰文一篇。<br>
-欢迎交流和拍砖。适合初级选手，大神可略过。<br>
-转载请注明出处<br><a href="http://botobe.net/">http://botobe.net/</a><br><a href="https://github.com/EchoFUN/melodycoder/issues/3">本文Github链接</a></p>
-
-<p>2013.10.28<br>
-几个月前来到了鹿妖山，一切安好。<br>
+<p>按照惯例<br>
+2012.3.10，情况一般。<br>
 Merci !</p>

@@ -55,10 +55,10 @@ pFn.init = function() {
   
   var self = this;
   this.publish(articles, function() {
-    if (self.getParams !== '') {
-      Logger.log('Update the article successfully !');
-    } else {
+    if (self.getParams() === '') {
       Logger.log('Publish the article successfully !');
+    } else {
+      Logger.log('Update the article successfully !');
     }
   });
 };
@@ -94,15 +94,15 @@ pFn.publish = function(articles, callback) {
 
     // 发送文章到服务器
     var options = {
-      hostname : '127.0.0.1',
-      port : 3000,
+      hostname : 'botobe.net',
+      port : 80,
       path : config.site.ARTICLE_PUBLISH_URL,
       method : 'POST',
       headers : {
         'Content-Type' : 'application/x-www-form-urlencoded',
         'Content-Length' : reqData.length,
 
-        'Cookie' : 'yymg.sid=s%3ARmLQq3vOygYNKIHz7pm18sGG.bfJE%2FwhV%2BaqFXG4Amtctw39vbG0tRhqsUgG%2B3giL2sY'
+        'Cookie' : ''
       }
     };
     
