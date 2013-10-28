@@ -80,7 +80,7 @@ pFn.getParams = function() {
   if (flag) {
     paramsStr = '&pid=' + args[index + 1];
   } else {
-    paramsStr = '--';
+    paramsStr = '';
   }
   return paramsStr;
 };
@@ -102,7 +102,7 @@ pFn.publish = function(articles, callback) {
         'Content-Type' : 'application/x-www-form-urlencoded',
         'Content-Length' : reqData.length,
 
-        'Cookie' : 'yymg.sid=s%3AkSrezO1HD7KlrDCLXXAZr7ol.Q8InmOCLZK%2Bo4I18lcZzM9oAYzwMFYl4N%2BTMjtglwaA'
+        'Cookie' : 'yymg.sid=s%3ARmLQq3vOygYNKIHz7pm18sGG.bfJE%2FwhV%2BaqFXG4Amtctw39vbG0tRhqsUgG%2B3giL2sY'
       }
     };
     
