@@ -51,7 +51,7 @@
 上线前也不会有QA进行严格的测试验证，遇到问题宕掉也是正常情况。但是作为一个个人网站，问题的关键在于，服务宕掉后，能迅速的定位出问题出在了哪里。<br>
 起初我是直接来翻看nginx的error和access几十兆的文本日志。<br>
 这个方法很管用，不过却很繁琐，因为访问你网站的在绝大部分情况下，不会是某个“人”。而是一些搜索引擎的爬虫，以及一些机器的自动请求，他们会测试网站的各种对外暴露的请求是否OK，“404的请求”， “文章不存在在的请求”，“以及错误文章url的请求”等。<br>
-在这种情况下，于是我最终使用了(forever.js)[<a href="https://github.com/nodejitsu/forever%5D%E6%9D%A5%E8%BF%90%E8%A1%8Cnode%E3%80%82">https://github.com/nodejitsu/forever]来运行node。</a><br>
+在这种情况下，于是我最终使用了<a href="https://github.com/nodejitsu/forever%5D%E6%9D%A5%E8%BF%90%E8%A1%8Cnode%E3%80%82">forever.js</a>来运行node。<br>
 至此，妈妈再也没有担心过我的网站会宕机了。同时能根据指定的日志文件，更加有效和快捷的定位问题。</p>
 
 <h6>c). 对于安全性的需求</h6>
