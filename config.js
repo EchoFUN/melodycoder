@@ -18,7 +18,7 @@ exports.config = {
     // 每页显示的文章数目
     PAGE_COUNT : 10
   },
-
+ 
   db : {
 
     DB_HOST : '127.0.0.1',
