@@ -1,8 +1,8 @@
 {
-	"title": "观察者模式的在前端开发中的应用",
+	"title": "node.js在生产（线上）环境中的部署的一点思考总结",
 	"author" : "EchoFUN",
 	"path": "./content/1.html",
-	"tags": "设计模式,开发,观察者模式",
-	"category": "开发",
+	"tags": "node.js,开发,部署,生产环境,线上,思考总结,测试环境",
+	"category": "node.js",
 	"time": ""
 }
