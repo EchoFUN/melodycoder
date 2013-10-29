@@ -5,28 +5,36 @@
 </div>
 <% } %>
 
-
+<div class="widget">
+  <div class="avatar">
+    <img src="">
+  </div>
+  <div class="mod">
+    <span class="tips"></span>
+    <div class="mod-content"></div>
+  </div>
+</div>
 
 <% var rectPosts = result.rectPosts; %>
 <% if(typeof rectPosts != 'undefined' && rectPosts.length != 0) {%>
 <div class="widget">
-    <h3>近期文章</h3>
-    <ul>
-    	<% for(var j=0; j<rectPosts.length; j++) { %>
-        <li><a target="_blank" href="<%= site.SITE_BASE_URL + '/post?pid=' + rectPosts[j]._id %>" title="<%= rectPosts[j].title %>"><%= rectPosts[j].shortTitle %></a></li>
-    	<% } %>
-    </ul>
+  <h3>近期文章</h3>
+  <ul>
+  	<% for(var j=0; j<rectPosts.length; j++) { %>
+      <li><a target="_blank" href="<%= site.SITE_BASE_URL + '/post?pid=' + rectPosts[j]._id %>" title="<%= rectPosts[j].title %>"><%= rectPosts[j].shortTitle %></a></li>
+  	<% } %>
+  </ul>
 </div>    
 <% } %>  
 
 <% var widgetTags = result.widgetTags; %>
 <% if(typeof widgetTags != 'undefined' && widgetTags.length != 0) { %>
 <div class="widget">
-    <h3>标签云</h3>
+  <h3>标签云</h3>
     <div class="tag-cloud">
-    	<% for(var j=0; j<widgetTags.length; j++) { %>
+    <% for(var j=0; j<widgetTags.length; j++) { %>
     	<a class="tag-item underConstruct" href="javascript:;" style="font-size: <%= widgetTags[j].counter*2 + 10 %>px"><%= widgetTags[j].title %></a>
-    	<% } %>
+    <% } %>
     </div>
 </div>
 <% } %>
@@ -34,25 +42,25 @@
 <% var archives = result.archives; %>
 <% if(typeof archives != 'undefined' && archives.length != 0) { %>
 <div class="widget">        
-    <h3>文章归档</h3>       
-    <ul>
-    	<% for(var j=0; j<archives.length; j++) { %>
-    	<!-- <li><a href="<%= site.SITE_BASE_URL + '/post?archive=' + archives[j].full.getTime() %>"><%= archives[j].summary %></a></li> -->
-    	<li><a href="javascript:;" class="underConstruct"><%= archives[j].summary %></a></li>
-    	<% } %>
-    </ul>
+  <h3>文章归档</h3>       
+  <ul>
+  	<% for(var j=0; j<archives.length; j++) { %>
+  	<!-- <li><a href="<%= site.SITE_BASE_URL + '/post?archive=' + archives[j].full.getTime() %>"><%= archives[j].summary %></a></li> -->
+  	<li><a href="javascript:;" class="underConstruct"><%= archives[j].summary %></a></li>
+  	<% } %>
+  </ul>
 </div>
 <% } %>
 
 <% var links = result.links; %>
 <% if(typeof links != 'undefined' && links.length != 0) { %>
 <div class="widget">
-    <h3>链接</h3>
-    <ul>
-        <% for(var j=0; j<links.length; j++) { %>
-        <li><a target="_blank" href="<%= links[j].url %>" ><%= links[j].title %></a></li>
-        <% } %>
-    </ul>
+  <h3>链接</h3>
+  <ul>
+    <% for(var j=0; j<links.length; j++) { %>
+    <li><a target="_blank" href="<%= links[j].url %>" ><%= links[j].title %></a></li>
+    <% } %>
+  </ul>
 </div>
 <% } %>
 
