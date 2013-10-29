@@ -20,10 +20,12 @@
 <% var widgetTags = result.widgetTags; %>
 <% if(typeof widgetTags != 'undefined' && widgetTags.length != 0) { %>
 <div class="widget">
-    <h3>标签</h3>
+    <h3>标签云</h3>
     <div class="tag-cloud">
     	<% for(var j=0; j<widgetTags.length; j++) { %>
+    	<% if(widgetTags[j].counter != 1){ %>
     	<a class="tag-item underConstruct" href="javascript:;" style="font-size: <%= widgetTags[j].counter*2 + 10 %>px"><%= widgetTags[j].title %></a>
+    	<% } %>
     	<% } %>
     </div>
 </div>
