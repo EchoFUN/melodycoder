@@ -390,6 +390,22 @@ p.pagination a {
 	margin-bottom: 1.5em;
 }
 
+.widget-avatarbox img {
+  padding: 4px;
+  border: 1px solid #ccc;
+}
+
+.widget-avatarbox .avatar {
+  float: left;
+}
+
+.widget-avatarbox .description {
+  float: left;
+  width: 150px;
+  line-height: 22px;
+  text-align: right;
+}
+
 .comments-area {
 	margin-top: 30px;
 }
