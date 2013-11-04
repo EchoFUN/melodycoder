@@ -6,7 +6,7 @@ h1{font-size:24px}
 h2{font-size:18px}
 .left{float:left}
 .right{float:right}
-li{list-style:none}
+ul li{list-style:none}
 .clearfix{*zoom:1}
 .clearfix:after{content:"\20";display:block;clear:both}
 pre{line-height:17px}.dialog{font-size:12px;position:absolute;width:400px;*border:1px solid #ccc;border:1px solid #ccc\9;background-color:#F1F1F1;-moz-box-shadow:20px 20px 36px 15px #999;-webkit-box-shadow:20px 20px 36px 15px #ccc;box-shadow:20px 20px 36px 15px #999}
@@ -53,6 +53,7 @@ p.post-meta span.comments{background-position:-2px -61px;margin-left:9px}
 div.post-content{margin:1em 0}
 div.post-content p{padding:0;margin:15px 0}
 div.post-content pre{background-color:#f8f8f8;border:1px solid #ddd;font-size:12px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}
+div.post-content ol{padding-left:30px}
 .highlight .k{font-weight:700}
 .highlight .s1{color:#d14}
 .highlight .c1{color:#998}
@@ -88,6 +89,9 @@ p.pagination a{background:url(/images/icons.png) no-repeat;font-weight:700}
 #footer{height:50px;background:#F4F4F4 url(/images/footer.png) 0 0 repeat-x}
 #footer .footer-wrap{padding:24px 0;width:960px;margin:0 auto;line-height:20px}
 .widget{margin-bottom:1.5em}
+.widget-avatarbox img{padding:4px;border:1px solid #ccc}
+.widget-avatarbox .avatar{float:left}
+.widget-avatarbox .description{float:left;width:150px;line-height:22px;text-align:right}
 .comments-area{margin-top:30px}
 .comments-area .respond{margin-top:9px}
 .tag-cloud{padding:5px 0;line-height:24px}
