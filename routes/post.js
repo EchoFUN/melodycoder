@@ -87,7 +87,7 @@ exports.addComment = function(req, resp) {
   }
 
   // 字符串做“@”的过滤
-  var regularAt = /@[a-zA-Z0-9u4e00-u9fa5]+/g;
+  var regularAt = /@[a-zA-Z0-9\u4e00-\u9fa5]+/g;
   req.body.comment = req.body.comment.replace(regularAt, '<a href="javascript:;">$&</a>');
 
   dbEvt.addComment(req.body, function(code, isApproved, content) {
