@@ -99,7 +99,8 @@ exports.addComment = function(req, resp) {
     ret.data = {
       isApproved : isApproved || false,
       content : req.body.comment,
-      author : req.body.author
+      author : req.body.author,
+      time: new Date().getTime()
     };
     resp.end(JSON.stringify(ret));
   });
