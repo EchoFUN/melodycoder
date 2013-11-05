@@ -1,123 +1,87 @@
-<p>断点续传其实不是什么新鲜的功能了。<br>
-简单的做个扫盲，其基本原理就是，在文件的下载断开以后。客户端继续向服务器端请求的时候，http请求的头文件中会多了一个参数“Range”，来标示当前下载的文件所断开的位置。<br>
-用如下命令可以做个测试<br>
-wget -c -d –limit-rate=2048k -O target “<a href="http://127.0.0.1:8000%E2%80%B3%EF%BC%88ps">http://127.0.0.1:8000″（ps</a>. c表示让wget进行断点续传，如果不加c发送请求的头文件中是不会，d标示打印调试信息）<br><img src="http://ww4.sinaimg.cn/mw1024/6bf9eebbjw1ea0zp8pcbxj20hr0dygo5.jpg" alt="截图" style="max-width:100%;"><br>
-接下来的下载，就是从这个断开的位置开始，服务器继续向客户端传输文件剩余的内容了。</p>
+<p>随着现代浏览器的不断升级，浏览器给我们带来的已经不仅是浏览网页的体验。而是提供了各种的接口，来满足用户多样化的需求。从这种角度看，浏览器已经渐渐的在脱离它本来的初衷，而是渐渐的朝着Web平台的方向在发展。</p>
 
-<p>主要的是关注两个地方，一个就是返回头文件的设置，和文件内容的读取。<br>
-新建一个叫Transfer的类，把请求的两个参数当成构造函数传进去。</p>
+<p>本文我们来介绍的是Chrome自己提供的Userscript脚本的机制，用户可以在浏览器中加入自己写的脚本达到各种的需求。删除页面上牛皮癣似的广告啦，添加一些自定义的数据啦，当然还有个貌似最重要的在某神奇的车票网站上刷票啦！<br>
+这一切都可以通过添加Userscript脚本的方式来实现！！<br>
+还在等什么！？是不是突然发现无比的神奇呢？是不是觉得自己已经摆脱了屌丝的命运，俨然化身成互联网的神了呢？<br>
+哈哈，自己DIY，一切就是那么简单！<br><img src="http://ww4.sinaimg.cn/large/6bf9eebbjw1e63wmwnjheg2028028weg.gif" alt="图片" style="max-width:100%;"><br>
+首先要创建一个以.user.js为后缀名的js脚本文件，例如创建了一个名为home.user.js的文件。<br>
+安装脚本的方式也是非常的简单，在浏览器的地址栏中输入“chrome://extensions/”，你就可以看到当前你的Chrome中所包含的扩展包。将我们的home.user.js文件拖拽入其中。<br><img src="http://ww3.sinaimg.cn/large/6bf9eebbjw1e63wmwrlw9j20sc0ifq42.jpg" alt="图片" width="650" height="423"><br>
+会出现<br><img src="http://ww2.sinaimg.cn/large/6bf9eebbjw1e63wmwko9rj20as01ta9z.jpg"><br>
+的提示，说明插件已经安装完成。<br>
+这是最新的Chrome为开发者内建了这种简单的扩展机制，非常的方便。</p>
 
-<div class="highlight highlight-javascript"><pre><span class="kd">function</span> <span class="nx">Transfer</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">resp</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">req</span> <span class="o">=</span> <span class="nx">req</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">resp</span> <span class="o">=</span> <span class="nx">resp</span><span class="p">;</span>
-<span class="p">}</span>
+<p>这只是添加了这么一个Userscript空格的脚本，基本上没什么作用。我们也无法看到任何的效果。<br>
+下边我们来往home.user.js中添加代码。</p>
+
+<p>从用途上来讲，Userscript代码的结构可以分为两大部分，第一部分是Userscript的注释。用来告诉浏览器，你的这段脚本的作者，名称，日期，作用范围，版本等等一些基本的信息。第二部分则是开发者自己编写的功能代码。<br>
+让我们用一个最简单的删除Gmail顶部的牛皮癣小广告的作为例子。<br><img src="http://ww1.sinaimg.cn/large/6bf9eebbjw1e63wsfmohhj20l201874c.jpg" width="650" height="38"><br>
+头部的注释的一个简单范例如下所示：</p>
+
+<div class="highlight highlight-javascript"><pre><span class="c1">// ==UserScript==</span>
+<span class="c1">// @name           Just for testing Chrome APP</span>
+<span class="c1">// @description    Yes</span>
+<span class="c1">// @version        1.0</span>
+<span class="c1">// @author         Kai.XU</span>
+<span class="c1">// @namespace      http://botobe.net/</span>
+<span class="c1">// @include        https://mail.google.com/*</span>
+<span class="c1">// ==/UserScript==</span>
 </pre></div>
 
-<p>计算文件开始的位置和设置头文件的信息如下</p>
+<p>让我们一条条的做个解释。</p>
 
-<div class="highlight highlight-javascript"><pre><span class="cm">/**</span>
-<span class="cm"> * @description 计算上次的断点信息</span>
-<span class="cm"> * @param {string} Range 请求http头文件中的断点信息，如果没有则为undefined，格式（range: bytes=232323-）</span>
-<span class="cm"> * @return {integer} startPos 开始的下载点</span>
-<span class="cm"> */</span>
-<span class="nx">Transfer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_calStartPosition</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Range</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">startPos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span> <span class="k">typeof</span> <span class="nx">Range</span> <span class="o">!=</span> <span class="s1">'undefined'</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">startPosMatch</span> <span class="o">=</span> <span class="sr">/^bytes=([0-9]+)-$/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">Range</span><span class="p">);</span>
-        <span class="nx">startPos</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">startPosMatch</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">startPos</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="cm">/**</span>
-<span class="cm"> * @description 配置头文件</span>
-<span class="cm"> * @param {object} Config 头文件配置信息（包含了下载的起始位置和文件的大小）</span>
-<span class="cm"> */</span>
-<span class="nx">Transfer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_configHeader</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Config</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">startPos</span> <span class="o">=</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">startPos</span><span class="p">,</span> 
-        <span class="nx">fileSize</span> <span class="o">=</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">fileSize</span><span class="p">,</span>
-        <span class="nx">resp</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">resp</span><span class="p">;</span>
-    <span class="c1">// 如果startPos为0，表示文件从0开始下载的，否则则表示是断点下载的。</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">startPos</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">resp</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Accept-Range'</span><span class="p">,</span> <span class="s1">'bytes'</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">resp</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Content-Range'</span><span class="p">,</span> <span class="s1">'bytes '</span> <span class="o">+</span> <span class="nx">startPos</span> <span class="o">+</span> <span class="s1">'-'</span> <span class="o">+</span> <span class="p">(</span><span class="nx">fileSize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'/'</span> <span class="o">+</span> <span class="nx">fileSize</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="nx">resp</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">206</span><span class="p">,</span> <span class="s1">'Partial Content'</span><span class="p">,</span> <span class="p">{</span>
-        <span class="s1">'Content-Type'</span> <span class="o">:</span> <span class="s1">'application/octet-stream'</span><span class="p">,</span>
-    <span class="p">});</span>
-<span class="p">}</span>
+<p>首先外层的</p>
+
+<div class="highlight highlight-javascript"><pre><span class="c1">// ==UserScript==</span>
+<span class="c1">//</span>
+<span class="c1">// ==/UserScript==</span>
 </pre></div>
 
-<p>在nodejs中每一次http请求的头文件，已经被他封装在了http.ServerRequest的headers对象中，用node inspector的方式进行调试，就可以很清楚的看到了http.ServerRequest和http.ServerResponse对象的结构：<br><img src="http://ww2.sinaimg.cn/mw1024/6bf9eebbjw1ea0ztnpu7zj208u0avjs4.jpg" alt="截图" style="max-width:100%;"><br>
-剩下来要做的，就是从断开的位置继续读取文件，并将其返回给客户端，可以用nodejs提供的ReadStream来实现：</p>
+<p>固定格式，浏览器会读取这段注释中的基本信息。<br>
+<a href="https://github.com/name" class="user-mention">@name</a>，<a href="https://github.com/description" class="user-mention">@description</a>，<a href="https://github.com/version" class="user-mention">@version</a>，<a href="https://github.com/author" class="user-mention">@author</a>用来记录名称，描述和当前软件的版本号以及开发者的名称。<br>
+<a href="https://github.com/namespace" class="user-mention">@namespace</a>是浏览器在识别查件的时候，当插件名一样时用以区分不同插件的命名空间。<br>
+在头部注释中，比较重要的，是<a href="https://github.com/include" class="user-mention">@include</a>和<a href="https://github.com/exclude" class="user-mention">@exclude</a>，前者用来表示当前的脚本所能作用的域，后者表示在前者包括的内容中再剔除后者表示的域。<br>
+例如：</p>
 
-<div class="highlight highlight-javascript"><pre><span class="cm">/**</span>
-<span class="cm"> * @description 初始化配置信息</span>
-<span class="cm"> * @param {string} filePath</span>
-<span class="cm"> * @param {function} down 下载开始的回调函数</span>
-<span class="cm"> */</span>
-<span class="nx">Transfer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_init</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="nx">down</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span>
-            <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
-
-        <span class="nx">config</span><span class="p">.</span><span class="nx">fileSize</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">size</span><span class="p">;</span>
-        <span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">range</span><span class="p">;</span>
-        <span class="nx">config</span><span class="p">.</span><span class="nx">startPos</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_calStartPosition</span><span class="p">(</span><span class="nx">range</span><span class="p">);</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="nx">config</span><span class="p">;</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">_configHeader</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
-        <span class="nx">down</span><span class="p">();</span>
-    <span class="p">});</span>
-<span class="p">}</span>
-<span class="cm">/**</span>
-<span class="cm"> * @description 生成大文件文档流，并发送</span>
-<span class="cm"> * @param {string} filePath 文件地址</span>
-<span class="cm"> */</span>
-<span class="nx">Transfer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">Download</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filePath</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-    <span class="nx">path</span><span class="p">.</span><span class="nx">exists</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">exist</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="nx">exist</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">self</span><span class="p">.</span><span class="nx">_init</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">config</span>
-                    <span class="nx">resp</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">resp</span><span class="p">;</span>
-                <span class="nx">fReadStream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="p">{</span>
-                    <span class="nx">encoding</span> <span class="o">:</span> <span class="s1">'binary'</span><span class="p">,</span>
-                    <span class="nx">bufferSize</span> <span class="o">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
-                    <span class="nx">start</span> <span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">startPos</span><span class="p">,</span>
-                    <span class="nx">end</span> <span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">fileSize</span>
-                <span class="p">});</span>
-                <span class="nx">fReadStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">chunk</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nx">resp</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">chunk</span><span class="p">,</span> <span class="s1">'binary'</span><span class="p">);</span>
-                <span class="p">});</span>
-                <span class="nx">fReadStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                    <span class="nx">resp</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
-                <span class="p">});</span>
-            <span class="p">});</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'文件不存在！'</span><span class="p">);</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-<span class="p">}</span>
+<div class="highlight highlight-javascript"><pre><span class="c1">// @include    *</span>
+<span class="c1">// @exclude    http://127.0.0.1:3000/*</span>
 </pre></div>
 
-<p>最终的可以用如下代码进行测试</p>
+<p>则表示，该脚本能作用的地址为除了127.0.0.1:3000域名下的所有地址。</p>
 
-<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">)</span>
-<span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">)</span>
-<span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">resp</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">transfer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Transfer</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">resp</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">filePath</span> <span class="o">=</span> <span class="s1">'/Users/xukai/Downloads/love.rmvb'</span><span class="p">;</span>
-    <span class="nx">transfer</span><span class="p">.</span><span class="nx">Download</span><span class="p">(</span><span class="nx">filePath</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="s1">'8000'</span><span class="p">);</span>
+<p>脚本内容中能够使用包括当前页面提供的，以及Chrome原生支持的所有API，文档可以参考<a href="https://developer.chrome.com/extensions/api_index.html">这里</a>。<br>
+好了，现在我们可以编写删除Gmail中广告部分的代码了，如下所示</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">removeAdd</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">mqEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s1">'mq'</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">mqEl</span> <span class="o">&amp;&amp;</span> <span class="nx">mqEl</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">mqEl</span> <span class="o">=</span> <span class="nx">mqEl</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="nx">mqEl</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+  <span class="p">}</span> 
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">removeAdd</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">removeAdd</span><span class="p">();</span>
 </pre></div>
 
-<p>转载请注明出处<br><a href="http://botobe.net">botobe.net</a><br><a href="https://github.com/EchoFUN/melodycoder/issues/5">本文Github地址</a></p>
+<p>OK，到此为止，插件差不多完成了。用上述的步骤，重新安装Userscript，是不是发现打开Gmail的时候，广告不见了呢？<br>
+如果需要调试我们的插件，可以打开控制台 ——&gt; source ——&gt; content script来进行调试。<br><img src="http://ww4.sinaimg.cn/large/6bf9eebbjw1e63wmwyx14j20ep069jrn.jpg" height="204" width="481"><br>
+当然，这里还需要注意一个问题，就是这段代码究竟是在页面加载到何时的情况下运行的呢？<br>
+可以写个简单的测试脚本：</p>
 
-<p>按照惯例<br>
-2012.3.10，情况一般。<br>
+<div class="highlight highlight-javascript"><pre><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'DOMContentLoaded'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Document load event fired!'</span><span class="p">);</span>
+<span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'load'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Window onload event fired!'</span><span class="p">);</span>
+<span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+
+<p>再将home.user.js脚本中打印一串“User script loaded!”。在不断地刷新页面，可以得出结论，userscript应该是放在window.onload中执行的，位于domready时间之后，因此可以放心的编写安全的代码了。</p>
+
+<p>Enjoy yourself !<br>
+转载请注明出处<br><a href="http://botobe.net/">botobe.net</a><br><a href="https://github.com/EchoFUN/melodycoder/issues/12">本文Github链接</a></p>
+
+<p>2013.06.28<br>
+一切安好。<br>
 Merci !</p>

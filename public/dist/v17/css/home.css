@@ -89,6 +89,9 @@ p.pagination a{background:url(/images/icons.png) no-repeat;font-weight:700}
 #footer{height:50px;background:#F4F4F4 url(/images/footer.png) 0 0 repeat-x}
 #footer .footer-wrap{padding:24px 0;width:960px;margin:0 auto;line-height:20px}
 .widget{margin-bottom:1.5em}
+.widget-avatarbox img{padding:4px;border:1px solid #ccc}
+.widget-avatarbox .avatar{float:left}
+.widget-avatarbox .description{float:left;width:150px;line-height:22px;text-align:right}
 .comments-area{margin-top:30px}
 .comments-area .respond{margin-top:9px}
 .tag-cloud{padding:5px 0;line-height:24px}

@@ -102,7 +102,7 @@ pFn.publish = function(articles, callback) {
         'Content-Type' : 'application/x-www-form-urlencoded',
         'Content-Length' : reqData.length,
 
-        'Cookie' : ''
+        'Cookie' : '__utma=209434753.836346067.1380507280.1380507280.1382700638.2; __utmz=209434753.1380507280.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); yymg.sid=s%3AdcME_Jy97c-9fHqwytEg81DB.RNP3yaq1dcdJTU6M%2FJAMjTAbDdK0NZwVldAY3Fl%2BqJk'
       }
     };
     
