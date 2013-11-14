@@ -117,7 +117,8 @@ exports.getrRectCmt = function(callback) {
   }).exec(function(error, Comments) {
     for (var i in Comments) {
       var content = Comments[i].content;
-      
+      content = content.replace(/<a href="javascript:;">/g, '').replace(/<\/a>/g, ' ');
+      Comments[i].content = content;
       Comments[i].briefContent = content && ((content.substr(0, 24) == content) ? content : content.substr(0, 24) + '...');
     }
     callback(error, Comments);
