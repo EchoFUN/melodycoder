@@ -95,7 +95,33 @@ exports.decodeSpecialHtmlChar = function(str) {
  * 获取整个字符的长度
  *
  */
-exports.getLength = function(str) {
-  return str.replace(/[\u4e00-\u9fa5\s]/g, '**').length;
+exports.countChars = function(str, len, flag) {
+  if (str) {
+    var strLen = str.replace(/[\u4e00-\u9fa5\s]/g, '**').length, newStr = [], totalCount = 0;
+
+    if (strLen <= len) {
+      return str;
+    } else {
+      for (var i = 0; i < strLen; i++) {
+        var nowValue = str.charAt(i);
+        if (/[^\x00-\xff]/.test(nowValue)) {
+          totalCount += 2;
+        } else {
+          totalCount += 1;
+        }
+        newStr.push(nowValue);
+        if (totalCount >= len) {
+          break;
+        }
+      }
+      if (flag) {
+        return newStr.join('');
+      } else {
+        return newStr.join('') + '...';
+      }
+    }
+  } else {
+    return '';
+  }
 };
 

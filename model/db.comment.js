@@ -3,7 +3,7 @@
  * @version 2012.10.04
  */
 
-var async = require('async');
+var async = require('async'), utils = require('../utils');
 
 /**
  * @description 获取某个文章的所有评论
@@ -119,7 +119,7 @@ exports.getrRectCmt = function(callback) {
       var content = Comments[i].content;
       content = content.replace(/<a href="javascript:;">/g, '').replace(/<\/a>/g, ' ');
       Comments[i].content = content;
-      Comments[i].briefContent = content && ((content.substr(0, 20) == content) ? content : content.substr(0, 20) + '...');
+      Comments[i].briefContent = content && (utils.countChars(content, 18));
     }
     callback(error, Comments);
   });

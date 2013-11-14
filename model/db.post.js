@@ -4,7 +4,7 @@
  *
  */
 
-var config = require('../config').config, async = require('async');
+var config = require('../config').config, async = require('async'), utils = require('../utils');
 
 var _authentication = function(name, password, callback) {
 
@@ -105,7 +105,7 @@ exports.getRectPosts = function(callback) {
   }).limit(10).exec(function(error, Posts) {
     for (var i in Posts) {
       var title = Posts[i].title;
-      Posts[i].shortTitle = title && ((title.substr(0, 20) == title) ? title : title.substr(0, 20) + '...');
+      Posts[i].shortTitle = title && (utils.countChars(title, 18));
     }
     callback(error, Posts);
   });
