@@ -36,7 +36,7 @@
   <h3>最新评论</h3>
   <ul>
    <% for(var j=0; j<rectCmt.length; j++) { %>
-     <li><a target="_blank" href="<%= site.SITE_BASE_URL + '/post?pid=' + rectCmt[j].pid %>"><%= rectCmt[j].briefContent %></a></li>
+     <li><a target="_blank" href="<%= site.SITE_BASE_URL + '/post?pid=' + rectCmt[j].pid %>" title="<%= rectCmt[j].content %>"><%= rectCmt[j].briefContent %></a></li>
    <% } %>
   </ul>
 </div> 

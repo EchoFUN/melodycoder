@@ -112,14 +112,14 @@ exports.getrRectCmt = function(callback) {
   var Comment = db.models.Comment;
   Comment.find({
     approved : true
-  }).limit(15).sort({
+  }).limit(10).sort({
     date : -1
   }).exec(function(error, Comments) {
     for (var i in Comments) {
       var content = Comments[i].content;
       content = content.replace(/<a href="javascript:;">/g, '').replace(/<\/a>/g, ' ');
       Comments[i].content = content;
-      Comments[i].briefContent = content && ((content.substr(0, 24) == content) ? content : content.substr(0, 24) + '...');
+      Comments[i].briefContent = content && ((content.substr(0, 20) == content) ? content : content.substr(0, 20) + '...');
     }
     callback(error, Comments);
   });
