@@ -119,7 +119,7 @@ exports.getrRectCmt = function(callback) {
       var content = Comments[i].content;
       content = content.replace(/<a href="javascript:;">/g, '').replace(/<\/a>/g, ' ');
       Comments[i].content = content;
-      Comments[i].briefContent = content && (utils.countChars(content, 18));
+      Comments[i].briefContent = content && (utils.countChars(content, 36));
     }
     callback(error, Comments);
   });

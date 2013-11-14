@@ -105,7 +105,7 @@ exports.getRectPosts = function(callback) {
   }).limit(10).exec(function(error, Posts) {
     for (var i in Posts) {
       var title = Posts[i].title;
-      Posts[i].shortTitle = title && (utils.countChars(title, 18));
+      Posts[i].shortTitle = title && (utils.countChars(title, 36));
     }
     callback(error, Posts);
   });
