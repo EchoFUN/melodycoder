@@ -94,9 +94,33 @@ exports.getRemainedComments = function(callback) {
 };
 
 /**
- * 批准评论 
+ * 批准评论
  */
 exports.approveComment = function(commentId, callback) {
   var Comment = db.models.Comment;
-  Comment.update({'_id': commentId}, {'approved': true}, callback);
+  Comment.update({
+    '_id' : commentId
+  }, {
+    'approved' : true
+  }, callback);
 };
+
+/**
+ * 获取最近的最新评论
+ */
+exports.getrRectCmt = function(callback) {
+  var Comment = db.models.Comment;
+  Comment.find({
+    approved : true
+  }).limit(15).sort({
+    date : -1
+  }).exec(function(error, Comments) {
+    for (var i in Comments) {
+      var content = Comments[i].content;
+      
+      Comments[i].briefContent = content && ((content.substr(0, 24) == content) ? content : content.substr(0, 24) + '...');
+    }
+    callback(error, Comments);
+  });
+};
+

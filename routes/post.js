@@ -24,6 +24,9 @@ var _middle = function(req, resp, func) {
     },
     widgetTags : function(callback) {
       dbEvt.getWidgetTags(callback);
+    },
+    rectCmt: function(callback) {
+      dbEvt.getrRectCmt(callback);
     }
   };
 

@@ -31,6 +31,16 @@
 </div>    
 <% } %>  
 
+<% var rectCmt = result.rectCmt; %>
+<div class="widget">
+  <h3>最新评论</h3>
+  <ul>
+   <% for(var j=0; j<rectCmt.length; j++) { %>
+     <li><a target="_blank" href="<%= site.SITE_BASE_URL + '/post?pid=' + rectCmt[j].pid %>" title="<%= rectCmt[j].content %>"><%= rectCmt[j].briefContent %></a></li>
+   <% } %>
+  </ul>
+</div> 
+
 <% var widgetTags = result.widgetTags; %>
 <% if(typeof widgetTags != 'undefined' && widgetTags.length != 0) { %>
 <div class="widget">
