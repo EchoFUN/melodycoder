@@ -13,14 +13,15 @@
   },
 
   "dependencies": {
-    "express": "latest",
-    "ejs": "latest",
-    "mongoose": "latest",
-    "jsdom": "latest",
-    "stylus": "latest",
-    "uglify-js": "latest",
-    "clean-css": "latest",
-    "async": "latest",
-    "connect-redis": "latest"
+    "express": "*",
+    "ejs": "*",
+    "mongoose": "*",
+    "jsdom": "*",
+    "stylus": "*",
+    "uglify-js": "*",
+    "clean-css": "*",
+    "async": "*",
+    "connect-redis": "*",
+    "forever": "*"
   }
 }
