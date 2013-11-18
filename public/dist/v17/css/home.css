@@ -43,6 +43,7 @@ h2 a:hover{color:#ff6000}
 #body .article-list{margin-top:6px}
 #body .main .introduction-1{background:url(/images/about/part-0.png) no-repeat scroll 0 0 transparent;height:538px;width:569px}
 #body .main .introduction-2{background:url(/images/about/part-1.png) no-repeat scroll 0 0 transparent;height:296px;width:569px;margin-top:0}
+#body .main .introduction-3{background:url(/images/about/part-2.png) no-repeat scroll 0 0 transparent;height:210px;width:569px;margin-top:0}
 #body .main .post{border-bottom:1px solid #E6E6E6;clear:both;margin-bottom:30px;overflow:hidden}
 p.post-meta{color:#AAA;margin-top:5px}
 p.post-meta span{background:url(/images/icons.png) no-repeat scroll 0 0 transparent;line-height:20px;padding:2px 0 2px 20px}

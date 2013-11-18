@@ -145,6 +145,13 @@ h2 a:hover {
 	margin-top: 0;
 }
 
+#body .main .introduction-3 {
+	background: url('/images/about/part-2.png') no-repeat scroll 0 0 transparent;
+	height: 210px;
+	width: 569px;
+	margin-top: 0;
+}
+
 #body .main .post {
 	border-bottom: 1px solid #E6E6E6;
 	clear: both;
