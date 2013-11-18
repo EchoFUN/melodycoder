@@ -147,9 +147,9 @@ h2 a:hover {
 
 #body .main .introduction-3 {
 	background: url('/images/about/part-2.png') no-repeat scroll 0 0 transparent;
-	height: 210px;
+	height: 230px;
 	width: 569px;
-	margin-top: 0;
+	margin-top: 10px;
 }
 
 #body .main .post {
