@@ -93,7 +93,7 @@ exports.decodeSpecialHtmlChar = function(str) {
 
 /**
  * 获取整个字符的长度
- *
+ * 
  */
 exports.countChars = function(str, len, flag) {
   if (str) {
