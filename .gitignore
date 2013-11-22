@@ -5,6 +5,8 @@ node_modules/*
 config.js
 public/dev.html
 .pydevprojectpublisher/content
+.externalToolBuilders
+.externalToolBuilders/*
 
 *.log
 .idea/*config.js
