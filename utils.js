@@ -105,7 +105,7 @@ exports.countChars = function(str, len, flag) {
       for (var i = 0; i < strLen; i++) {
         var nowValue = str.charAt(i);
         if (/[^\x00-\xff]/.test(nowValue)) {
-          totalCount += 2;
+          totalCount += 2; 
         } else {
           totalCount += 1;
         }
