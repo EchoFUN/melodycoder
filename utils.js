@@ -98,7 +98,7 @@ exports.decodeSpecialHtmlChar = function(str) {
 exports.countChars = function(str, len, flag) {
   if (str) {
     var strLen = str.replace(/[\u4e00-\u9fa5\s]/g, '**').length, newStr = [], totalCount = 0;
-
+ 
     if (strLen <= len) {
       return str;
     } else {
