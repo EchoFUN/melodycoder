@@ -21,7 +21,7 @@ app.configure('production', function() {
   app.use(express.compress());
   app.use(function(req, resp, next) {
     resp.removeHeader('X-Powered-By');
-    resp.setHeader('Tips', '同行见同行，眼泪飚两旁！');
+    resp.setHeader('Tips', '\u540C\u884C\u89C1\u540C\u884C\uFF0C\u773C\u6CEA\u98DA\u4E24\u65C1\uFF01');
     next();
   });
 });
