@@ -1,76 +1,22 @@
-<p>公司项目中使用到了单例模式，于是撰文一篇。<br>
-单例模是Gof提出的一个简单的设计模式。</p>
+<p>又到一年的双12，在历史上那场著名的双12后52年，我也开始了星辰大海的征途。<br>
+不记得何时开始，给人们最大的关于12.12的印象莫过于12.12活动了，暂且抽象的理解为给我庆生了吧，哈哈。</p>
 
-<p>在前端项目中用到单例模式，给整个前端工程带来的优势是<strong>节省了浏览器的CPU的使用，在占用内存方面未必占有优势</strong>。<br>
-从算法的角度看来，算是以空间换时间的一个经典的例子。</p>
+<p>对于2013年，遇到了一些人，奇葩也好，特殊也罢，凭借我一凡夫俗子的理解能力是真心无法理解他们的境界。我无法想象，这人是怎么做到，刚刚是还是一个表情，扭头过后又是另外 一种心态的。一切来得太过突然，着实让我吃了一惊。</p>
 
-<p>常见的地方一般使用在，前端创建需要大量重复使用的一段具有类似功能DOM的时候。<br>
-例如微博中的转发的弹框。<br><img src="http://ww1.sinaimg.cn/mw1024/6bf9eebbjw1eab5g0xf80j20fh077jrt.jpg" alt="弹框" style="max-width:100%;"></p>
+<p>认真对待我做的事情，真诚对待身边的每个人，扪心自问，我问心无愧！</p>
 
-<p>让我们先来看看创建了这么一个转发弹框的基本流程。<br><strong>a). 构建HTML</strong><br><strong>b). 拼装模板（插入一些动态数据）</strong><br><strong>c). 绑定自定义事件</strong><br><strong>d). 插入文档流</strong><br>
-顺序可以改变。</p>
+<p>n年后再回头看看这些事情，对于生活来讲也算是一种历练吧，过了就过去了。<br>
+希望上诉的言论不会让人为这是在抱怨，如果非要下个定义，我认为应该是写实。我不会去抱怨什么，因为最起码没人欠我钱，也没什么可以抱怨的了。<br>
+还能每天享受着灿烂的阳光，拥有者想走就走的自由，服雾这大帝都的空气的时候还有活蹦乱跳的拥有个健健康康的我，哈哈。<br>
+最重要的，在我困难，迷惑，郁闷，压抑的时候，爸爸妈妈还有媳妇儿会始终会站在我身边继续给我动力和支持。<br>
+关于我的生日，也谢谢你们每年总是第一时间送来祝福。</p>
 
-<p>这些流程的操作是需要消耗系统的CPU资源的。<br>
-让我们考虑在这个弹框足够复杂的情况下。<br>
-如果你使用的是chrome神器，自然不会感觉到速度上的差异。但是如果你使用的是IE6之流的老古董，会体验到明显的感觉到差异。<br>
-作为一个苦逼的前端，如果你开发的是像google，taobao那样的产品，那么恭喜你。你可以横着脑袋，翘着二郎腿对用户说“赶紧给老子去升级你的浏览器，否则滚蛋！”。<br>
-不过我相信98%的前端同学面临的选择题都是：要么用户留下，要么你滚蛋。<br>
-那你会选哪个捏？</p>
+<p>139邮箱，招商银行也会发来祝福短信。因为我知道，这些都是脚本，程序自动完成的。他们背后站着的都是一台台冷冰冰的机器。如果我从未用过他们的服务，也会接到这样的祝福吗？本质上就是不纯粹的。<br>
+就好比逢年过节的大伙们群发短信一样，好歹你也加上个祝福对象的名字哉！！再加上一句真心的问候，手指挪挪的功夫，否则意义在哪里？！<br>
+把一毛钱省着留给路边的乞丐吧，还能到他一句谢谢。要不就去买纸巾上厕所的时候擦屁股也比这样来的实在。</p>
 
-<p>开个玩笑，言归正传。<br>
-实现前端开发中的单例模式的方式有很多种，但是总体来说都是有着类似的思路。<br>
-即，在页面上执行一次需要的逻辑（例如上边所说的a, b, c步骤），将执行的结果进行缓存在一个闭包的变量中（防止污染全局变量）。而后，每次的调用只需要执行d步骤就可以了，如果有额外的逻辑，可能还要在d步骤之后或者之前再加上个b步骤（如果每次的展示界面略有差异的话）。</p>
+<p>感谢那些给我梦想，给我机会的人。能回报你们的就是我的汗水和心底的一声谢谢。<br>
+也谢谢那些把我的梦想和计划推向边缘的人，让我认清了原来我们貌似平静的生活不是一个乌托邦。<br>
+骚年，一切才刚刚开始，我们的征途星辰大海！<br><img src="http://ww4.sinaimg.cn/mw1024/6bf9eebbjw1ebgthnj4zcj20bj0783yz.jpg" alt="image" style="max-width:100%;"></p>
 
-<p>巴巴儿地扯了半天，就像我们浏览某榴网站一样，有些同学可能要抱怨了 —— “没代码你说个j8！“<br>
-于是，借花献佛的引用了在腾讯AlloyTeam<a href="http://www.alloyteam.com/2012/10/common-javascript-design-patterns/">【Javascript设计模式1】-单例模式</a>中的代码。</p>
-
-<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">singleton</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">fn</span> <span class="p">){</span>
-  <span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
-  <span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="k">return</span> <span class="nx">result</span> <span class="o">||</span> <span class="p">(</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">fn</span> <span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span> <span class="p">)</span> <span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-<p>这是采用了<a href="http://baike.baidu.com/link?url=SKnW-FWaAG_BNqG6wOwQmatQDGa9rewc1wX5OTU7Egymy4mCMQFl3-gFAfj20sx4L8R7CGQGvNgOO3SGzZZwja">高阶函数</a>的方式来实现单例模式。<br>
-按照这篇文章原作者的思路（可理解为伪代码），调用的方式为。</p>
-
-<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">createMask</span> <span class="o">=</span> <span class="nx">singleton</span><span class="p">(</span> <span class="kd">function</span><span class="p">(){</span>
-  <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'div'</span><span class="p">)</span> <span class="p">);</span>
-<span class="p">})</span>
-</pre></div>
-
-<p>按照我们所讲的a, b, c, d的四四中执行方式来讲，d步骤和b步骤进行了合并。这种方式并不是太好。<br>
-私下认为可以把调用方式改为如下，可能会更加形象。</p>
-
-<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">getMask</span> <span class="o">=</span> <span class="nx">singleton</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-
-  <span class="c1">// 执行a, b, c步骤。</span>
-  <span class="kd">var</span> <span class="nx">mask</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'div'</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'A div has created for once !'</span><span class="p">);</span>
-  <span class="k">return</span> <span class="nx">mask</span><span class="p">;</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">blankMask</span> <span class="o">=</span> <span class="nx">getMask</span><span class="p">();</span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">blankMask</span><span class="p">);</span>
-
-<span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">blankMask</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">blankMask</span><span class="p">);</span>
-
-  <span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">getMask</span><span class="p">());</span>
-  <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
-<span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
-</pre></div>
-
-<p>结语：<br>
-而前端环境的局限性在于变量的生存周期再一次页面的重新加载中。<br>
-而不像后台语言中能做到的那样，一次创建，随意使用。<br>
-使用单例模式，能使得代码更易于维护，再者算是满足了程序猿们的小小精神洁癖吧，哈哈，何乐而不为呢？</p>
-
-<p>Enjoy it !<br>
-转载请注明出处<br><a href="http://botobe.net/">botobe.net</a><br><a href="https://github.com/EchoFUN/melodycoder/issues/13">本文Github链接</a></p>
-
-<p>2013.11.06<br>
-一切安好。<br>
-Merci !</p>
+<p><a href="https://github.com/EchoFUN/melodycoder/issues/22">本文Github链接</a></p>
