@@ -223,6 +223,10 @@ div.post-content ol {
   color: #999988;
 }
 
+.highlight .cm {
+  color: #999999;
+}
+
 .article-view p.post-content {
 	/* height: 200px; */
 }
