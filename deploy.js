@@ -134,4 +134,4 @@ try {
   console.error(e.message);
   process.exit();
 }
-console.log('部署成功！'); 
+console.log('部署成功！');

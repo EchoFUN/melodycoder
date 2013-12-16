@@ -9,39 +9,39 @@ var fs = require('fs');
 
 var LOGGER = './puglisher.log';
 var Logger = {
-	toFile : false,
+  toFile : false,
 
-	_check : function() {
-		var isExist = fs.existsSync(LOGGER);
-		if (!this.toFile)
-			if (!isExist)
-				return fs.openSync(LOGGER, "w");
-	},
+  _check : function() {
+    var isExist = fs.existsSync(LOGGER);
+    if (!this.toFile)
+      if (!isExist)
+        return fs.openSync(LOGGER, "w");
+  },
 
-	_output : function(message) {
-		if (this.toFile)
-			fs.appendFile(LOGGER, message, encoding = 'utf8');
-		else
-			console.log(message);
-	},
+  _output : function(message) {
+    if (this.toFile)
+      fs.appendFile(LOGGER, message, encoding = 'utf8');
+    else
+      console.log(message);
+  },
 
-	log : function(message) {
-		this._check();
-		this._output('------ Log ------ + ' + message);
-	},
+  log : function(message) {
+    this._check();
+    this._output('------ Log ------ + ' + message);
+  },
 
-	warm : function() {
-		this._check();
-	},
+  warm : function() {
+    this._check();
+  },
 
-	error : function(content) {
-		this._check();
-		console.log(content);
-	},
+  error : function(content) {
+    this._check();
+    console.log(content);
+  },
 
-	success : function() {
+  success : function() {
 
-	}
+  }
 };
 
 exports.Logger = Logger;
