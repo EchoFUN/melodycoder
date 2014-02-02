@@ -27,7 +27,11 @@ exports.extend = function(target, options) {
  * @description 根据浏览器的版本做判断
  * @param {string} ua
  */
-exports.browser = function(ua) {
+exports.browser = function(ua) {   
+  if (!ua) {
+    return;
+  }
+   
   var reg = {
     webkit : /(webkit)[ \/]([\w.]+)/,
     opera : /(opera)(?:.*version)?[ \/]([\w.]+)/,
