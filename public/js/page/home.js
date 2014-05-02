@@ -8,8 +8,8 @@ require.config({
   baseUrl : YYMG.staticUrl + '/js'
 });
 
-define(['lib/jquery'], function($) {
+define(['lib/jquery', 'module/base'], function($) {
   'use strict';
   
-  alert(1);
+  
 });

@@ -8939,7 +8939,7 @@
     // Do this after creating the global so that if an AMD module wants to call
     // noConflict to hide this version of jQuery, it will work.
     if ( typeof define === "function" && define.amd && define.amd.jQuery) {
-        define("l/jquery", [], function() {
+        define("lib/jquery", [], function() {
             return jQuery;
         });
     }

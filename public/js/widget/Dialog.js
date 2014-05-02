@@ -3,7 +3,7 @@
  * @author xukai.ken@gmail.com
  */
 
-define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
+define(['lib/jquery', 'lib/mustache', 'tpl/tpl'], function(_, mustache, tpl) {
 
   /**
    *
@@ -124,8 +124,6 @@ define(['l/jquery', 'l/mustache', 'c/tpl'], function(_, mustache, tpl) {
     }
     YYMG._tp.dialog = null;
   };
-
-  return {
-    Dialog : Dialog
-  };
+  
+  return Dialog;
 });
