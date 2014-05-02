@@ -6,9 +6,11 @@
  *
  */
 
-define(['l/jquery', 'c/components', 'c/interface', 'c/tpl', 'l/mustache', 'c/utils'], function(_, compts, i, tpl, mustache, utils) {
+require.config({
+  baseUrl : YYMG.staticUrl + '/js'
+});
 
-  var Dialog = compts.Dialog;
+define(['module/base', 'lib/jquery', 'widget/Dialog', 'module/interface', 'tpl/tpl', 'lib/mustache', 'util/utils'], function(base, _, Dialog, i, tpl, mustache, utils) {
 
   var init = function() {
 
